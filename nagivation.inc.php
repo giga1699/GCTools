@@ -15,6 +15,9 @@
  * Created getSitemap function
  * Added to the Page class: $pageLastMod, $pageChangeFreq, $pagePriority
  * Created getters, and setters, for new Page variables
+ * Added to addPage function to sort array, by page, after adding a page
+ * Fixed $pagename in addPage function to account for spaces in page names
+ * Created protected function addPageToSitemap($page)
  * 
  * 04DEC10:
  * Renamed page.navigation.inc.php to navigation.inc.php
@@ -467,7 +470,16 @@ class Navigation {
 		
 		//Check if the page has a name
 		if ($pageName = $page->getPageName()) {
+			//Account for spaces in page names
+			$pagename = str_replace(" ", "_", $pagename);
+			
+			//Force lowercase
+			$pagename = strtolower($pagename);
+			
 			$this->navPages[$pageName] = $page;
+			
+			//Sort the pages array
+			ksort($this->navPages);
 			
 			if (isset($this->navPages[$pageName]))
 				return TRUE;
@@ -479,6 +491,9 @@ class Navigation {
 			unset($this->navPages[""]);
 			
 			$this->navPages[""] = $page;
+			
+			//Sort the pages array
+			ksort($this->navPages);
 			
 			if (isset($this->navPages[""]))
 				return TRUE;
@@ -510,6 +525,33 @@ class Navigation {
 		$sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
 		
 		//Go through all the pages, and add them to the sitemap
+		
+		//End sitemap
+		$sitemap .= "</urlset>";
+		
+		if (isset($sitemap) && !empty($sitemap))
+			return $sitemap;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * addPageToSitemap($page) function
+	 * 
+	 * $page => A Page class that needs to be added to the sitemap
+	 * 
+	 * This function is used by getSitemap(), and itself, to add pages to the sitemap.
+	 * 
+	 * Returns data to be added to sitemap, or FALSE on failure.
+	 */
+	protected function addPageToSitemap($page) {
+		//Precondition: $page should be a Page class
+		//Postcondition: Data to be added to the sitemap should be generated
+		
+		//Ensure $page is of a Page class
+		if (!is_a($page, "Page"))
+			return FALSE;
+		//TODO: Finish function
 	}
 	//TODO: Create any additional functions needed
 }
