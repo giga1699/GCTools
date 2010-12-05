@@ -5,11 +5,16 @@
  * Purpose: Provide information about webpage
  * @version 0.0.5
  * File created: 03DEC10
- * File updated: 04DEC10
+ * File updated: 05DEC10
  * @package GCTools
  * @subpackage Navigation
  * 
  * Change log:
+ * 
+ * 05DEC10:
+ * Created getSitemap function
+ * Added to the Page class: $pageLastMod, $pageChangeFreq, $pagePriority
+ * Created getters, and setters, for new Page variables
  * 
  * 04DEC10:
  * Renamed page.navigation.inc.php to navigation.inc.php
@@ -30,12 +35,18 @@ class Page {
 	 * $pageURL => Defines the full URL location of the page
 	 * $pageContect => Defines the body content of the particular page
 	 * $pageChildren => Points to another Navigation class that holds the children
+	 * $pageLastMod => Sets the last modified time of the page
+	 * $pageChangeFreq => Defines how often the page changes (used for sitemap)
+	 * $pagePriority => Defines the priority of the page (used for sitemap)
 	 */
 	protected $pageName;
 	protected $pageTitle;
 	protected $pageURL;
 	protected $pageContent;
 	protected $pageChildren;
+	protected $pageLastMod;
+	protected $pageChangeFreq;
+	protected $pagePriority;
 	
 	//Constructor
 	public function Page() {
@@ -285,6 +296,137 @@ class Page {
 		else
 			return FALSE;
 	}
+	
+	/*
+	 * getLastMod() function
+	 * 
+	 * No input
+	 * 
+	 * This function tells the user what the last modified time of the page was.
+	 * 
+	 * Returns the last modified time if set, or FALSE otherwise
+	 */
+	public function getLastMod() {
+		//Precondition: $pageLastMod should have been set
+		//Postcondition: Return the last modified time, or FALSE if not set
+		
+		if (isset($this->pageLastMod))
+			return $this->pageLastMod;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * setLastMod($lastMod) function
+	 * 
+	 * $lastMod => Defines the last modified time of the page
+	 * 
+	 * This function sets the last modified time of the page.
+	 * 
+	 * Returns TRUE on success, and FALSE otherwise
+	 */
+	public function setLastMod($lastMod) {
+		//Precondition: lastMod should be a valid date
+		//Postcondition: $pageLastMod is set. Returns TRUE on success, and FALSE on failure.
+		
+		if (!isset($lastMod) || empty($lastMod) || is_null($lastMod))
+			return FALSE;
+		
+		//TODO: Add date validation
+		
+		//Remove previous last mod date
+		unset($this->pageLastMod);
+		
+		$this->pageLastMod = $lastMod;
+		
+		if (isset($this->pageLastMod))
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * getChangeFreq() function
+	 * 
+	 * No input
+	 * 
+	 * This functions tells the user how often the page is supposed to change.
+	 * 
+	 * Returns the change freq if set, and FALSE otherwise
+	 */
+	public function getChangeFreq() {
+		//Precondition: pageChangeFreq should have been set
+		//Postcondition: Return the change freq, or FALSE
+		
+		if (isset($this->pageChangeFreq))
+			return $this->pageChangeFreq;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * setChangeFreq($freq) function
+	 * 
+	 * $freq => Defines how often the page is supposed to change
+	 * 
+	 * This function sets the class variable $pageChangeFreq
+	 * 
+	 * Returns TRUE on success, and FALSE on failure
+	 */
+	public function setChangeFreq($freq) {
+		//Precondition: $freq should be an acceptable value
+		//Postcondition: Set the $pageChangeFreq variable, or return FALSE
+		//Reference: http://www.sitemaps.org/protocol.php
+		
+		//Check if $freq is an acceptable value
+		if (isset($freq) && !empty($freq) && !is_null($freq) && ($freq == "always" || $freq == "hourly" || $freq == "daily" || $freq == "weekly" || $freq == "monthly" || $freq == "yearly" || $freq == "never")) {
+			$this->pageChangeFreq = $freq;
+			return TRUE;
+		}
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * getPriority() function
+	 * 
+	 * No input
+	 * 
+	 * This function tells the user the priority of the page.
+	 * 
+	 * Returns the priority of the page, or FALSE otherwise.
+	 */
+	public function getPriority() {
+		//Precondition: $pagePriority should have been set
+		//Postcondition: Return the priority, or FALSE otherwise
+		
+		if (isset($this->pagePriority))
+			return $this->pagePriority;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * setPriority($priority) function
+	 * 
+	 * $priority => Defines the priority of the page
+	 * 
+	 * This function sets the $pagePriority variable, which defines the priority of the page.
+	 * 
+	 * Returns TRUE on success, and FALSE on failure.
+	 */
+	public function setPriority($priority) {
+		//Precondition: $priority should be a valid value
+		//Postcondition: Sets the $pagePriority variable. Returns TRUE on success, and FALSE on failure.
+		
+		//Determine if $priority is valid
+		if (isset($priority) && !empty($priority) && !is_null($priority) && ($priority >= 0.0 && $priority <= 1.0)) {
+			$this->pagePriority = $priority;
+			return TRUE;
+		}
+		else
+			return FALSE;
+	}
 }
 
 //Navigation class
@@ -344,6 +486,30 @@ class Navigation {
 		
 		//If we haven't returned TRUE, something must have gone wrong so return FALSE
 		return FALSE;
+	}
+	
+	/*
+	 * getSitemap() function
+	 * 
+	 * No input
+	 * 
+	 * This function creates a XML sitemap.
+	 * 
+	 * Returns the sitemap on success, and FALSE otherwise
+	 */
+	public function getSitemap() {
+		//Precondition: Pages should have been added
+		//Postcondition: A XML sitemap will be created, and returned on success. Returns FALSE otherwise.
+		//Reference: http://www.sitemaps.org/protocol.php
+		
+		//Ensure there is at least one page
+		if (count($this->navPages) == 0)
+			return FALSE;
+		
+		//Begin creating the XML sitemap
+		$sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
+		
+		//Go through all the pages, and add them to the sitemap
 	}
 	//TODO: Create any additional functions needed
 }
