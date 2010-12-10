@@ -673,7 +673,7 @@ class Navigation {
 			return FALSE;
 		
 		//Check if any unauthorized characters exist
-		if (preg_match("[^a-zA-Z0-9_\x20]", $name) > 0)
+		if (preg_match("/[^a-zA-Z0-9_\x20]/", $name) != 0)
 			return FALSE;
 		
 		$name = str_replace(" ", "_", $name);
