@@ -299,7 +299,7 @@ class Page {
 		//Postcondition: The pageChildren variable is updated. Returns TRUE for success, and FALSE otherwise.
 		
 		//Check that $child is a Page class
-		if (!is_a($children, "Page"))
+		if (!is_a($child, "Page"))
 			return FALSE;
 		
 		$pageTitle = $child->getPageTitle();
@@ -672,7 +672,7 @@ class Navigation {
 		if (!isset($name) || is_null($name) || empty($name))
 			return FALSE;
 		
-		//Check if any unauthorized characters exist
+		//Check if any unauthorized characters exist (\x20 is the space character)
 		if (preg_match("/[^a-zA-Z0-9_\x20]/", $name) != 0)
 			return FALSE;
 		
