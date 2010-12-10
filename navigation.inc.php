@@ -17,6 +17,8 @@
  * Included the additional items to the XML of the sitemap.
  * Added pageExists($pageName) function.
  * Added getPage($pageName) function.
+ * Added formatPageName($pageName) function
+ * Fixed getPage and pageExists issues
  * 
  * 05DEC10:
  * Created getSitemap function
@@ -483,11 +485,10 @@ class Navigation {
 		
 		//Check if the page has a name
 		if ($pageName = $page->getPageName()) {
-			//Account for spaces in page names
-			$pageName = str_replace(" ", "_", $pageName);
-			
-			//Force lowercase
-			$pageName = strtolower($pageName);
+			//Format page name
+			$pageName = $this->formatPageName($pageName);
+			if (!$pageName)
+				return FALSE;
 			
 			$this->navPages[$pageName] = $page;
 			
@@ -530,11 +531,10 @@ class Navigation {
 		//Postcondition: Returns the Page on success, and FALSE otherwise.
 		//TODO: Add functionality for parents
 		
-		//Account for spaces in page names
-	    $pageName = str_replace(" ", "_", $pageName);
-		
-		//Go to lower
-		strtolower($pageName);
+		//Format page name
+		$pageName = $this->formatPageName($pageName);
+		if (!$pageName)
+			return FALSE;
 		
 		if ($this->pageExists($pageName))
 			return $this->navPages[$pageName];
@@ -641,11 +641,10 @@ class Navigation {
 	  if (!isset($pageName) || is_null($pageName))
 		return FALSE;
 
-	  //Account for spaces in page names
-	  $pageName = str_replace(" ", "_", $pageName);
-	  
-	  //Lowercase only
-	  $pageName = strtolower($pageName);
+	  //Format page name
+	  $pageName = formatPageName($pageName);
+	  if (!$pageName)
+		return FALSE;
 	  
 	  //Check if the page exists in the current navigation structure
 	  if (isset($this->navPages[$pageName]))
@@ -654,6 +653,28 @@ class Navigation {
 	  //Page must not exist
 	  return FALSE;
 	
+	}
+	
+	/*
+	 * formatPageName($name) function
+	 *
+	 * $name => Defines the name to properly format
+	 *
+	 * This function properly formats a page name for navigation uses
+	 *
+	 * Returns the formatted page name on success, and FALSE otherwise
+	 */
+	public function formatPageName($name) {
+		//Precondition: $name should be given
+		//Postcondition: Return properly formatted page name
+		
+		if (!isset($name) || is_null($name) || empty($name))
+			return FALSE;
+		
+		$name = str_replace(" ", "_", $name);
+		$name = strtolower($name);
+		
+		return $name;
 	}
 	//TODO: Create any additional functions needed
 }
