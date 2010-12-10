@@ -3,9 +3,9 @@
  * Filename: navigation.inc.php
  * @author J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide information about webpage
- * @version 0.0.5
+ * @version 0.1.0
  * File created: 03DEC10
- * File updated: 05DEC10
+ * File updated: 09DEC10
  * @package GCTools
  * @subpackage Navigation
  * 
@@ -15,6 +15,7 @@
  * Updated the sitemap functions
  * Changed how subpages are handled. Made it with the factory pattern, like the Navigation
  * Included the additional items to the XML of the sitemap.
+ * Added pageExists($pageName) function.
  * 
  * 05DEC10:
  * Created getSitemap function
@@ -289,7 +290,7 @@ class Page {
 	 * 
 	 * Returns TRUE on success, and FALSE on failure
 	 */
-	public function setPageChild($child) {
+	public function addPageChild($child) {
 		//Precondition: A valid Page class is passed to function
 		//Postcondition: The pageChildren variable is updated. Returns TRUE for success, and FALSE otherwise.
 		
@@ -593,6 +594,32 @@ class Navigation {
 		}
 		
 		return $xml;
+	}
+	
+	/*
+	 * pageExists($pageName) function
+	 *
+	 * $pageName => Defines the name of the page the user is looking for.
+	 *
+	 * This function finds out if a particular page exists.
+	 *
+	 * Returns TRUE if page exists, and FALSE otherwise.
+	 */
+	public function pageExists($pageName) {
+	  //Precondition: $pageName should be valid
+	  //Postcondition: Returns TRUE if the page exists, and FALSE otherwise.
+	  
+	  //Ensure $pageName is valid
+	  if (!isset($pageName) || is_null($pageName) || empty($pageName))
+		return FALSE;
+	  
+	  //Check if the page exists in the current navigation structure
+	  if (isset($this->navPages[$pageName]))
+		return TRUE;
+	  
+	  //Page must not exist
+	  return FALSE;
+	
 	}
 	//TODO: Create any additional functions needed
 }
