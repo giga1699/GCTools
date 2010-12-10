@@ -532,6 +532,10 @@ class Navigation {
 		//Postcondition: Returns the Page on success, and FALSE otherwise.
 		//TODO: Add functionality for parents
 		
+		//Check homepage
+		if (isset($this->navPages[""]) && (is_null($pageName) || empty($pageName) || !isset($pageName)))
+			return $this->navPages[""];
+		
 		//Format page name
 		$pageName = $this->formatPageName($pageName);
 		if (!$pageName)
