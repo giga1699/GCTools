@@ -5,11 +5,15 @@
  * Purpose: Provide information about webpage
  * @version 0.1.0
  * File created: 03DEC10
- * File updated: 09DEC10
+ * File updated: 10DEC10
  * @package GCTools
  * @subpackage Navigation
  * 
  * Change log:
+ * 
+ * 10DEC10:
+ * Fixed issue with setPriority not allowing zero
+ * Added the date verification to setLastMod function
  *
  * 09DEC10:
  * Updated the sitemap functions
@@ -349,10 +353,16 @@ class Page {
 		//Precondition: lastMod should be a valid date
 		//Postcondition: $pageLastMod is set. Returns TRUE on success, and FALSE on failure.
 		
-		if (!isset($lastMod) || empty($lastMod) || is_null($lastMod))
+		if (!isset($lastMod) || empty($lastMod))
 			return FALSE;
 		
-		//TODO: Add date validation
+		//Convert to time
+		$lastMod = strtotime($lastMod);
+		if (!$lastMod)
+			return FALSE;
+		
+		//Convert to YYYY-MM-DD format
+		$lastMod = date("Y-m-d", $lastMod);
 		
 		//Remove previous last mod date
 		unset($this->pageLastMod);
