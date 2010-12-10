@@ -642,6 +642,7 @@ class Navigation {
 	  //Account for spaces in page names
 	  $pageName = str_replace(" ", "_", $pageName);
 	  
+	  echo "looking for page \"".$pageName."\"<br>";
 	  //Check if the page exists in the current navigation structure
 	  if (isset($this->navPages[$pageName]))
 		return TRUE;
