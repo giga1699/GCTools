@@ -19,6 +19,7 @@
  * Added getPage($pageName) function.
  * Added formatPageName($pageName) function
  * Fixed getPage and pageExists issues
+ * Added regular expression for formatPageName function
  * 
  * 05DEC10:
  * Created getSitemap function
@@ -669,6 +670,10 @@ class Navigation {
 		//Postcondition: Return properly formatted page name
 		
 		if (!isset($name) || is_null($name) || empty($name))
+			return FALSE;
+		
+		//Check if any unauthorized characters exist
+		if (preg_match("[^a-zA-Z0-9_\x20]", $name) > 0)
 			return FALSE;
 		
 		$name = str_replace(" ", "_", $name);
