@@ -239,7 +239,7 @@ class Page {
 		unset($this->pageContent);
 		
 		//Set content
-		$this->pageContent;
+		$this->pageContent = $content;
 		
 		if (isset($this->pageContent))
 			return TRUE;
