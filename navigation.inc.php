@@ -484,10 +484,10 @@ class Navigation {
 		//Check if the page has a name
 		if ($pageName = $page->getPageName()) {
 			//Account for spaces in page names
-			$pagename = str_replace(" ", "_", $pagename);
+			$pageName = str_replace(" ", "_", $pageName);
 			
 			//Force lowercase
-			$pagename = strtolower($pagename);
+			$pageName = strtolower($pageName);
 			
 			$this->navPages[$pageName] = $page;
 			
