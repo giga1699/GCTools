@@ -1,11 +1,18 @@
 <?php
-/*
+/**
  * Filename: database.inc.php
- * @author: J. "Giga" Murphy <giga1699@gmail.com>
+ * @author J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide database functionality.
- * @version: 0.2.1
+ * @version 0.2.1
  * File created: 10SEP2010
- * File modified: 03DEC10
+ * File modified: 10DEC10
+ * @package GCTools
+ * @subpackage Database
+ * 
+ * Changelog:
+ * 
+ * 10DEC10:
+ * Added some more comments
  */
 
 //Declare the namespace
@@ -19,13 +26,28 @@ define("SQLITE", 3);
 
 //Database class
 abstract class Database {
-	//Variables for class
+	/*
+	 * $dbType => Defines the type of databasewe are working on. Should
+	 * be one of the types in the defines above.
+	 * 
+	 * $dbLoc => Defines the location of the database. Can be an IP, a hostname,
+	 * or a file location in the case of SQLite type databases.
+	 * 
+	 * $dbUser => Defines the username required to login to the database.
+	 * 
+	 * $dbPass => Defines the password required to login to the database.
+	 * 
+	 * $dbName => Defines the name of the database to work with.
+	 * 
+	 * $lastError => This variable is used to keep track of the last error, if any,
+	 * that occured.
+	 */
 	private $dbType; //Defined value
 	protected $dbLoc; //String: IP address, hostname, or file location
 	protected $dbUser; //String
 	protected $dbPass; //String
 	protected $dbName; //String
-	protected $lastError; //String
+	private $lastError; //String
 
 	//Constructor
 	protected function Database($loc, $user, $pass, $name, $type) {
@@ -64,7 +86,7 @@ abstract class Database {
 		 * FALSE if one has not occured.
 		 */
 
-		if (isset($this->lastError) && !empty($this->lastError))
+		if ((isset($this->lastError) && !empty($this->lastError)) || !isset($this->lastError))
 			return TRUE;
 		else
 			return FALSE;

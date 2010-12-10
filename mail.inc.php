@@ -234,6 +234,8 @@ class EMail {
 		 * of TO addresses.
 		 */
 		
+		//TODO: Add address validation
+		
 		array_push($this->mailTo, $address);
 	}
 	
@@ -291,6 +293,8 @@ class EMail {
 		/* Postcondition: The address is added to the list
 		 * of CC addresses.
 		 */
+		
+		//TODO: Add address validation
 		
 		array_push($this->mailCC, $address);
 	}
@@ -350,6 +354,8 @@ class EMail {
 		 * of BCC addresses.
 		 */
 		
+		//TODO: Add address validation
+		
 		array_push($this->mailBCC, $address);
 	}
 	
@@ -406,6 +412,8 @@ class EMail {
 		/* Precondition: An address is provided. */
 		/* Postcondition: The from address is set. */
 		
+		//TODO: Add address validation
+		
 		//Unset the current variable
 		unset($this->mailFrom);
 		
@@ -448,6 +456,8 @@ class EMail {
 	public function setReplyTo($address) {
 		/* Precondition: An address is provided. */
 		/* Postcondition: The reply-to address is set. */
+		
+		//TODO: Add address validation
 		
 		//Unset the variable
 		unset($this->mailReplyTo);
