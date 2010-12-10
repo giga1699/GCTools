@@ -20,6 +20,7 @@
  * Added formatPageName($pageName) function
  * Fixed getPage and pageExists issues
  * Added regular expression for formatPageName function
+ * Added getHomePage function
  * 
  * 05DEC10:
  * Created getSitemap function
@@ -527,7 +528,7 @@ class Navigation {
 	 *
 	 * Returns Page if found, and FALSE otherwise.
 	 */
-	public function getPage($pageName) {
+	public function getPage($pageName=NULL) {
 		//Precondition: $pageName should be valid, and exist.
 		//Postcondition: Returns the Page on success, and FALSE otherwise.
 		//TODO: Add functionality for parents
@@ -545,6 +546,25 @@ class Navigation {
 			return $this->navPages[$pageName];
 		else
 			return FALSE;
+	}
+	
+	/*
+	 * getHomePage() function
+	 *
+	 * No input
+	 *
+	 * This function returns the homepage information
+	 *
+	 * Returns the homepage on success, and FALSE otherwise
+	 */
+	public function getHomePage() {
+		//Precondition: Home page should be set
+		//Postcondition: Return homepage Page class, or FALSE
+		
+		if (!isset($this->navPages[""]))
+			return FALSE;
+		else
+			return $this->navPages[""];
 	}
 	
 	/*
