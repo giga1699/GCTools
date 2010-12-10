@@ -14,6 +14,7 @@
  * 09DEC10:
  * Updated the sitemap functions
  * Changed how subpages are handled. Made it with the factory pattern, like the Navigation
+ * Included the additional items to the XML of the sitemap.
  * 
  * 05DEC10:
  * Created getSitemap function
@@ -566,10 +567,20 @@ class Navigation {
 			return FALSE;
 		
 		//Create XML to add
-		$xml = "\t<url>\n\t\t<loc>".$page->getPageURL()."</loc>";
+		$xml = "\t<url>\n\t\t<loc>".$page->getPageURL()."</loc>\n";
+		
+		//Check if anything else from the page could be added to the XML
+		if ($lastmod = $page->getLastMod())
+			$xml .= "\t\t<lastmod>".$lastmod."</lastmod>\n";
+		
+		if ($changefreq = $page->getChangeFreq())
+			$xml .= "\t\t<changefreq>".$changefreq."</changefreq>\n";
+		
+		if ($priority = $page->getPriority())
+			$xml .= "\t\t<priority>".$priority."</priority>\n";
 		
 		//End XML
-		$xml .= "\n\t</url>\n";
+		$xml .= "\t</url>\n";
 		
 		//Check if page has sub pages
 		if ($page->hasChildren()) {
