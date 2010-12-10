@@ -642,7 +642,7 @@ class Navigation {
 		return FALSE;
 
 	  //Format page name
-	  $pageName = formatPageName($pageName);
+	  $pageName = $this->formatPageName($pageName);
 	  if (!$pageName)
 		return FALSE;
 	  
