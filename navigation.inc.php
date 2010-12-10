@@ -440,7 +440,7 @@ class Page {
 		//Postcondition: Sets the $pagePriority variable. Returns TRUE on success, and FALSE on failure.
 		
 		//Determine if $priority is valid
-		if (isset($priority) && !empty($priority) && !is_null($priority) && ($priority >= 0.0 && $priority <= 1.0)) {
+		if (isset($priority) && ($priority >= 0.0 && $priority <= 1.0)) {
 			$this->pagePriority = $priority;
 			return TRUE;
 		}
