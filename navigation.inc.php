@@ -493,6 +493,7 @@ class Navigation {
 			
 			//Sort the pages array
 			ksort($this->navPages);
+			echo "added page: \"".$pageName."\"<br>";
 			
 			if (isset($this->navPages[$pageName]))
 				return TRUE;
