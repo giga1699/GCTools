@@ -14,6 +14,7 @@
  * 10DEC10:
  * Fixed issue with setPriority not allowing zero
  * Added the date verification to setLastMod function
+ * Allowed hyphens to page names
  *
  * 09DEC10:
  * Updated the sitemap functions
@@ -72,6 +73,8 @@ class Page {
 		//Postcondition: Class is fully initialized
 		
 		$this->pageChildren = array();
+		
+		return TRUE;
 	}
 	
 	/*getPageName() function
@@ -106,7 +109,7 @@ class Page {
 		//Precondition: A page name is given
 		//Postcondition: The page name is set
 		
-		if (isset($name) && !is_null($name) && !empty($name)) {
+		if (isset($name) && !empty($name)) {
 			$this->pageName = $name;
 			return TRUE;
 		}
@@ -474,6 +477,8 @@ class Navigation {
 		//Postcondition: Class is initilized
 		
 		$this->navPages = array();
+		
+		return TRUE;
 	}
 	
 	/*
@@ -673,7 +678,7 @@ class Navigation {
 	  //TODO: Add functionality for parents
 	  
 	  //Ensure $pageName is valid
-	  if (!isset($pageName) || is_null($pageName))
+	  if (!isset($pageName))
 		return FALSE;
 
 	  //Format page name
@@ -703,11 +708,11 @@ class Navigation {
 		//Precondition: $name should be given
 		//Postcondition: Return properly formatted page name
 		
-		if (!isset($name) || is_null($name) || empty($name))
+		if (!isset($name) || is_null($name))
 			return FALSE;
 		
 		//Check if any unauthorized characters exist (\x20 is the space character)
-		if (preg_match("/[^a-zA-Z0-9_\x20]/", $name) != 0)
+		if (preg_match("/[^a-zA-Z0-9_\x20-]/", $name) != 0)
 			return FALSE;
 		
 		$name = str_replace(" ", "_", $name);

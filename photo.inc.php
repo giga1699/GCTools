@@ -5,9 +5,14 @@
  * Purpose: Provide phto support
  * @version: 0.0.1
  * File created: 02DEC10
- * File updated: 03DEC10
+ * File updated: 10DEC10
  * @package GCTools
  * @subpackage Photo
+ * 
+ * Change log:
+ * 
+ * 10DEC10:
+ * Changed constructor if from ($loc != NULL) to isset($loc)
  */
 
 //namespace GCTools/Photo;
@@ -34,7 +39,7 @@ class Picture {
 		//Postcondition: If file location is given, the file is loaded. Otherwise, the class should just be created
 		
 		//Load picture if loc is given
-		if ($loc != NULL)
+		if (isset($loc))
 			return $this->loadFromFile($loc);
 		else		
 			return TRUE;
