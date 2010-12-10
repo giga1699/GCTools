@@ -10,6 +10,10 @@
  * @subpackage Navigation
  * 
  * Change log:
+ *
+ * 09DEC10:
+ * Updated the sitemap functions
+ * Changed how subpages are handled. Made it with the factory pattern, like the Navigation
  * 
  * 05DEC10:
  * Created getSitemap function
@@ -53,7 +57,10 @@ class Page {
 	
 	//Constructor
 	public function Page() {
-		//TODO: Write any initilization
+		//Precondition: None
+		//Postcondition: Class is fully initialized
+		
+		$this->pageChildren = array();
 	}
 	
 	/*getPageName() function
@@ -246,7 +253,7 @@ class Page {
 		//Precondition: None
 		//Postcondition: Returns TRUE if page has children, and FALSE otherwise
 		
-		if (isset($this->pageChildren))
+		if (count($this->pageChildren) > 0)
 			return TRUE;
 		else
 			return FALSE;
@@ -265,36 +272,39 @@ class Page {
 		//Precondition: Page children should be set
 		//Postcondition: Returns the children, or FALSE if unset
 		
-		if (isset($this->pageChildren))
+		if ($this->hasChildren())
 			return $this->pageChildren;
 		else
 			return FALSE;
 	}
 	
 	/*
-	 * setPageChildren($children) function
+	 * addPageChild($child) function
 	 * 
-	 * $children => Defines a copy of a Navigation class for the children
+	 * $children => Defines a copy of a Page class for the child
 	 * 
 	 * This function sets the pageChildren class variable, and ensures that the
 	 * value being set is valid.
 	 * 
 	 * Returns TRUE on success, and FALSE on failure
 	 */
-	public function setPageChildren($children) {
-		//Precondition: A valid Navigation class is passed to function
-		//Postcondition: The pageChildren variable is set. Returns TRUE for success, and FALSE otherwise.
+	public function setPageChild($child) {
+		//Precondition: A valid Page class is passed to function
+		//Postcondition: The pageChildren variable is updated. Returns TRUE for success, and FALSE otherwise.
 		
-		//Check that $children is a Navigation class
-		if (!is_a($children, "Navigation"))
+		//Check that $child is a Page class
+		if (!is_a($children, "Page"))
 			return FALSE;
 		
-		//Remove previous children
-		unset($this->pageChildren);
+		$pageTitle = $child->getPageTitle();
 		
-		$this->pageChildren = $children;
+		//Check if is set already
+		if (isset($this->pageChildren[$pageTitle]))
+			unset($this->pageChildren[$pageTitle]);
 		
-		if (isset($this->pageChildren))
+		$this->pageChildren[$pageTitle] = $child;
+		
+		if (isset($this->pageChildren[$pageTitle]))
 			return TRUE;
 		else
 			return FALSE;
@@ -524,7 +534,9 @@ class Navigation {
 		//Begin creating the XML sitemap
 		$sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
 		
-		//Go through all the pages, and add them to the sitemap
+		foreach ($this->navPages as $page) {
+			$sitemap .= $this->addPageToSitemap($page);
+		}
 		
 		//End sitemap
 		$sitemap .= "</urlset>";
@@ -547,11 +559,29 @@ class Navigation {
 	protected function addPageToSitemap($page) {
 		//Precondition: $page should be a Page class
 		//Postcondition: Data to be added to the sitemap should be generated
+		//Reference: http://www.sitemaps.org/protocol.php
 		
 		//Ensure $page is of a Page class
 		if (!is_a($page, "Page"))
 			return FALSE;
-		//TODO: Finish function
+		
+		//Create XML to add
+		$xml = "\t<url>\n\t\t<loc>".$page->getPageURL()."</loc>";
+		
+		//End XML
+		$xml .= "\n\t</url>\n";
+		
+		//Check if page has sub pages
+		if ($page->hasChildren()) {
+			//Get children navigation class
+			$children = $page->getChildren();
+			
+			foreach ($children as $subpage) {
+				$xml .= $this->addPageToSitemap($subpage);
+			}
+		}
+		
+		return $xml;
 	}
 	//TODO: Create any additional functions needed
 }
