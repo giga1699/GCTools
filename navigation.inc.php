@@ -493,7 +493,6 @@ class Navigation {
 			
 			//Sort the pages array
 			ksort($this->navPages);
-			echo "added page: \"".$pageName."\"<br>";
 			
 			if (isset($this->navPages[$pageName]))
 				return TRUE;
@@ -533,6 +532,9 @@ class Navigation {
 		
 		//Account for spaces in page names
 	    $pageName = str_replace(" ", "_", $pageName);
+		
+		//Go to lower
+		strtolower($pageName);
 		
 		if ($this->pageExists($pageName))
 			return $this->navPages[$pageName];
@@ -641,8 +643,10 @@ class Navigation {
 
 	  //Account for spaces in page names
 	  $pageName = str_replace(" ", "_", $pageName);
-	  print_r($this->navPages);
-	  echo "looking for page \"".$pageName."\"<br>";
+	  
+	  //Lowercase only
+	  $pageName = strtolower($pageName);
+	  
 	  //Check if the page exists in the current navigation structure
 	  if (isset($this->navPages[$pageName]))
 		return TRUE;
