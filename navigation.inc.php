@@ -614,7 +614,7 @@ class Navigation {
 		//Check if page has sub pages
 		if ($page->hasChildren()) {
 			//Get children navigation class
-			$children = $page->getChildren();
+			$children = $page->getPageChildren();
 			
 			foreach ($children as $subpage) {
 				$xml .= $this->addPageToSitemap($subpage);
