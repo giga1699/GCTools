@@ -16,6 +16,7 @@
  * Changed how subpages are handled. Made it with the factory pattern, like the Navigation
  * Included the additional items to the XML of the sitemap.
  * Added pageExists($pageName) function.
+ * Added getPage($pageName) function.
  * 
  * 05DEC10:
  * Created getSitemap function
@@ -516,6 +517,26 @@ class Navigation {
 	}
 	
 	/*
+	 * getPage($pageName) function
+	 *
+	 * $pageName => Defines the name of the page you are wanting to get
+	 *
+	 * This function returns a copy of the Page class with the same name as $pageName.
+	 *
+	 * Returns Page if found, and FALSE otherwise.
+	 */
+	public function getPage($pageName) {
+		//Precondition: $pageName should be valid, and exist.
+		//Postcondition: Returns the Page on success, and FALSE otherwise.
+		//TODO: Add functionality for parents
+		
+		if ($this->pageExists($pageName))
+			return $this->navPages[$pageName];
+		else
+			return FALSE;
+	}
+	
+	/*
 	 * getSitemap() function
 	 * 
 	 * No input
@@ -608,10 +629,14 @@ class Navigation {
 	public function pageExists($pageName) {
 	  //Precondition: $pageName should be valid
 	  //Postcondition: Returns TRUE if the page exists, and FALSE otherwise.
+	  //TODO: Add functionality for parents
 	  
 	  //Ensure $pageName is valid
-	  if (!isset($pageName) || is_null($pageName) || empty($pageName))
+	  if (!isset($pageName) || is_null($pageName))
 		return FALSE;
+	
+	  //Account for spaces in page names
+	  $pageName = str_replace(" ", "_", $pageName);
 	  
 	  //Check if the page exists in the current navigation structure
 	  if (isset($this->navPages[$pageName]))
