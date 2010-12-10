@@ -15,6 +15,7 @@
  * Fixed issue with setPriority not allowing zero
  * Added the date verification to setLastMod function
  * Allowed hyphens to page names
+ * Removed "Page" from functions related to children
  *
  * 09DEC10:
  * Updated the sitemap functions
@@ -274,7 +275,7 @@ class Page {
 	}
 	
 	/*
-	 * getPageChildren() function
+	 * getChildren() function
 	 * 
 	 * No input
 	 * 
@@ -282,7 +283,7 @@ class Page {
 	 * 
 	 * Returns the children if set, and FALSE otherwise
 	 */
-	public function getPageChildren() {
+	public function getChildren() {
 		//Precondition: Page children should be set
 		//Postcondition: Returns the children, or FALSE if unset
 		
@@ -293,7 +294,7 @@ class Page {
 	}
 	
 	/*
-	 * addPageChild($child) function
+	 * addChild($child) function
 	 * 
 	 * $children => Defines a copy of a Page class for the child
 	 * 
@@ -302,7 +303,7 @@ class Page {
 	 * 
 	 * Returns TRUE on success, and FALSE on failure
 	 */
-	public function addPageChild($child) {
+	public function addChild($child) {
 		//Precondition: A valid Page class is passed to function
 		//Postcondition: The pageChildren variable is updated. Returns TRUE for success, and FALSE otherwise.
 		
@@ -653,7 +654,7 @@ class Navigation {
 		//Check if page has sub pages
 		if ($page->hasChildren()) {
 			//Get children navigation class
-			$children = $page->getPageChildren();
+			$children = $page->getChildren();
 			
 			foreach ($children as $subpage) {
 				$xml .= $this->addPageToSitemap($subpage);
