@@ -531,6 +531,9 @@ class Navigation {
 		//Postcondition: Returns the Page on success, and FALSE otherwise.
 		//TODO: Add functionality for parents
 		
+		//Account for spaces in page names
+	    $pageName = str_replace(" ", "_", $pageName);
+		
 		if ($this->pageExists($pageName))
 			return $this->navPages[$pageName];
 		else
@@ -635,7 +638,7 @@ class Navigation {
 	  //Ensure $pageName is valid
 	  if (!isset($pageName) || is_null($pageName))
 		return FALSE;
-	
+
 	  //Account for spaces in page names
 	  $pageName = str_replace(" ", "_", $pageName);
 	  
