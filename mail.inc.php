@@ -13,6 +13,7 @@
  * 
  * 14DEC2010:
  * Changed the Attachment isError function.
+ * Added email validation.
  */
 
 //Declare the namespace
@@ -234,7 +235,7 @@ class EMail {
 	 * This function adds the given address to the array of addresses to
 	 * be used in the "TO:" field of the email.
 	 * 
-	 * No return
+	 * Returns TRUE on success, and FALSE otherwise.
 	 */
 	public function addTo($address) {
 		/* Precondition: An e-mail address is provided */
@@ -242,9 +243,12 @@ class EMail {
 		 * of TO addresses.
 		 */
 		
-		//TODO: Add address validation
+		if (!$this->validEmail($address))
+			return FALSE;
 		
 		array_push($this->mailTo, $address);
+		
+		return TRUE;
 	}
 	
 	/*
@@ -294,7 +298,7 @@ class EMail {
 	 * This function adds the given address to the array of addresses to
 	 * be used in the "CC:" field of the email.
 	 * 
-	 * No return
+	 * Returns TRUE on success, and FALSE otherwise.
 	 */
 	public function addCC($address) {
 		/* Precondition: An e-mail address is provided */
@@ -302,9 +306,12 @@ class EMail {
 		 * of CC addresses.
 		 */
 		
-		//TODO: Add address validation
+		if (!$this->validEmail($address))
+			return FALSE;
 		
 		array_push($this->mailCC, $address);
+		
+		return TRUE;
 	}
 	
 	/*
@@ -354,7 +361,7 @@ class EMail {
 	 * This function adds the given address to the array of addresses to
 	 * be used in the "BCC:" field of the email.
 	 * 
-	 * No return
+	 * Returns TRUE on success, and FALSE otherwise.
 	 */
 	public function addBCC($address) {
 		/* Precondition: An e-mail address is provided */
@@ -362,9 +369,12 @@ class EMail {
 		 * of BCC addresses.
 		 */
 		
-		//TODO: Add address validation
+		if (!$this->validEmail($address))
+			return FALSE;
 		
 		array_push($this->mailBCC, $address);
+		
+		return TRUE;
 	}
 	
 	/*
@@ -768,6 +778,40 @@ class EMail {
 			return TRUE;
 		else
 			return FALSE;
+	}
+	
+	/*
+	 * validEmail($address) function
+	 * 
+	 * $address => An email address to check if valid
+	 * 
+	 * This function ensures that a given address is valid.
+	 * 
+	 * Returns TRUE if the email is valid, and FALSE otherwise.
+	 */
+	public function validEmail($address) {
+		//Precondition: An address is given.
+		//Postcondition: Returns TRUE if the address is valid, and FALSE otherwise.
+		
+		//Ensure an address was given
+		if (!isset($address) || empty($address))
+			return FALSE;
+		
+		//Check format of address
+		if (!preg_match("/^( [a-zA-Z0-9] )+( [a-zA-Z0-9\._-] )*@( [a-zA-Z0-9_-] )+( [a-zA-Z0-9\._-] +)+$/" , $address))
+			return FALSE;
+		
+		//Get username/domain of address
+		list($username, $domain) = split("@", $address);
+		
+		//Ensure there is a MX entry for the domain
+		if (!checkdnsrr($domain, "MX"))
+			return FALSE;
+		
+		//TODO: Make sure we can get to the SMTP server
+		
+		//If we've gotten this far, it should be a valid email
+		return TRUE;
 	}
 }
 ?>
