@@ -14,6 +14,7 @@
  * 14DEC2010:
  * Added returns to the constructors, and the connect function for MySQL.
  * Fixed hasError() function.
+ * Updated connected() function.
  * 
  * 10DEC2010:
  * Added some more comments
@@ -369,7 +370,10 @@ class MySQL extends Database {
 		 * established.
 		 */
 		
-		return mysql_ping($this->myCon);
+		if (mysql_ping($this->myCon) == TRUE)
+			return TRUE;
+		else
+			return FALSE;
 	}
 	
 	/*
