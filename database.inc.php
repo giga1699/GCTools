@@ -16,6 +16,7 @@
  * Fixed hasError() function.
  * Updated connected() function.
  * Removed some of the exception errors during the connection/reconnection process.
+ * Changed lastEror to protected to fix issues when extending.
  * 
  * 10DEC2010:
  * Added some more comments
@@ -53,7 +54,7 @@ abstract class Database {
 	protected $dbUser; //String
 	protected $dbPass; //String
 	protected $dbName; //String
-	private $lastError; //String
+	protected $lastError; //String
 
 	//Constructor
 	protected function Database($loc, $user, $pass, $name, $type) {
@@ -73,7 +74,6 @@ abstract class Database {
 		$this->dbPass = $pass;
 		$this->dbName = $name;
 		$this->dbType = $type;
-		$this->lastError = "";
 		
 		return TRUE;
 	}
