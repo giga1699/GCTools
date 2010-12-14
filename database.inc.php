@@ -17,6 +17,7 @@
  * Updated connected() function.
  * Removed some of the exception errors during the connection/reconnection process.
  * Changed lastEror to protected to fix issues when extending.
+ * Added specialError to the MySQL throwError function. Used in connect() function.
  * 
  * 10DEC2010:
  * Added some more comments
@@ -212,21 +213,21 @@ class MySQL extends Database {
 		}
 		else {
 			//The connection could not be established
-			$this->throwError();
+			$this->throwError("Could not connect to MySQL database.");
 			return FALSE;
 		}
 	}
 	
 	/*
-	 * throwError() function
+	 * throwError($specialError) function
 	 * 
-	 * No inputs
+	 * $specialError => Defines any special error (like not being able to connect).
 	 * 
 	 * This function should be called if there was an error during an operation.
 	 * 
 	 * Returns TRUE on success, and FALSE on failure.
 	 */
-	protected function throwError() {
+	protected function throwError($specialError=NULL) {
 		/* Precondition: An error has occured */
 		/* Postcondition: The error is created in the Database
 		 * class with the proper information.
@@ -235,7 +236,10 @@ class MySQL extends Database {
 		if (!$this->resetError())
 			return FALSE;
 		
-		$this->lastError = "MySQL Error (".@mysql_errno($this->myCon)."): ".@mysql_error($this->myCon);
+		if (isset($specialError))
+			$this->lastError = $specialError;
+		else
+			$this->lastError = "MySQL Error (".@mysql_errno($this->myCon)."): ".@mysql_error($this->myCon);
 		
 		if (isset($this->lastError))
 			return TRUE;
