@@ -15,6 +15,7 @@
  * Added returns to the constructors, and the connect function for MySQL.
  * Fixed hasError() function.
  * Updated connected() function.
+ * Removed some of the exception errors during the connection/reconnection process.
  * 
  * 10DEC2010:
  * Added some more comments
@@ -195,7 +196,7 @@ class MySQL extends Database {
 		 */
 		
 		//Connect to the MySQL server
-		$this->myCon = mysql_connect($this->dbLoc, $this->dbUser, $this->dbPass);
+		$this->myCon = @mysql_connect($this->dbLoc, $this->dbUser, $this->dbPass);
 
 		//Check if the connection is good
 		if ($this->myCon) {
@@ -234,7 +235,7 @@ class MySQL extends Database {
 		if (!$this->resetError())
 			return FALSE;
 		
-		$this->lastError = "MySQL Error (".mysql_errno($this->myCon)."): ".mysql_error($this->myCon);
+		$this->lastError = "MySQL Error (".@mysql_errno($this->myCon)."): ".@mysql_error($this->myCon);
 		
 		if (isset($this->lastError))
 			return TRUE;
@@ -370,7 +371,7 @@ class MySQL extends Database {
 		 * established.
 		 */
 		
-		if (mysql_ping($this->myCon) == TRUE)
+		if (@mysql_ping($this->myCon) == TRUE)
 			return TRUE;
 		else
 			return FALSE;
