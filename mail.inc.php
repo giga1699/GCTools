@@ -798,7 +798,7 @@ class EMail {
 			return FALSE;
 		
 		//Check format of address
-		if (!preg_match("/^( [a-zA-Z0-9] )+( [a-zA-Z0-9\._-] )*@( [a-zA-Z0-9_-] )+( [a-zA-Z0-9\._-] +)+$/" , $address))
+		if (!preg_match("/([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/" , $address))
 			return FALSE;
 		
 		//Get username/domain of address
