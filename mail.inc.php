@@ -1,9 +1,9 @@
 <?php
-/*
+/**
  * Filename: mail.inc.php
- * @author: J. "Giga" Murphy <giga1699@gmail.com>
+ * @author J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide email support
- * @version: 1.1.0
+ * @version 1.1.0
  * File created: 10SEP2010
  * File updated: 03DEC2010
  * @package GCTools
