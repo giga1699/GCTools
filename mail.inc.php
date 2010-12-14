@@ -477,7 +477,8 @@ class EMail {
 		/* Precondition: An address is provided. */
 		/* Postcondition: The reply-to address is set. */
 		
-		//TODO: Add address validation
+		if (!$this->validEmail($address))
+			return FALSE;
 		
 		//Unset the variable
 		unset($this->mailReplyTo);
