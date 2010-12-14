@@ -166,7 +166,13 @@ class MySQL extends Database {
 		}
 
 		//Set up the parent class
-		return $this->Database($loc, $user, $pass, $name, MYSQL) or die("Unable to initilize object.");
+		$this->Database($loc, $user, $pass, $name, MYSQL) or die("Unable to initilize object.");
+		
+		//Connect to the database
+		if (!$this->connect())
+			return FALSE;
+		else
+			return TRUE;
 	}
 	
 	/*
