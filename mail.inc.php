@@ -431,7 +431,8 @@ class EMail {
 		/* Precondition: An address is provided. */
 		/* Postcondition: The from address is set. */
 		
-		//TODO: Add address validation
+		if (!$this->validEmail($address))
+			return FALSE;
 		
 		//Unset the current variable
 		unset($this->mailFrom);
