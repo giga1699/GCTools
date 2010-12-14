@@ -5,11 +5,17 @@
  * Purpose: Provide information about webpage
  * @version 0.1.0
  * File created: 03DEC10
- * File updated: 10DEC10
+ * File updated: 14DEC10
  * @package GCTools
  * @subpackage Navigation
  * 
  * Change log:
+ * 
+ * 14DEC10:
+ * Added pageEnabled, and getters/setters for the variable.
+ * Added isEnabled function.
+ * Added PENABLED definition to set the default value for new pages created.
+ * Updated sitemap functions to not add pages that are disabled.
  * 
  * 10DEC10:
  * Fixed issue with setPriority not allowing zero
@@ -45,6 +51,9 @@
 
 //namespace GCTools/Navigation;
 
+//Default page enable value
+define("PENABLED", TRUE);
+
 //Page class
 class Page {
 	/*
@@ -67,13 +76,18 @@ class Page {
 	protected $pageLastMod;
 	protected $pageChangeFreq;
 	protected $pagePriority;
+	protected $pageEnabled;
 	
 	//Constructor
 	public function Page() {
 		//Precondition: None
 		//Postcondition: Class is fully initialized
 		
+		//Initialize the pageChildren array
 		$this->pageChildren = array();
+		
+		//Default is defined above
+		$this->pageEnabled = PENABLED;
 		
 		return TRUE;
 	}
@@ -461,6 +475,70 @@ class Page {
 		else
 			return FALSE;
 	}
+	
+	/*
+	 * enablePage() function
+	 * 
+	 * No inputs
+	 * 
+	 * This function enables the page for viewing.
+	 * 
+	 * Returns TRUE if the page was enabled, and FALSE otherwise.
+	 */
+	public function enablePage() {
+		//Precondition: None
+		//Postcondition: pageEnabled is set to TRUE
+		
+		$this->pageEnabled = TRUE;
+		
+		if ($this->pageEnabled == TRUE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * disablePage() function
+	 * 
+	 * No inputs
+	 * 
+	 * This function disables a page for viewing.
+	 * 
+	 * Returns TRUE if the page was disabled, and FALSE otherwise.
+	 */
+	public function disablePage() {
+		//Precondition: None
+		//Postcondition: Sets pageEnabled to FALSE
+		
+		$this->pageEnabled = FALSE;
+		
+		if ($this->pageEnabled == FALSE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * isEnabled() function
+	 * 
+	 * No inputs
+	 * 
+	 * This function determines if the page is enabled or not.
+	 * 
+	 * Returns TRUE if page is enabled, and FALSE otherwise.
+	 */
+	public function isEnabled() {
+		//Precondition: pageEnabled variable should be set
+		//Postcondition: Returns TRUE if page is enabled, and FALSE otherwise
+		
+		if (!isset($this->pageEnabled) || empty($this->pageEnabled))
+			return FALSE;
+		
+		if ($this->pageEnabled == TRUE)
+			return TRUE;
+		else
+			return FALSE;
+	}
 }
 
 //Navigation class
@@ -605,7 +683,9 @@ class Navigation {
 		$sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
 		
 		foreach ($this->navPages as $page) {
-			$sitemap .= $this->addPageToSitemap($page);
+			$addpage = $this->addPageToSitemap($page);
+			if ($addpage != FALSE)
+				$sitemap .= $addpage;
 		}
 		
 		//End sitemap
@@ -627,12 +707,16 @@ class Navigation {
 	 * Returns data to be added to sitemap, or FALSE on failure.
 	 */
 	protected function addPageToSitemap($page) {
-		//Precondition: $page should be a Page class
+		//Precondition: $page should be a Page class, and page should be enabled.
 		//Postcondition: Data to be added to the sitemap should be generated
 		//Reference: http://www.sitemaps.org/protocol.php
 		
 		//Ensure $page is of a Page class
 		if (!is_a($page, "Page"))
+			return FALSE;
+		
+		//Make sure page in enabled
+		if ($page->isEnabled() == FALSE)
 			return FALSE;
 		
 		//Create XML to add
@@ -657,7 +741,9 @@ class Navigation {
 			$children = $page->getChildren();
 			
 			foreach ($children as $subpage) {
-				$xml .= $this->addPageToSitemap($subpage);
+				$addsubpage = $this->addPageToSitemap($subpage);
+				if ($addsubpage != FALSE)
+					$xml .= $addsubpage;
 			}
 		}
 		
