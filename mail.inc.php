@@ -141,7 +141,7 @@ class Attachment {
 	 * 
 	 * Returns TRUE on success, and FALSE on failure.
 	 */
-	protected function addFile($file) {
+	private function addFile($file) {
 		/* Precondition: A file name, with location, is given */
 		/* Postcondition: The file is made into an attachment.
 		 * Returns FALSE if anything fails.
