@@ -5,13 +5,16 @@
  * Purpose: Provide database functionality.
  * @version 0.2.1
  * File created: 10SEP2010
- * File modified: 10DEC10
+ * File modified: 14DEC2010
  * @package GCTools
  * @subpackage Database
  * 
  * Changelog:
  * 
- * 10DEC10:
+ * 14DEC2010:
+ * Added returns to the constructors, and the connect function for MySQL
+ * 
+ * 10DEC2010:
  * Added some more comments
  */
 
@@ -163,7 +166,7 @@ class MySQL extends Database {
 		}
 
 		//Set up the parent class
-		$this->Database($loc, $user, $pass, $name, MYSQL) or die("Unable to initilize object.");
+		return $this->Database($loc, $user, $pass, $name, MYSQL) or die("Unable to initilize object.");
 	}
 	
 	/*
@@ -193,11 +196,14 @@ class MySQL extends Database {
 			//Connection is good, so connect to the given database
 			if (!mysql_select_db($this->dbName, $this->myCon)) {
 				$this->throwError();
+				return FALSE;
 			}
+			return TRUE;
 		}
 		else {
 			//The connection could not be established
 			$this->throwError();
+			return FALSE;
 		}
 	}
 	
