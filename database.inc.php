@@ -12,7 +12,8 @@
  * Changelog:
  * 
  * 14DEC2010:
- * Added returns to the constructors, and the connect function for MySQL
+ * Added returns to the constructors, and the connect function for MySQL.
+ * Fixed hasError() function.
  * 
  * 10DEC2010:
  * Added some more comments
@@ -70,6 +71,7 @@ abstract class Database {
 		$this->dbPass = $pass;
 		$this->dbName = $name;
 		$this->dbType = $type;
+		$this->lastError = "";
 		
 		return TRUE;
 	}
@@ -89,7 +91,7 @@ abstract class Database {
 		 * FALSE if one has not occured.
 		 */
 
-		if ((isset($this->lastError) && !empty($this->lastError)) || !isset($this->lastError))
+		if ((isset($this->lastError) && !empty($this->lastError)))
 			return TRUE;
 		else
 			return FALSE;
