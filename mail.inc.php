@@ -14,6 +14,7 @@
  * 14DEC2010:
  * Changed the Attachment isError function.
  * Added email validation.
+ * Fixed the regex for the email validation.
  */
 
 //Declare the namespace
@@ -798,7 +799,7 @@ class EMail {
 			return FALSE;
 		
 		//Check format of address
-		if (!preg_match("/([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/" , $address))
+		if (!preg_match("/^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})$/" , $address))
 			return FALSE;
 		
 		//Get username/domain of address
