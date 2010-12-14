@@ -5,9 +5,14 @@
  * Purpose: Provide email support
  * @version 1.1.0
  * File created: 10SEP2010
- * File updated: 03DEC2010
+ * File updated: 14DEC2010
  * @package GCTools
  * @subpackage Mail
+ * 
+ * Changelog:
+ * 
+ * 14DEC2010:
+ * Changed the Attachment isError function.
  */
 
 //Declare the namespace
@@ -19,7 +24,7 @@ class Attachment {
 	protected $fileMIMEType; //File MIME type
 	protected $fileBuffer; //Holds contents of the file
 	protected $fileSize; //Holds the size of the file
-	private $noError; //TRUE if there wasn't an error adding the file
+	protected $noError; //TRUE if there wasn't an error adding the file
 	
 	//Constructor
 	public function Attachment($file) {
@@ -42,7 +47,10 @@ class Attachment {
 		 * FALSE if one hasn't.
 		 */
 		
-		return !$this->noError;
+		if ($this->noError == TRUE)
+			return FALSE;
+		else
+			return TRUE;
 	}
 	
 	/*
