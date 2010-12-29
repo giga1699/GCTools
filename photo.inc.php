@@ -5,11 +5,14 @@
  * Purpose: Provide phto support
  * @version: 0.0.1
  * File created: 02DEC10
- * File updated: 10DEC10
+ * File updated: 29DEC10
  * @package GCTools
  * @subpackage Photo
  * 
  * Change log:
+ * 
+ * 29DEC10
+ * Added save function
  * 
  * 10DEC10:
  * Changed constructor if from ($loc != NULL) to isset($loc)
@@ -193,6 +196,14 @@ class Picture {
 			return FALSE;
 		
 		//TODO: Add text to picture
+	}
+	
+	public function save($fileLoc) {
+		switch ($this->picType) {
+			case PT_JPG:
+				imgjpeg($this->picGDRes, $fileLoc, 75);
+			break;
+		}
 	}
 	
 	//TODO: Finish Picture class
