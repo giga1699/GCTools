@@ -201,7 +201,7 @@ class Picture {
 	public function save($fileLoc) {
 		switch ($this->picType) {
 			case PT_JPG:
-				imgjpeg($this->picGDRes, $fileLoc, 75);
+				imagejpeg($this->picGDRes, $fileLoc, 75);
 			break;
 		}
 	}
