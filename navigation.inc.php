@@ -5,11 +5,14 @@
  * Purpose: Provide information about webpage
  * @version 0.1.0
  * File created: 03DEC10
- * File updated: 14DEC10
+ * File updated: 29DEC10
  * @package GCTools
  * @subpackage Navigation
  * 
  * Change log:
+ * 
+ * 29DEC10:
+ * Changed setLastMod to format to YYYY-MM-DD HH:MM:SS
  * 
  * 14DEC10:
  * Added pageEnabled, and getters/setters for the variable.
@@ -379,8 +382,8 @@ class Page {
 		if (!$lastMod)
 			return FALSE;
 		
-		//Convert to YYYY-MM-DD format
-		$lastMod = date("Y-m-d", $lastMod);
+		//Convert to YYYY-MM-DD HH:MM:SS format
+		$lastMod = date("Y-m-d H:i:s", $lastMod);
 		
 		//Remove previous last mod date
 		unset($this->pageLastMod);
