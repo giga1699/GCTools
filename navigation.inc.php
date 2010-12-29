@@ -680,7 +680,7 @@ class Navigation {
 			return FALSE;
 		
 		//Begin creating the XML sitemap
-		$sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
+		$sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
 		
 		foreach ($this->navPages as $page) {
 			$addpage = $this->addPageToSitemap($page);
