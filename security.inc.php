@@ -38,6 +38,47 @@ class Security {
 	}
 	
 	/*
+	 * getAuthType() function
+	 * 
+	 * This function provides the user with the currently set authentication type.
+	 * 
+	 * Returns the currently set authentication type, or FALSE on failure.
+	 */
+	public function getAuthType() {
+		//Precondition: authType should be set
+		//Postcondition: Return what the authType is set as, or FALSE on failure.
+		
+		if (isset($this->authType))
+			return $this->authType;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * setAuthType($authType) function
+	 * 
+	 * $authType => Defines what the new authentication type should be.
+	 * 
+	 * This function sets what the authentication type should be for the class.
+	 * 
+	 * Returns TRUE on success, and FALSE on failure.
+	 */
+	public function setAuthType($authType) {
+		//Precondition: authType should be set
+		//Postcondition: Sets the auth type for the class
+		
+		if (!isset($authType))
+			return FALSE;
+		
+		$this->authType = $authType;
+		
+		if ($this->authType == $authType)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
 	 * createHTPassUser($user,$pass) function
 	 * 
 	 * This function creates the new line needed to add a user to an
