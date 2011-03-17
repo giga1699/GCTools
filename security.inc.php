@@ -19,7 +19,23 @@ define("SE_AUTH_TYPE_BASIC", 0);
 
 class Security {
 	//Variables for Security class
+	private $authType; //Defines the authentication type
 	private $htpassfile; //Defines where the .htpasswd file is located
+	
+	/*
+	 * Security class initilization
+	 * 
+	 * This function sets-up the Security class, and sets up certain class defaults
+	 * 
+	 * No return value.
+	 */
+	public function Security() {
+		//Precondition: None
+		//Postcondition: Class defaults are set up
+		
+		$this->authType = SE_AUTH_TYPE_BASIC;
+		$this->htpassfile = NULL;
+	}
 	
 	/*
 	 * createHTPassUser($user,$pass) function
