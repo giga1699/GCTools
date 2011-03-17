@@ -17,7 +17,7 @@
 
 //Authentication types
 define("SE_AUTH_TYPE_BASIC", 0);
-define("SE_AUTH_TYPE_HTML", 1)
+define("SE_AUTH_TYPE_HTML", 1);
 
 //Password hashes
 define("SE_AUTH_HASH_MD5", 0);
