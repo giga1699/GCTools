@@ -15,11 +15,17 @@
 
 //namespace GCTools/Security;
 
+//Authentication types
 define("SE_AUTH_TYPE_BASIC", 0);
+
+//Password hashes
+define("SE_AUTH_HASH_MD5", 0);
+define("SE_AUTH_HASH_HTPAS", 1);
 
 class Security {
 	//Variables for Security class
 	private $authType; //Defines the authentication type
+	private $authHash; //Defines the authentication hash type
 	private $htpassfile; //Defines where the .htpasswd file is located
 	
 	/*
@@ -29,12 +35,24 @@ class Security {
 	 * 
 	 * No return value.
 	 */
-	public function Security() {
+	public function Security($authType=NULL, $authHash=NULL, $htpassfile=NULL) {
 		//Precondition: None
 		//Postcondition: Class defaults are set up
 		
-		$this->authType = SE_AUTH_TYPE_BASIC;
-		$this->htpassfile = NULL;
+		if (!isset($authType))
+			$this->authType = SE_AUTH_TYPE_BASIC;
+		else
+			$this->authType = $authType;
+		
+		if (!isset($authHash))
+			$this->authHash = SE_AUTH_HASH_MD5;
+		else
+			$this->authHash = $authHash;
+		
+		if (!isset($htpassfile))
+			$this->htpassfile = NULL;
+		else
+			$this->htpassfile = $htpassfile;
 	}
 	
 	/*
@@ -73,6 +91,47 @@ class Security {
 		$this->authType = $authType;
 		
 		if ($this->authType == $authType)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * getAuthHash() function
+	 * 
+	 * This function provides the user with the currently set authentication hash.
+	 * 
+	 * Returns the currently set authentication hash, or FALSE on failure.
+	 */
+	public function getAuthHash() {
+		//Precondition: authHash should be set
+		//Postcondition: Return what the authHash is set as, or FALSE on failure.
+		
+		if (isset($this->authHash))
+			return $this->authHash;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * setAuthHash($authHash) function
+	 * 
+	 * $authHash => Defines what the new authentication hash should be.
+	 * 
+	 * This function sets what the authentication hash should be for the class.
+	 * 
+	 * Returns TRUE on success, and FALSE on failure.
+	 */
+	public function setAuthHash($authHash) {
+		//Precondition: authHash should be set
+		//Postcondition: Sets the auth hash for the class
+		
+		if (!isset($authHash))
+			return FALSE;
+		
+		$this->authHash = $authHash;
+		
+		if ($this->authHash == $authHash)
 			return TRUE;
 		else
 			return FALSE;
