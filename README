@@ -1,0 +1,20 @@
+/************************************************/
+/* GCTools - A PHP Framework			*/
+/* Developed by: J. "Giga" Murphy		*/
+/*		and M. "Beanyhead" Parker	*/
+/* Website: http://www.gigacreations.net/	*/
+/************************************************/
+
+GCTools is a PHP framework that is meant to enable developers to create
+PHP applications quickly, and effectively. It is not like many of the
+Content Management Systems (CMSes) that are out on the market today due
+to the fact that we do not really store informating natively. We do, however
+enable the developer to create a CMS using out framework.
+
+/* Table of Contents */
+1.) To-Do list
+2.) Classes
+3.) Examples
+
+/* Section 1: To-Do List */
+Finish this README file. ;-)
