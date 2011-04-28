@@ -24,6 +24,7 @@
  * Enabled the ability to write white text to top-left corner of picture
  * Added multiple colors to site text
  * Moved to version 0.1.0
+ * Modified how the grayscale image is created
  * 
  * 29DEC10:
  * Added save function
@@ -184,30 +185,55 @@ class Picture {
 	}
 	
 	/*
-	 * convertToGreeyscale() function
+	 * convertToGrayscale() function
 	 * 
 	 * No inputs
 	 * 
-	 * This function converts the image that is being manipulated into greyscale. This
+	 * This function converts the image that is being manipulated into grayscale. This
 	 * overwrites the original image that has been loaded.
 	 * 
 	 * Returns TRUE on success, and FALSE on failure.
 	 */
-	public function convertToGreyscale() {
+	public function convertToGrayscale() {
 		//Precondition: A GD resource should exist
-		//Poscondition: The image is converted to greyscale
+		//Poscondition: The image is converted to grayscale
 		
 		//Ensure the GD resource exists
 		if (!isset($this->picGDRes) || is_null($this->picGDRes) || empty($this->picGDRes))
 			return FALSE;
 		
-		//Make greyscale
-		$grey = imagefilter($this->picGDRes, IMG_FILTER_GRAYSCALE);
+		//Create new image for grayscale
+		$gray = imagecreate($this->picWidth, $this->picHeight);
 		
-		if (!$grey)
+		//Creates the 256 color palette
+		for ($c=0;$c<256;$c++) 
+		{
+			$palette[$c] = imagecolorallocate($gray,$c,$c,$c);
+		}
+		
+		//Reads original colors pixel by pixel
+		for ($y=0;$y<$this->picHeight;$y++) {
+			for ($x=0;$x<$this->picWidth;$x++) {
+				$rgb = imagecolorat($this->picGDRes, $x, $y);
+				$r = ($rgb >> 16) & 0xFF;
+				$g = ($rgb >> 8) & 0xFF;
+				$b = $rgb & 0xFF;
+				
+				//Convert to grayscale
+				$gs = $this->yiq($r, $g, $b);
+				imagesetpixel($gray, $x, $y, $palette[$gs]);
+			}
+		}
+		
+		if (!$grey) {
+			imagedestroy($gray);
 			return FALSE;
-		else
+		}
+		else {
+			imagedestroy($this->picGDRes);
+			$this->picGDRes = $gray;
 			return TRUE;
+		}
 	}
 	
 	/*
@@ -319,6 +345,29 @@ class Picture {
 		}
 		
 		return TRUE;
+	}
+	
+	/*
+	 * yiq($r,$g,$b) function
+	 * 
+	 * $r => Red
+	 * $g => Green
+	 * $b => Blue
+	 * 
+	 * This function is used to change a color image to greyscale.
+	 * 
+	 * Returns the YIQ value, or FALSE on error
+	 * 
+	 * Reference: http://php.about.com/od/gdlibrary/ss/grayscale_gd.htm
+	 */
+	protected function yiq($r, $g, $b) {
+		//Precondition: $r, $g, $b should be defined
+		//Postcondition: Return the YIQ value, or FALSE on error
+		
+		if (!isset($r) || !isset($g) || !isset($b))
+			return FALSE;
+		
+		return (($r*0.299)+($g*0.587)+($b*0.114));
 	}
 	
 	//TODO: Finish Picture class
