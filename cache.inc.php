@@ -19,14 +19,8 @@
 class Cache {
 	/*
 	 * $cacheDir => Defines the directory to store cached files
-	 * $cacheFile => Defines the file to be cached
-	 * $cachedFile => Defines the cached file
-	 * $cacheContents => Defines the content of the current cache
 	 */
 	protected $cacheDir;
-	protected $cacheFile;
-	protected $cachedFile;
-	protected $cacheContents;
 	
 	//Constructor
 	public function Cache($cacheDir) {
@@ -41,6 +35,27 @@ class Cache {
 		$this->cacheDir = $cacheDir;
 		
 		return TRUE;
+	}
+	
+	/*
+	 * createCache($file) function
+	 * 
+	 * $file => Defines the file to be cached
+	 * 
+	 * This function creates a cache of a given file, and stores it
+	 * in the $cacheDir folder.
+	 * 
+	 * Returns TRUE on success, and FALSE on failure.
+	 */
+	public function createCache($file) {
+		//Precondition: $file should be a vaild file
+		//Postconditoin: Create a cache of the file, and return TRUE on success or FALSE on failure
+		
+		//Check that $file is a valid file
+		if (!is_file($file))
+			return TRUE;
+		
+		//Determine what type of file it is
 	}
 }
 ?>
