@@ -177,13 +177,21 @@ class Picture {
 		if (!isset($this->picGDRes) || is_null($this->picGDRes) || empty($this->picGDRes))
 			return FALSE;
 		
-		//Make greyscale
-		$grey = imagecopymergegray($this->picGDRes, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, 0);
+		//Create temporary image
+		$temp = imagecreatetruecolor($this->picWidth, $this->picHeight);
 		
-		if (!$grey)		
+		//Make greyscale
+		$grey = imagecopymergegray($temp, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, 0);
+		
+		if (!$grey) {
+			imagedestroy($temp);	
 			return FALSE;
-		else
+		}
+		else {
+			imagedestroy($this->picGDRes);
+			$this->picGDRes = $temp;
 			return TRUE;
+		}
 	}
 	
 	/*
