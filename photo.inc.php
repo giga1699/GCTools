@@ -86,7 +86,6 @@ class Picture {
 				
 				//Import into GD, and set the resource
 				$this->picGDRes = imagecreatefromjpeg($file);
-				echo "test";
 			break;
 			case "image/gif":
 				$this->picType = PT_GIF;
@@ -225,6 +224,12 @@ class Picture {
 	 * Return TRUE on success, and FALSE on failure.
 	 */
 	public function save($fileLoc) {
+		//Precondition: picType, picGDRes and fileLoc should be set
+		//Postcondition: File is saved to fileLoc
+		
+		if (!isset($this->picType) || !isset($this->picGDRes) || !isset($fileLoc))
+			return FALSE;
+		
 		switch ($this->picType) {
 			case PT_JPG:
 				imagejpeg($this->picGDRes, $fileLoc, 75);
@@ -238,6 +243,10 @@ class Picture {
 			default:
 				return FALSE;
 		}
+		
+		//Check that file was created
+		if (!is_file($fileLoc))
+			return FALSE;
 		
 		return TRUE;
 	}
