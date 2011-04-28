@@ -249,8 +249,12 @@ class Page {
 		
 		if (isset($this->pageContent) && $this->pagePHP == FALSE)
 			return $this->pageContent;
-		elseif (isset($this->pageContent) && $this->pagePHP == TRUE)
-			return eval($this->pageContent);
+		elseif (isset($this->pageContent) && $this->pagePHP == TRUE) {
+			//Get the page
+			ob_start();
+			require(substr($this->pageContent, (strpos($this->pageContent, "=")+1)));
+			return ob_get_clean();
+		}
 		else
 			return FALSE;
 	}
@@ -262,6 +266,8 @@ class Page {
 	 * 
 	 * This function sets the class variable $pageContent, which holds
 	 * the content of a given page.
+	 * If the PHP flag is set, $content should be a valid file from
+	 * which to include the give PHP code.
 	 * 
 	 * Return TRUE on success, and FALSE on failure
 	 */
@@ -273,7 +279,14 @@ class Page {
 		unset($this->pageContent);
 		
 		//Set content
-		$this->pageContent = $content;
+		if ($this->pagePHP == TRUE) {
+			if (!is_file($content))
+				return FALSE;
+			else
+				$this->pageContent = "INCLUDE_FILE=" . $content;
+		}
+		else
+			$this->pageContent = $content;
 		
 		if (isset($this->pageContent))
 			return TRUE;
