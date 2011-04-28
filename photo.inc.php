@@ -11,7 +11,11 @@
  * 
  * Change log:
  * 
- * 29DEC10
+ * 28APR2011:
+ * Added GD library detection, and loading
+ * Added other picture types to save function
+ * 
+ * 29DEC10:
  * Added save function
  * 
  * 10DEC10:
@@ -208,12 +212,31 @@ class Picture {
 		//TODO: Add text to picture
 	}
 	
+	/*
+	 * save($fileLoc) function
+	 * 
+	 * $fileLoc => Defines where the file should be saved
+	 * 
+	 * This function allows the user to save a file to a specific location on the server.
+	 * 
+	 * Return TRUE on success, and FALSE on failure.
+	 */
 	public function save($fileLoc) {
 		switch ($this->picType) {
 			case PT_JPG:
 				imagejpeg($this->picGDRes, $fileLoc, 75);
 			break;
+			case PT_GIF:
+				imagegif($this->picGDRes, $fileLoc);
+			break;
+			case PT_PNG:
+				imagepng($this->picGDRes, $fileLoc, 75);
+			break;
+			default:
+				return FALSE;
 		}
+		
+		return TRUE;
 	}
 	
 	//TODO: Finish Picture class
