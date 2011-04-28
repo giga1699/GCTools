@@ -25,18 +25,11 @@ require_once("file.inc.php");
 
 //Attachment class
 class Attachment extends File {
-	protected $theFile;
-	protected $noError;
 	
 	//Constructor
 	public function Attachment($file) {
 		//Add the file
-		$this->theFile = new File($file);
-		
-		if ($this->theFile->hadError())
-			$this->noError = FALSE;
-		else
-			$this->noError = TRUE;
+		$this->File($file);
 	}
 	
 	/*
@@ -54,7 +47,7 @@ class Attachment extends File {
 		 * FALSE if one hasn't.
 		 */
 		
-		if ($this->noError == TRUE)
+		if ($this->fileNoError == TRUE)
 			return FALSE;
 		else
 			return TRUE;
