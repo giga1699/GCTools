@@ -69,6 +69,7 @@ class Picture {
 	protected function loadFromFile($file) {
 		//Precondition: A valid file location is given
 		//Postcondition: The file is loaded into GD, and most of the class attributes are filled
+		
 		//Ensure file exists
 		if (!file_exists($file))
 			return FALSE;
@@ -107,6 +108,12 @@ class Picture {
 		//Get image width and height
 		$this->picWidth = imagesx($this->picGDRes);
 		$this->picHeight = imagesy($this->picGDRes);
+		
+		//Check that width/height was set
+		if (!isset($this->picWidth) || !isset($this->picHeight))
+			return FALSE;
+		
+		return TRUE;
 	}
 	
 	/*
