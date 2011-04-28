@@ -16,6 +16,8 @@
  * Added other picture types to save function
  * Added display function
  * Fixed resize function call to imagecopyresampled
+ * Added additional error checking
+ * Added pre/post-condition checking to display and save functions
  * 
  * 29DEC10:
  * Added save function
@@ -103,7 +105,7 @@ class Picture {
 		}
 		//Ensure file type was set
 		if (!isset($this->picType) || empty($this->picType) || is_null($this->picType) || !isset($this->picGDRes) || empty($this->picGDRes) || is_null($this->picGDRes))
-			return FALSE;
+			die("Could not load GD resource");
 			
 		//Get image width and height
 		$this->picWidth = imagesx($this->picGDRes);
