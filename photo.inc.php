@@ -33,9 +33,6 @@ define("PT_JPG", 0);
 define("PT_GIF", 1);
 define("PT_PNG", 2);
 
-//Debugging
-define("DEBUG", 1); //0=off, 1=on
-
 class Picture {
 	//Variables for picture class
 	protected $picLoc; //Holds the file location of file (Not required)
@@ -75,9 +72,6 @@ class Picture {
 		//Precondition: A valid file location is given
 		//Postcondition: The file is loaded into GD, and most of the class attributes are filled
 		
-		if (DEBUG == 1)
-			echo "Loading file: " . $file . "<br>\n";
-		
 		//Ensure file exists
 		if (!file_exists($file))
 			return FALSE;
@@ -87,9 +81,6 @@ class Picture {
 		
 		//Get file size
 		$this->picSize = filesize($file);
-		
-		if (DEBUG == 1)
-			echo "Got name: " . $this->picName . "<br>\nGot Size: " . $this->picSize . "<br>\n";
 		
 		//Determine file type
 		switch(mime_content_type($file)) {
@@ -244,9 +235,6 @@ class Picture {
 	public function save($fileLoc) {
 		//Precondition: picType, picGDRes and fileLoc should be set
 		//Postcondition: File is saved to fileLoc
-		
-		if (DEBUG == 1)
-			echo "Type: " . $this->picType . "<br>\nRes: " . $this->picGDRes . "<br>\nLoc: " . $fileLoc . "<br>\n";
 		
 		if (!isset($this->picType) || !isset($this->picGDRes) || !isset($fileLoc))
 			return FALSE;
