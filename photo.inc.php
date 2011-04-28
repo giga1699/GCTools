@@ -177,24 +177,13 @@ class Picture {
 		if (!isset($this->picGDRes) || is_null($this->picGDRes) || empty($this->picGDRes))
 			return FALSE;
 		
-		//Copy the GD resource
-		$temp = $this->picGDRes;
-		
 		//Make greyscale
-		$grey = imagecopymergegray($this->picGDRes, $temp, 0,0,0,0, $this->picWidth, $this->picHeight, 0);
+		$grey = imagecopymergegray($this->picGDRes, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, 0);
 		
-		if (!$grey) {
-			//Destroy the temporary image
-			imagedestroy($temp);
-			
+		if (!$grey)		
 			return FALSE;
-		}
-		else {
-			//Destroy the temporary image
-			imagedestroy($temp);
-			
+		else
 			return TRUE;
-		}
 	}
 	
 	/*
