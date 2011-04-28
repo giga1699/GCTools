@@ -181,7 +181,7 @@ class Picture {
 		$temp = $this->picGDRes;
 		
 		//Make greyscale
-		$grey = imagecopymergegrey($temp, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, 0);
+		$grey = imagecopymergegray($this->picGDRes, $temp, 0,0,0,0, $this->picWidth, $this->picHeight, 0);
 		
 		if (!$grey) {
 			//Destroy the temporary image
