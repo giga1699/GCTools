@@ -105,7 +105,7 @@ class Picture {
 		}
 		//Ensure file type was set
 		if (!isset($this->picType) || empty($this->picType) || is_null($this->picType) || !isset($this->picGDRes) || empty($this->picGDRes) || is_null($this->picGDRes))
-			die("Could not load GD resource");
+			return FALSE;
 			
 		//Get image width and height
 		$this->picWidth = imagesx($this->picGDRes);
@@ -235,6 +235,8 @@ class Picture {
 	public function save($fileLoc) {
 		//Precondition: picType, picGDRes and fileLoc should be set
 		//Postcondition: File is saved to fileLoc
+		
+		echo "Type: " . $this->picType . "<br>\nRes: " . $this->picGDRes . "<br>\nLoc: " . $fileLoc;
 		
 		if (!isset($this->picType) || !isset($this->picGDRes) || !isset($fileLoc))
 			return FALSE;
