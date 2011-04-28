@@ -80,6 +80,7 @@ class Page {
 	protected $pageChangeFreq;
 	protected $pagePriority;
 	protected $pageEnabled;
+	protected $pagePHP;
 	
 	//Constructor
 	public function Page() {
@@ -91,6 +92,9 @@ class Page {
 		
 		//Default is defined above
 		$this->pageEnabled = PENABLED;
+		
+		//By default all pages are NOT PHP pages
+		$this->pagePHP = FALSE;
 		
 		return TRUE;
 	}
@@ -240,8 +244,10 @@ class Page {
 		//Precondition: Content should be set
 		//Postcondition: Returns content, or FALSE on failure
 		
-		if (isset($this->pageContent))
+		if (isset($this->pageContent) && $this->pagePHP == FALSE)
 			return $this->pageContent;
+		elseif (isset($this->pageContent) && $this->pagePHP == TRUE)
+			return eval($this->pageContent);
 		else
 			return FALSE;
 	}
@@ -538,6 +544,50 @@ class Page {
 			return FALSE;
 		
 		if ($this->pageEnabled == TRUE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * setPHP() function
+	 * 
+	 * No input
+	 * 
+	 * This function sets the PHP page flag that is used when getting
+	 * the contents of a particular page.
+	 * 
+	 * Returns TRUE on success, and FALSE on failure
+	 */
+	public function setPHP() {
+		//Precondition: None
+		//Postcondition: $pagePHP should be set to TRUE
+		
+		$this->pagePHP = TRUE;
+		
+		if ($this->pagePHP == TRUE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * unsetPHP() function
+	 * 
+	 * No input
+	 * 
+	 * This function removes the PHP page flage that is used when getting
+	 * the contents of a particular page.
+	 * 
+	 * Returns TRUE on success, and FALSE on failure
+	 */
+	public function unsetPHP() {
+		//Precondition: None
+		//Postcondition: $pagePHP flag is set to FALSE
+		
+		$this->pagePHP = FALSE;
+		
+		if ($this->pagePHP == FALSE)
 			return TRUE;
 		else
 			return FALSE;
