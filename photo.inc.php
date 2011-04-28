@@ -3,7 +3,7 @@
  * Filename: photo.inc.php
  * @author: J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide phto support
- * @version: 0.0.5
+ * @version: 0.1.0
  * File created: 02DEC10
  * File updated: 28APR11
  * @package GCTools
@@ -23,6 +23,7 @@
  * Fixed resize function
  * Enabled the ability to write white text to top-left corner of picture
  * Added multiple colors to site text
+ * Moved to version 0.1.0
  * 
  * 29DEC10:
  * Added save function
