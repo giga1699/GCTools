@@ -22,6 +22,7 @@
  * Added another way to get the height/width in the event of a failure
  * Fixed resize function
  * Enabled the ability to write white text to top-left corner of picture
+ * Added multiple colors to site text
  * 
  * 29DEC10:
  * Added save function
@@ -36,6 +37,11 @@
 define("PT_JPG", 0);
 define("PT_GIF", 1);
 define("PT_PNG", 2);
+
+//Text colors
+define("CLR_WHITE", 0);
+define("CLR_BLACK", 1);
+define("CLR_BLUE", 2);
 
 class Picture {
 	//Variables for picture class
@@ -214,7 +220,7 @@ class Picture {
 	 * 
 	 * Returns TRUE on success, and FALSE on failure.
 	 */
-	public function addSiteText($text) {
+	public function addSiteText($text, $color=CLR_WHITE) {
 		//Precondition: A GD resource should exist, and text should not be empty
 		//Postcondition: Add text on top of the image
 		
@@ -226,8 +232,20 @@ class Picture {
 		if (!isset ($text) || is_null($text) || empty($text))
 			return FALSE;
 		
-		//Add white text to picture
-		$textcolor = imagecolorallocate($this->picGDRes, 255, 255, 255);
+		//Create color
+		switch($color) {
+			case CLR_BLUE:
+				$textcolor = imagecolorallocate($this->picGDRes, 0, 0, 255);
+			break;
+			case CLR_BLACK:
+				$textcolor = imagecolorallocate($this->picGDRes, 0, 0, 0);
+			break;
+			case CLR_WHITE:
+			default:
+				$textcolor = imagecolorallocate($this->picGDRes, 255, 255, 255);
+			break;
+		}
+		//Add text to picture
 		if (!imagestring($this->picGDRes, 2, 5, 5, $text, $textcolor))
 			return FALSE;
 		else
