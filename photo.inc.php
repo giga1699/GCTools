@@ -248,7 +248,7 @@ class Picture {
 	 * 
 	 * Return TRUE on success, and FALSE on failure.
 	 */
-	public function save($fileLoc) {
+	public function display() {
 		switch ($this->picType) {
 			case PT_JPG:
 				imagejpeg($this->picGDRes);
