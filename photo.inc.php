@@ -101,7 +101,7 @@ class Picture {
 			break;
 		}
 		//Ensure file type was set
-		if (!isset($this->picType) || empty($this->picType) || is_null($this->picType) || empty($this->picGDRes) || is_null($this->picGDRes))
+		if (!isset($this->picType) || empty($this->picType) || is_null($this->picType) || !isset($this->picGDRes) || empty($this->picGDRes) || is_null($this->picGDRes))
 			return FALSE;
 			
 		//Get image width and height
