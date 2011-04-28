@@ -199,7 +199,7 @@ class Picture {
 		$temp = imagecreatetruecolor($this->picWidth, $this->picHeight);
 		
 		//Make greyscale
-		$grey = imagecopymergegray($temp, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, 0);
+		$grey = imagecopymergegray($temp, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, 20);
 		
 		if (!$grey) {
 			imagedestroy($temp);	
