@@ -153,23 +153,15 @@ class Picture {
 		if (!isset($this->picWidth) || !isset($this->picHeight))
 			return FALSE;
 		
-		//Copy the resource
-		$temp = $this->picGDRes;
-		
 		//Resize the image
-		$resize = imagecopyresampled($this->picGDRes, $temp, 0,0,0,0, $this->picWidth, $this->picHeight, $width, $height);
-		if (!$resize) {
-			//Destroy the temporary image
-			imagedestroy($temp);
+		$resize = imagecopyresampled($this->picGDRes, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, $width, $height);
+		if (!$resize)imagedestroy($temp);
 			return FALSE;
-		}
 		
 		//Reset the width and height
 		$this->picWidth = imagesx($this->picGDRes);
 		$this->picHeight = imagesy($this->picGDRes);
 		
-		//Destroy the temporary image
-		imagedestroy($temp);
 		return TRUE;
 	}
 	
@@ -191,25 +183,13 @@ class Picture {
 		if (!isset($this->picGDRes) || is_null($this->picGDRes) || empty($this->picGDRes))
 			return FALSE;
 		
-		//Ensure height/width is set
-		if (!isset($this->picWidth) || !isset($this->picHeight))
-			return FALSE;
-		 
-		//Create temporary image
-		$temp = imagecreatetruecolor($this->picWidth, $this->picHeight);
-		
 		//Make greyscale
-		$grey = imagecopymergegray($temp, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, 20);
+		$grey = imagefilter($this->picGDRes, IMG_FILTER_GRAYSCALE);
 		
-		if (!$grey) {
-			imagedestroy($temp);	
+		if (!$grey)
 			return FALSE;
-		}
-		else {
-			imagedestroy($this->picGDRes);
-			$this->picGDRes = $temp;
+		else
 			return TRUE;
-		}
 	}
 	
 	/*
