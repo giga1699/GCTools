@@ -14,6 +14,7 @@
  * 28APR2011:
  * Added GD library detection, and loading
  * Added other picture types to save function
+ * Added display function
  * 
  * 29DEC10:
  * Added save function
@@ -231,6 +232,31 @@ class Picture {
 			break;
 			case PT_PNG:
 				imagepng($this->picGDRes, $fileLoc, 75);
+			break;
+			default:
+				return FALSE;
+		}
+		
+		return TRUE;
+	}
+	
+/*
+	 * display() function
+	 * 
+	 * This function outputs the current image to the web browser
+	 * 
+	 * Return TRUE on success, and FALSE on failure.
+	 */
+	public function save($fileLoc) {
+		switch ($this->picType) {
+			case PT_JPG:
+				imagejpeg($this->picGDRes);
+			break;
+			case PT_GIF:
+				imagegif($this->picGDRes);
+			break;
+			case PT_PNG:
+				imagepng($this->picGDRes);
 			break;
 			default:
 				return FALSE;
