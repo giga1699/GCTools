@@ -10,10 +10,14 @@
  * @subpackage Cache
  * 
  * Changelog:
+ * Began to utilize the File class
  */
 
 //Declare the namespace
 //namespace GCTools/Cache;
+
+//Requires the use of the File class
+require_once("file.inc.php");
 
 //Cache class
 class Cache {
