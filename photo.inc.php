@@ -112,8 +112,16 @@ class Picture {
 		$this->picHeight = imagesy($this->picGDRes);
 		
 		//Check that width/height was set
-		if (!isset($this->picWidth) || !isset($this->picHeight))
-			return FALSE;
+		if (!isset($this->picWidth) || !isset($this->picHeight)) {
+			//Try to get the width/height another way
+			$size = getimagesize($file);
+			if (!$size)
+				return FALSE;
+			else {
+				$this->picWidth = $size[0];
+				$this->picHeight = $size[1];
+			}
+		}
 		
 		return TRUE;
 	}
