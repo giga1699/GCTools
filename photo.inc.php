@@ -72,6 +72,8 @@ class Picture {
 		//Precondition: A valid file location is given
 		//Postcondition: The file is loaded into GD, and most of the class attributes are filled
 		
+		echo "Loading file: " . $file . "<br>\n";
+		
 		//Ensure file exists
 		if (!file_exists($file))
 			return FALSE;
@@ -236,7 +238,7 @@ class Picture {
 		//Precondition: picType, picGDRes and fileLoc should be set
 		//Postcondition: File is saved to fileLoc
 		
-		echo "Type: " . $this->picType . "<br>\nRes: " . $this->picGDRes . "<br>\nLoc: " . $fileLoc;
+		echo "Type: " . $this->picType . "<br>\nRes: " . $this->picGDRes . "<br>\nLoc: " . $fileLoc . "<br>\n";
 		
 		if (!isset($this->picType) || !isset($this->picGDRes) || !isset($fileLoc))
 			return FALSE;
