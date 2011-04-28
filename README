@@ -13,8 +13,31 @@ enable the developer to create a CMS using out framework.
 
 /* Table of Contents */
 1.) To-Do list
-2.) Classes
-3.) Examples
+2.) Files
+3.) Classes
+4.) Examples
 
 /* Section 1: To-Do List */
 Finish this README file. ;-)
+
+/* Section 2: Files */
+1.) database.inc.php
+    a.) Database class
+    b.) MSSQL class
+    c.) MySQL class
+    d.) PGSQL class
+    e.) SQLite class
+2.) gallery.photo.inc.php
+3.) mail.inc.php
+    a.) Attachment class
+    b.) EMail class
+4.) navigation.inc.php
+    a.) Navigation class
+    b.) Page class
+5.) photo.inc.php
+    a.) Picture class
+6.) security.inc.php
+
+/* Section 3: Classes */
+
+/* Section 4: Examples */
