@@ -266,6 +266,12 @@ class Picture {
 	 * Return TRUE on success, and FALSE on failure.
 	 */
 	public function display() {
+		//Precondition: picType and picGDResshould be set
+		//Postcondition: File is displayed
+		
+		if (!isset($this->picType) || !isset($this->picGDRes))
+			return FALSE;
+		
 		switch ($this->picType) {
 			case PT_JPG:
 				imagejpeg($this->picGDRes);
