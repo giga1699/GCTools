@@ -150,17 +150,26 @@ class Picture {
 			return FALSE;
 		
 		//Ensure height/width is set
-		if (!isset($this->picWidth) || !isset($this->picHeight))
+		if (!isset($this->picWidth) || !isset($this->picHeight) || !isset($width) || !isset($height))
 			return FALSE;
 		
+		//Create new image
+		$new = imagecreatetruecolor($width, $height);
+		
 		//Resize the image
-		$resize = imagecopyresampled($this->picGDRes, $this->picGDRes, 0,0,0,0, $this->picWidth, $this->picHeight, $width, $height);
-		if (!$resize)imagedestroy($temp);
+		$resize = imagecopyresampled($new, $this->picGDRes, 0,0,0,0, $width, $height, $this->picWidth, $this->picHeight);
+		if (!$resize) {
+			imagedestroy($new);
 			return FALSE;
+		}
 		
 		//Reset the width and height
 		$this->picWidth = imagesx($this->picGDRes);
 		$this->picHeight = imagesy($this->picGDRes);
+		
+		//Redefine Res, and destroy old image
+		imagedestroy($this->picGDRes);
+		$this->picGDRes = $new;
 		
 		return TRUE;
 	}
