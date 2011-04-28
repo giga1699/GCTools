@@ -225,7 +225,7 @@ class Picture {
 			}
 		}
 		
-		if (!$grey) {
+		if (!$gray) {
 			imagedestroy($gray);
 			return FALSE;
 		}
