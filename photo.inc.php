@@ -5,7 +5,7 @@
  * Purpose: Provide phto support
  * @version: 0.0.1
  * File created: 02DEC10
- * File updated: 29DEC10
+ * File updated: 28APR11
  * @package GCTools
  * @subpackage Photo
  * 
@@ -15,6 +15,7 @@
  * Added GD library detection, and loading
  * Added other picture types to save function
  * Added display function
+ * Fixed resize function call to imagecopyresampled
  * 
  * 29DEC10:
  * Added save function
@@ -133,7 +134,7 @@ class Picture {
 		$temp = $this->picGDRes;
 		
 		//Resize the image
-		$resize = imagecopyresampled($this->picGDRes, $temp, 0,0,0,0, $width, $height, $this->picWidth, $this->picHeight);
+		$resize = imagecopyresampled($this->picGDRes, $temp, 0,0,0,0, $this->picWidth, $this->picHeight, $width, $height);
 		if (!$resize) {
 			//Destroy the temporary image
 			imagedestroy($temp);
