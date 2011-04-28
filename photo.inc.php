@@ -86,6 +86,7 @@ class Picture {
 				
 				//Import into GD, and set the resource
 				$this->picGDRes = imagecreatefromjpeg($file);
+				echo "test";
 			break;
 			case "image/gif":
 				$this->picType = PT_GIF;
