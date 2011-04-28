@@ -139,6 +139,10 @@ class Picture {
 		if (!isset($this->picGDRes) || is_null($this->picGDRes) || empty($this->picGDRes))
 			return FALSE;
 		
+		//Ensure height/width is set
+		if (!isset($this->picWidth) || !isset($this->picHeight))
+			return FALSE;
+		
 		//Copy the resource
 		$temp = $this->picGDRes;
 		
@@ -177,6 +181,10 @@ class Picture {
 		if (!isset($this->picGDRes) || is_null($this->picGDRes) || empty($this->picGDRes))
 			return FALSE;
 		
+		//Ensure height/width is set
+		if (!isset($this->picWidth) || !isset($this->picHeight))
+			return FALSE;
+		 
 		//Create temporary image
 		$temp = imagecreatetruecolor($this->picWidth, $this->picHeight);
 		
