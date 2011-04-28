@@ -32,7 +32,7 @@ class Picture {
 	protected $picSize; //Size of picture (in bytes)
 	protected $picHeight; //In pixels
 	protected $picWidth; //In pixels	
-	protected $picType;
+	protected $picType; //Picture type
 	protected $picName; //Friendly name (Not required)
 	protected $picGDRes; //Image resource for GD
 	
@@ -40,6 +40,16 @@ class Picture {
 	public function Picture($loc=NULL) {
 		//Precondition: None, or a file location is given
 		//Postcondition: If file location is given, the file is loaded. Otherwise, the class should just be created
+		
+		//Ensure that GD has been loaded
+		if (!extension_loaded("gd")) {
+			//Try to load the extension
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+		        dl('php_gd2.dll') or die ("Unable to load library.\n");
+		    } else {
+		        dl('gd.so') or die("Unable to load library.\n");
+		    }
+		}
 		
 		//Load picture if loc is given
 		if (isset($loc))
