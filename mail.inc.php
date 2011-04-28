@@ -167,7 +167,7 @@ class Attachment {
 			//We have the right version to use Fileinfo
 			
 			//Create new instance of finfo
-			$finfo = new finfo(FILEINFO_MIME_TYPE);
+			$finfo = finfo_open(FILEINFO_MIME_TYPE);
 			
 			//Add MIME type
 			$this->fileMIMEType = finfo_file($finfo, $file);
