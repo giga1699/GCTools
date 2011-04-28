@@ -228,7 +228,7 @@ class Picture {
 		
 		//Add white text to picture
 		$textcolor = imagecolorallocate($this->picGDRes, 255, 255, 255);
-		if (!imagestring($this->picGDRes, 2, 5, 5, $test, $textcolor))
+		if (!imagestring($this->picGDRes, 2, 5, 5, $text, $textcolor))
 			return FALSE;
 		else
 			return TRUE;
