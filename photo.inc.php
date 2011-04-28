@@ -3,7 +3,7 @@
  * Filename: photo.inc.php
  * @author: J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide phto support
- * @version: 0.0.1
+ * @version: 0.0.5
  * File created: 02DEC10
  * File updated: 28APR11
  * @package GCTools
@@ -20,6 +20,8 @@
  * Added pre/post-condition checking to display and save functions
  * Added additional error checking to multiple functions
  * Added another way to get the height/width in the event of a failure
+ * Fixed resize function
+ * Enabled the ability to write white text to top-left corner of picture
  * 
  * 29DEC10:
  * Added save function
@@ -224,7 +226,12 @@ class Picture {
 		if (!isset ($text) || is_null($text) || empty($text))
 			return FALSE;
 		
-		//TODO: Add text to picture
+		//Add white text to picture
+		$textcolor = imagecolorallocate($this->picGDRes, 255, 255, 255);
+		if (!imagestring($this->picGDRes, 2, 5, 5, $test, $textcolor))
+			return FALSE;
+		else
+			return TRUE;
 	}
 	
 	/*
