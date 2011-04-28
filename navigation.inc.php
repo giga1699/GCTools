@@ -3,13 +3,16 @@
  * Filename: navigation.inc.php
  * @author J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide information about webpage
- * @version 0.1.0
+ * @version 0.1.1
  * File created: 03DEC10
- * File updated: 29DEC10
+ * File updated: 28APR11
  * @package GCTools
  * @subpackage Navigation
  * 
  * Change log:
+ * 
+ * 28APR11:
+ * Added the ability to have PHP code in page contents
  * 
  * 29DEC10:
  * Changed setLastMod to format to YYYY-MM-DD HH:MM:SS
