@@ -27,7 +27,7 @@ class File {
 		$this->fileNoError = $this->addFile($file);
 	}
 	
-	protected function addFile($file) {
+	private function addFile($file) {
 		/* Precondition: A file name, with location, is given */
 		/* Postcondition: The file is made into an attachment.
 		 * Returns FALSE if anything fails.
