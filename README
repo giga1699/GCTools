@@ -7,7 +7,7 @@
 
 GCTools is a PHP framework that is meant to enable developers to create
 PHP applications quickly, and effectively. It can be used to develop
-most any PHP application. It also allow for the extension of the
+most any PHP application. It also allows for the extension of the
 built-in classes so that you can adapt the framework to meet your
 specific needs.
 
