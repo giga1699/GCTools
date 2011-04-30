@@ -122,7 +122,7 @@ class Cache {
 		}
 		
 		//Write the $fileCache to the cache directory
-		$cacheFile = fopen($this->cacheDir . $this->cacheFiles[$fileID]->getFileName . ".cache.html", "w");
+		$cacheFile = fopen($this->cacheDir . $this->cacheFiles[$fileID]->getFileName() . ".cache.html", "w");
 		
 		//Check that we created the file okay
 		if (!$cacheFile)
