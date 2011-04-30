@@ -5,11 +5,16 @@
  * Purpose: Provide cache functionality.
  * @version 0.0.1
  * File created: 28APR2011
- * File modified: 28APR2011
+ * File modified: 30APR2011
  * @package GCTools
  * @subpackage Cache
  * 
  * Changelog:
+ * 
+ * 30APR2011:
+ * Fixed calling the getFileName function
+ * 
+ * 28APR2011:
  * Began to utilize the File class
  * Added getters/setters for cacheDir
  */
@@ -36,7 +41,11 @@ class Cache {
 		
 		//Check preconditions
 		if (!isset($cacheDir))
-			return FALSE;
+			throw new Exception("You must define the cacheDirectory");
+		
+		//Check that the directory exists
+		if (!is_dir($cacheDir) || !is_writable($cacheDir))
+			throw new Exception("Cache directory does not exists");
 		
 		//Set the initial conditions
 		$this->cacheDir = $cacheDir;
