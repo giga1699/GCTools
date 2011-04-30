@@ -70,11 +70,14 @@ class Picture {
 		//Ensure that GD has been loaded
 		if (!extension_loaded("gd")) {
 			//Try to load the extension
-			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-		        dl('php_gd2.dll') or die ("Unable to load library.\n");
-		    } else {
-		        dl('gd.so') or die("Unable to load library.\n");
-		    }
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+		        dl('php_gd2.dll');
+		    else
+		        dl('gd.so');
+		    
+		    //Ensure extension is loaded
+		    if (!extension_loaded("gd"))
+		    	throw new Exception("Unable to load GD library");
 		}
 		
 		//Load picture if loc is given
