@@ -45,7 +45,7 @@ class Cache {
 		
 		//Check that the directory exists
 		if (!is_dir($cacheDir) || !is_writable($cacheDir))
-			throw new Exception("Cache directory does not exists");
+			throw new Exception("Cache directory does not exist, or is not writable");
 		
 		//Set the initial conditions
 		$this->cacheDir = $cacheDir;
