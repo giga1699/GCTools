@@ -16,6 +16,7 @@
 //namespace GCTools/File;
 
 class File {
+	protected $fileLoc;
 	protected $fileName;
 	protected $fileMIMEType;
 	protected $fileBuffer;
@@ -23,6 +24,13 @@ class File {
 	protected $fileNoError;
 	
 	public function File($file) {
+		//Check that the file exists
+		if (!is_file($file))
+			throw new Exception("File does not exist.");
+		
+		//Save original location
+		$this->fileLoc = $file;
+		
 		//Add file
 		$this->fileNoError = $this->addFile($file);
 	}
@@ -170,6 +178,31 @@ class File {
 			return FALSE;
 		else
 			return TRUE;
+	}
+	
+	/*
+	 * moveFile($newFile) function
+	 * 
+	 * $newFile => Defines the location, and name, of the new file
+	 * 
+	 * This function can move, or rename, a file that has been loaded.
+	 * 
+	 * Returns TRUE on success, and FALSE on failure
+	 */
+	public function moveFile($newFile) {
+		//Precondition: $newFile should be set
+		//Postcondition: File should be moved. Returns TRUE on success, and FALSE on failure
+		
+		//Try to move the file
+		rename($this->fileLoc, $newFile);
+		
+		//Check that file was moved
+		if (is_file($newFile)) {
+			$this->fileLoc = $newFile;
+			return TRUE;
+		}
+		else
+			return FALSE;
 	}
 }
 
