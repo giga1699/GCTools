@@ -5,11 +5,14 @@
  * Purpose: Provide phto support
  * @version: 0.1.0
  * File created: 02DEC10
- * File updated: 28APR11
+ * File updated: 30APR11
  * @package GCTools
  * @subpackage Photo
  * 
  * Change log:
+ * 
+ * 30APR2011:
+ * Used file.inc.php to load picture from file
  * 
  * 28APR2011:
  * Added GD library detection, and loading
@@ -34,6 +37,9 @@
  */
 
 //namespace GCTools/Photo;
+
+//Requires use of file.inc.php
+require_once("file.inc.php");
 
 //Picture types
 define("PT_JPG", 0);
@@ -72,8 +78,12 @@ class Picture {
 		}
 		
 		//Load picture if loc is given
-		if (isset($loc))
-			return $this->loadFromFile($loc);
+		if (isset($loc)) {
+			if ($this->loadFromFile($loc))
+				return TRUE;
+			else
+				throw new Exception("Could not load picture from file");
+		}
 		else		
 			return TRUE;
 	}
@@ -87,15 +97,20 @@ class Picture {
 		//Ensure file exists
 		if (!file_exists($file))
 			return FALSE;
+			
+		//Load file
+		$picture = new File($file);
+		if ($picture->hadError())
+			return FALSE;
 		
 		//Get file name
-		$this->picName = basename($file);
+		$this->picName = $picture->getFileName();
 		
 		//Get file size
-		$this->picSize = filesize($file);
+		$this->picSize = $picture->getSize();
 		
 		//Determine file type
-		switch(mime_content_type($file)) {
+		switch($picture->getMIMEType()) {
 			case "image/jpeg":
 				$this->picType = PT_JPG;
 				
