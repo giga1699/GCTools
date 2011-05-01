@@ -247,7 +247,7 @@ class User {
 		if (!isset($this->userFName) || !isset($this->userLName))
 			return FALSE;
 			
-		return $this->userFName . (isset($this->userMName) ? " " . $this->userMName : " ") . $this->userLName; 
+		return $this->userFName . (isset($this->userMName) ? " " . $this->userMName . " " : " ") . $this->userLName; 
 	}
 	
 	/*
