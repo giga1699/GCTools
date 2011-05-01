@@ -273,6 +273,8 @@ class User {
 		
 		if (isset($mname))
 			$this->userMName = $mname;
+		else
+			unset($this->userMName);
 			
 		if ($this->userFName != $fname || $this->userLName != $lname)
 			return FALSE;
