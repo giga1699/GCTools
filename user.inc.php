@@ -30,6 +30,7 @@ class User {
 	protected $userEMail; //User's e-mail address
 	protected $userHashType; //How the user's password is hashed
 	protected $userPassword; //User's hashed password
+	protected $userPhone; //User's phone number
 	
 	//Constructor
 	public function User($userID, $userNick, $userHashType, $userPassword, $userEMail=NULL, $userLName=NULL, $userFName=NULL, $userMName=NULL) {
@@ -284,6 +285,52 @@ class User {
 			return FALSE;
 		else
 			return TRUE;
+	}
+	
+	/*
+	 * getUserPhone() function
+	 * 
+	 * No inputs
+	 * 
+	 * This function returns a formatted phone number for the user
+	 * 
+	 * Returns the user's phone number, or FALSE
+	 */
+	public function getUserPhone() {
+		//Precondition: userPhone should be set
+		//Postcondition: Return the user's phone number, or FALSE
+		
+		if (!isset($this->userPhone))
+			return FALSE;
+		
+		return "(" . substr($this->userPhone, 0, 3) . ") " . substr($this->userPhone, 3, 3) . "-" . substr($this->userPhone, 6);
+	}
+	
+	/*
+	 * setUserPhone($number) function
+	 * 
+	 * $number => Defines the phone number
+	 * 
+	 * This function sets the phone number for the user
+	 * 
+	 * Returns TRUE on success and FALSE on failure
+	 */
+	public function setUserPhone($number) {
+		//Precondition: $number should be set, and be a 10-digit number
+		//Postcondition: Set the user's phone number. Return TRUE on success and FALSE on failure.
+		
+		if (!isset($number))
+			return FALSE;
+		
+		//Remove all non-numeric characters
+		$number = preg_replace("/[^0-9]/", "", $number);
+		
+		if (strlen($number) != 10)
+			return FALSE;
+			
+		$this->userPhone = $number;
+		
+		return TRUE;
 	}
 }
 ?>
