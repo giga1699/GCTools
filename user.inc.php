@@ -17,7 +17,8 @@
 
 //Define hash types
 define("USER_PWHASH_NONE", 0); //This is generally used when another application hashes the password
-define("USER_PWHASH_MD5", 1);
+define("USER_PWHASH_MD5", 1); //MD5 Hashes
+define("USER_PWHASH_SHA1", 2); //SHA1 Hashes
 
 //User class
 class User {
@@ -182,6 +183,9 @@ class User {
 			break;
 			case USER_PWHASH_MD5:
 				$this->userPassword = md5($newPass);
+			break;
+			case USER_PWHASH_SHA1:
+				$this->userPassword = sha1($newPass);
 			break;
 		}
 		
