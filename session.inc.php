@@ -22,9 +22,9 @@ class Session {
 	}
 	
 	/*
-	 * init() function
+	 * init($session_name=NULL) function
 	 * 
-	 * No inputs
+	 * $session_name => Defines a name for the session
 	 * 
 	 * This function checks if a session has been created already. If one
 	 * has not been created, then the init function will create one. Otherwise
@@ -32,11 +32,13 @@ class Session {
 	 * 
 	 * Returns the current instance of the Session, or FALSE
 	 */
-	public function init() {
+	public function init($session_name=NULL) {
 		//Precondition: None
 		//Postcondition: Return the current instance of the Session, or FALSE
 		
 		if (!isset(self::$instance)) {
+			if (isset($session_name))
+				session_name($session_name);
 			if (session_start()) {
 				$c = __CLASS__;
 				self::$instance = new $c;
