@@ -185,12 +185,12 @@ class Picture {
 		if ($this->picWidth > $this->picHeight) {
 			$newwidth = $width;
 			$ratio = $this->picHeight / $this->picWidth;
-			$newheight = $newwidth * ratio;
+			$newheight = $newwidth * $ratio;
 		}
 		else {
 			$newheight = $height;
 			$ratio = $this->picWidth / $this->picHeight;
-			$newwidth = $newheight * ratio;
+			$newwidth = $newheight * $ratio;
 		}
 		
 		//Create new image
