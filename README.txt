@@ -1,4 +1,10 @@
-﻿
+﻿/************************************************/
+/* GCTools - A PHP Framework			*/
+/* Developed by: J. "Giga" Murphy		*/
+/*    and M. "Beanyhead" Parker			*/
+/* Website: http://www.gigacreations.net/	*/
+/************************************************/
+
 Table of Contents
 Section 1: To-Do List	3
 Section 2: Files	4
