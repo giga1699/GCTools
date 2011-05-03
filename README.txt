@@ -13,16 +13,21 @@ Class Variables	4
 Class Functions	4
 Class example	5
 database.inc.php	6
-file.inc.php	6
-mail.inc.php	6
-navigation.inc.php	6
-photo.inc.php	6
-security.inc.php	6
-session.inc.php	6
-user.inc.php	6
-Credits	7
-Code Contributors	7
-Change Log	8
+Class Variables	6
+Database class	6
+MySQL class	6
+Class Functions	6
+Database class	6
+file.inc.php	7
+mail.inc.php	7
+navigation.inc.php	7
+photo.inc.php	7
+security.inc.php	7
+session.inc.php	7
+user.inc.php	7
+Credits	8
+Code Contributors	8
+Change Log	9
 
 Section 1: To-Do List
 Write up all the items left to-do ;-)
@@ -73,6 +78,19 @@ if (!$cache->createCache(“/path/to/my/file”)) {
 //We're done. The cached file is /path/to/my/cache/directory/file.cache.html
 ?>
 database.inc.php
+Class Variables
+Database class
+1.) dbType defines the type of database that is being used.
+2.) dbLoc defines the location of the database. This can be an IP address, a hostname, a file location, etc
+3.) dbUser defines the username used to connect to the database, if needed.
+4.) dbPass defines the password used to connect to the database, if needed.
+5.) dbName defines the name of the database to use.
+6.) lastError defines the text of the last error that occurred, if any.
+MySQL class
+1.) myCon defines the MySQL connection
+Class Functions
+Database class
+
 file.inc.php
 mail.inc.php
 navigation.inc.php
