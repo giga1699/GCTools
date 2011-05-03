@@ -16,7 +16,7 @@
 //Class uses Singleton pattern because you can have only 1 session open at a time.
 class Session {
 	private static $instance; //Holds the instance of the session class
-	protected static $sessionName; //The session's name
+	private static $sessionName; //The session's name
 	
 	private function Session() {
 		//Prevent user from creating the class
