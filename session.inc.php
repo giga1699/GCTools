@@ -17,6 +17,7 @@
 class Session {
 	private static $instance; //Holds the instance of the session class
 	private static $sessionName; //The session's name
+	private static $sessionID;
 	
 	private function Session() {
 		//Prevent user from creating the class
@@ -39,7 +40,7 @@ class Session {
 		
 		if (!isset(self::$instance)) {
 			if (isset($session_name)) {
-				$this->sessionName = $session_name;
+				self::$sessionName = $session_name;
 				session_name($session_name);
 			}
 			if (session_start()) {
