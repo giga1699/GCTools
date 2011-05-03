@@ -47,7 +47,7 @@ class Session {
 				self::$instance = new $c;
 				
 				//Update session ID
-				$this->sessionID = session_id();
+				self::$sessionID = session_id();
 			}
 			else
 				throw new Exception("Unable to start session");
