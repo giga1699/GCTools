@@ -181,18 +181,16 @@ class Picture {
 		if (!isset($this->picWidth) || !isset($this->picHeight) || !isset($width) || !isset($height))
 			return FALSE;
 		
-		//Get scaling
-		$xscale = $width/$this->picWidth;
-		$yscale = $height/$this->picHeight;
-		
-		//Calculate new width and height
-		if ($xscale > $yscale) {
-			$newwidth = round($width/(1/$xscale));
-			$newheight = round($height/(1/$xscale));
+		//Get ratio
+		if ($this->picWidth > $this->picHeight) {
+			$newwidth = $width;
+			$ratio = $this->picHeight / $this->picWidth;
+			$newheight = $newwidth * ratio;
 		}
 		else {
-			$newwidth = round($width/(1/$yscale));
-			$newheight = round($height/(1/$yscale));
+			$newheight = $height;
+			$ratio = $this->picWidth / $this->picHeight;
+			$newwidth = $newheight * ratio;
 		}
 		
 		//Create new image
