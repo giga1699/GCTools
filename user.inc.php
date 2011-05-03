@@ -31,9 +31,16 @@ class User {
 	protected $userHashType; //How the user's password is hashed
 	protected $userPassword; //User's hashed password
 	protected $userPhone; //User's phone number
+	/*Begin User Address*/
+	protected $userAddress1;
+	protected $userAddress2;
+	protected $userCity;
+	protected $userState;
+	protected $userZip;
+	/*End User Address*/
 	
 	//Constructor
-	public function User($userID, $userNick, $userHashType, $userPassword, $userEMail=NULL, $userLName=NULL, $userFName=NULL, $userMName=NULL) {
+	public function User($userID, $userNick, $userHashType, $userPassword, $userEMail=NULL, $userLName=NULL, $userFName=NULL, $userMName=NULL, $userPhone=NULL, $userAddress1=NULL, $userCity=NULL, $userState=NULL, $userZip=NULL, $userAddress2=NULL) {
 		//Precondition: userID, userNick, userEMail, userHashType and userPassword must be set
 		//Postcondition: The class is initialized
 		 
@@ -47,14 +54,26 @@ class User {
 		$this->userPassword = $userPassword;
 		
 		//Add additional variables if they are set
-		if (isset($userEMail))
-			$this->userEMail = $userEMail;
+		if (isset($userEMail)) {
+			if (!$this->setUserEMail($userEMail))
+				throw new Exception("Invalid E-Mail provided");
+		}
 		if (isset($userLName))
 			$this->userLName = $userLName;
 		if (isset($userFName))
 			$this->userFName = $userFName;
 		if (isset($userMName))
 			$this->userMName = $userMName;
+		if (isset($userPhone))
+			$this->setUserPhone($userPhone);
+		if (isset($userAddress1) && isset($userCity) && isset($userState) && isset($userZip)) {
+			$this->userAddress1 = $userAddress1;
+			if (isset($userAddress2))
+				$this->userAddress2 = $userAddress2;
+			$this->userCity = $userCity;
+			$this->userState = $userState;
+			$this->userZip = $userZip;
+		}
 	}
 	
 	/*
@@ -329,6 +348,57 @@ class User {
 			return FALSE;
 			
 		$this->userPhone = $number;
+		
+		return TRUE;
+	}
+	
+	/*
+	 * getUserAddress() function
+	 * 
+	 * No inputs
+	 * 
+	 * This function returns the formatted address for the user.
+	 * 
+	 * Returns the address, or FALSE on failure
+	 */
+	public function getUserAddress() {
+		//Precondition: User address should be defined
+		//Postcondition: Return the user's address, or FALSE on failure
+		
+		if (!isset($this->userAddress1) || !isset($this->userCity) || !isset($this->userState) || !isset($this->userZip))
+			return FALSE;
+		
+		return $this->userAddress1 . "\n" . (isset($this->userAddress2) ? $this->userAddress2 . "\n" : "") . $this->userCity . ", " . $this->userState . " " . $this->userZip;
+	}
+	
+	/*
+	 * setUserAddress($userAddress1, $userCity, $userState, $userZip, $userAddress2=NULL) function
+	 * 
+	 * $userAddress1 => Defines the first line of the address
+	 * $userCity => Defines the city for the address
+	 * $userState => Defines the state for the address
+	 * $userZip => Defines the zip code for the address
+	 * $userAddress2 => Defines the second line of the address
+	 * 
+	 * This function sets the user's address.
+	 * 
+	 * Returns TRUE on success, and FALSE otherwise
+	 */
+	public function setUserAddress($userAddress1, $userCity, $userState, $userZip, $userAddress2=NULL) {
+		//Precondition: $userAddress1, $userCity, $userState, $userZip should be set
+		//Postcondition: Set the user's address. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($userAddress1) || !isset($userCity) || !isset($userState) || !isset($userZip))
+			return FALSE;
+		
+		$this->userAddress1 = $userAddress1;
+		if (isset($userAddress2))
+			$this->userAddress2 = $userAddress2;
+		else
+			unset($this->userAddress2);
+		$this->userCity = $userCity;
+		$this->userState = $userState;
+		$this->userZip = $userZip;
 		
 		return TRUE;
 	}
