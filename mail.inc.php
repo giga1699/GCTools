@@ -5,16 +5,8 @@
  * Purpose: Provide email support
  * @version 1.1.0
  * File created: 10SEP2010
- * File updated: 14DEC2010
  * @package GCTools
  * @subpackage Mail
- * 
- * Changelog:
- * 
- * 14DEC2010:
- * Changed the Attachment isError function.
- * Added email validation.
- * Fixed the regex for the email validation.
  */
 
 //Declare the namespace

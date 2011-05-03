@@ -5,7 +5,6 @@
  * Purpose: Provide session functionality.
  * @version 0.0.1
  * File created: 02MAY2011
- * File modified: 02MAY2011
  * @package GCTools
  * @subpackage Session
  */

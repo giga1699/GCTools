@@ -5,22 +5,8 @@
  * Purpose: Provide database functionality.
  * @version 0.2.1
  * File created: 10SEP2010
- * File modified: 14DEC2010
  * @package GCTools
  * @subpackage Database
- * 
- * Changelog:
- * 
- * 14DEC2010:
- * Added returns to the constructors, and the connect function for MySQL.
- * Fixed hasError() function.
- * Updated connected() function.
- * Removed some of the exception errors during the connection/reconnection process.
- * Changed lastEror to protected to fix issues when extending.
- * Added specialError to the MySQL throwError function. Used in connect() function.
- * 
- * 10DEC2010:
- * Added some more comments
  */
 
 //Declare the namespace

@@ -5,18 +5,8 @@
  * Purpose: Provide cache functionality.
  * @version 0.0.1
  * File created: 28APR2011
- * File modified: 30APR2011
  * @package GCTools
  * @subpackage Cache
- * 
- * Changelog:
- * 
- * 30APR2011:
- * Fixed calling the getFileName function
- * 
- * 28APR2011:
- * Began to utilize the File class
- * Added getters/setters for cacheDir
  */
 
 //Declare the namespace

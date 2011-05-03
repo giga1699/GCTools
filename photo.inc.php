@@ -1,39 +1,12 @@
 <?php
-/*
+/**
  * Filename: photo.inc.php
  * @author: J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide phto support
  * @version: 0.1.0
  * File created: 02DEC10
- * File updated: 30APR11
  * @package GCTools
  * @subpackage Photo
- * 
- * Change log:
- * 
- * 30APR2011:
- * Used file.inc.php to load picture from file
- * 
- * 28APR2011:
- * Added GD library detection, and loading
- * Added other picture types to save function
- * Added display function
- * Fixed resize function call to imagecopyresampled
- * Added additional error checking
- * Added pre/post-condition checking to display and save functions
- * Added additional error checking to multiple functions
- * Added another way to get the height/width in the event of a failure
- * Fixed resize function
- * Enabled the ability to write white text to top-left corner of picture
- * Added multiple colors to site text
- * Moved to version 0.1.0
- * Modified how the grayscale image is created
- * 
- * 29DEC10:
- * Added save function
- * 
- * 10DEC10:
- * Changed constructor if from ($loc != NULL) to isset($loc)
  */
 
 //namespace GCTools/Photo;

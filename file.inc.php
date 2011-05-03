@@ -5,11 +5,8 @@
  * Purpose: Provide file functionality.
  * @version 0.0.1
  * File created: 28APR2011
- * File modified: 28APR2011
  * @package GCTools
  * @subpackage File
- * 
- * Changelog:
  */
 
 //Declare the namespace

@@ -5,54 +5,8 @@
  * Purpose: Provide information about webpage
  * @version 0.1.1
  * File created: 03DEC10
- * File updated: 28APR11
  * @package GCTools
  * @subpackage Navigation
- * 
- * Change log:
- * 
- * 28APR11:
- * Added the ability to have PHP code in page contents
- * 
- * 29DEC10:
- * Changed setLastMod to format to YYYY-MM-DD HH:MM:SS
- * 
- * 14DEC10:
- * Added pageEnabled, and getters/setters for the variable.
- * Added isEnabled function.
- * Added PENABLED definition to set the default value for new pages created.
- * Updated sitemap functions to not add pages that are disabled.
- * 
- * 10DEC10:
- * Fixed issue with setPriority not allowing zero
- * Added the date verification to setLastMod function
- * Allowed hyphens to page names
- * Removed "Page" from functions related to children
- *
- * 09DEC10:
- * Updated the sitemap functions
- * Changed how subpages are handled. Made it with the factory pattern, like the Navigation
- * Included the additional items to the XML of the sitemap.
- * Added pageExists($pageName) function.
- * Added getPage($pageName) function.
- * Added formatPageName($pageName) function
- * Fixed getPage and pageExists issues
- * Added regular expression for formatPageName function
- * Added getHomePage function
- * 
- * 05DEC10:
- * Created getSitemap function
- * Added to the Page class: $pageLastMod, $pageChangeFreq, $pagePriority
- * Created getters, and setters, for new Page variables
- * Added to addPage function to sort array, by page, after adding a page
- * Fixed $pagename in addPage function to account for spaces in page names
- * Created protected function addPageToSitemap($page)
- * 
- * 04DEC10:
- * Renamed page.navigation.inc.php to navigation.inc.php
- * Created Navigation class
- * Created navigation constructor
- * Created addPage function
  */
 
 //namespace GCTools/Navigation;
