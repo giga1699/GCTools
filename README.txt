@@ -119,6 +119,8 @@ user.inc.php
 Credits
 Code Contributors
 1.) M. “Beanyhead” Parker
+1. E-Mail: beanyhead@gmail.com
+2. Website: http://www.nomits.com/
 2.) R. Rios
 
 Change Log
