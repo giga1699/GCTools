@@ -20,20 +20,29 @@ database.inc.php	6
 Class Variables	6
 Database class	6
 MySQL class	6
+MSSQL class	6
+PGSQL class	6
+SQLite class	6
 Class Functions	6
 Database class	6
-file.inc.php	7
-mail.inc.php	7
-navigation.inc.php	7
-photo.inc.php	7
-security.inc.php	7
-session.inc.php	7
-user.inc.php	7
-Credits	8
-Code Contributors	8
-Change Log	9
-License	10
-GPL v3 License	10
+MySQL class	7
+MSSQL class	9
+PGSQL class	9
+SQLite class	9
+Class example	9
+MySQL class	9
+file.inc.php	10
+mail.inc.php	10
+navigation.inc.php	10
+photo.inc.php	10
+security.inc.php	10
+session.inc.php	10
+user.inc.php	10
+Credits	11
+Code Contributors	11
+Change Log	12
+License	13
+GPL v3 License	13
 
 About GCTools
 Purpose
@@ -105,9 +114,123 @@ Database class
 6.) lastError defines the text of the last error that occurred, if any.
 MySQL class
 1.) myCon defines the MySQL connection
+MSSQL class
+This class is currently not functional
+PGSQL class
+This class is currently not functional.
+SQLite class
+This class is currently not functional.
 Class Functions
 Database class
+ 1. (Protected) Database($loc, $user, $pass, $name, $type)
+(a) $loc defines the location of the database. This may be an IP address, a hostname or a location on the server.
+(b) $user defines the username used to login to the database.
+(c) $pass defines the password used in conjunction to the username to log into the server.
+(d) $name defines the default database to begin working with.
+(e) $type defines the type of database you will be working with.
+(f) Pre/Post-conditions:
+ i. Precondition: The database location, username, password, name and type should be defined.
+ ii. Postcondition: The class will set-up the variables that will be used to connect to the database, and conduct queries.
+(g) This sets up the class to perform database operations.
+ 2. hasError()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Returns TRUE if an error has occurred, and FALSE otherwise
+(b) This function will enable the user to check if an error has occurred during a database operation.
+ 3. getLastError()
+(a) Pre/Post-conditions:
+ i. Precondition: An error should have occurred.
+ ii. Postcondition: Returns the error message the the database gave when the last error occurred.
+(b) This function gets the last error message provided by the database.
+ 4. (protected) resetError()
+(a) Pre/Post-conditions:
+ i. Precondition: None.
+ ii. Postcondition: Any error is cleared from the class.
+(b) This function is used internally by the class to clear any previous errors that occurred.
+MySQL class
+ 1. MySQL($loc, $user, $pass, $name)
+(a) $loc defines the location of the MySQL server. This can be either an IP address, or a hostname.
+(b) $user defines the username used to log into the MySQL server.
+(c) $pass defines the password used in conjunction with the username to log into the database.
+(d) $name defines the default database to use to perform database functions.
+(e) Pre/Post-conditions:
+ i. Precondition: The location of the SQL server, the username, the password and the database name is given.
+ ii. Postcondition: The MySQL server is connected to
+(f) This function connects to a MySQL server to perform MySQL functions. It will attempt to load the MySQL libraries, if they are not already loaded. It will also initialize it's parent Database class so you can use all the functionality of the abstract Database class.
+ 2. (Private) connect()
+(a) Pre/Post-conditions:
+ i. Precondition: The MySQL class should be set up properly.
+ ii. Postcondition: The connection to the MySQL server is made, or errors or handled.
+(b) This function is the one that actually makes the connection to the MySQL database.
+ 3. (Protected) throwError([$specialError])
+(a) $specialError defines a unique error that MySQL may not handle by itself, or an error that occurs before a MySQL connection is established
+(b) Pre/Post-conditions:
+ i. Precondition: An error should have occurred
+ ii. Postcondition: The error is created in the Database class with the proper information.
+(c) This function is called internally when any error has occurred during MySQL operations.
+ 4. query($qString)
+(a) $qString defines the SQL Query string to be executed.
+(b) Pre/Post-conditions:
+ i. Precondition: A query should be presented
+ ii. Postcondition: The class will attempt to execute the query, and handle any errors.
+(c) SECURITY NOTE:
+ i. The user is responsible for handling any sort of SQL injection type attacks. This function DOES NOT handle this by itself.
+(d) This function takes a SQL query, and tries to execute it on a MySQL database. It will also handle any errors that occur during the execution of the query.
+ 5. changeDB($dbName)
+(a) $dbName defines the new database to use for queries.
+(b) Pre/Post-conditions:
+ i. Precondition: A database name is given
+ ii. Postcondition: The class attempts to change the database to use for MySQL operations. Returns TRUE on success, and FALSE on failure.
+(c) This function changes the database that is used to execute queries.
+ 6. escapeString($string)
+(a) $string defines a string to escape using MySQL
+(b) Pre/Post-conditions:
+ i. Precondition: A string should be given
+ ii. Postcondition: The string is escaped using the current MySQL connection.
+(c) This function escapes a string to be safe in a MySQL query.
+ 7. connected()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Returns TRUE if the MySQL connection is active, and FALSE otherwise
+(b) This function informs the user if the MySQL connection is still active, or not.
+ 8. reconnect()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Will close any current connection, and re-establish a connection to the MySQL server
+(b) This function is used to reconnect to a MySQL server. It is used internally if the MySQL connection is lost, and can be used by the user to reconnect using the given credentials at initialization time.
 
+MSSQL class
+This class is not currently functional.
+PGSQL class
+This class is not currently functional.
+SQLite class
+This class is not currently functional.
+Class example
+MySQL class
+<?php
+require_once(“database.inc.php”);
+
+try {
+	$mysql = new MySQL(“hostname”, “username”, “password”, “database”);
+}
+catch (Exception $e) {
+	//Something went wrong
+	echo $mysql->getLastError();
+}
+
+//Let's do a query
+$mysql->query(“SELECT * FROM `users` WHERE `username`='” . $mysql->escapeString($username) . “'”);
+
+//Check if we're still connected
+if (!$mysql->connected())
+	$mysql->reconnect();
+?>
+MSSQL class
+This class is not currently functional.
+PGSQL class
+This class is not currently functional.
+SQLite class
+This class is not currently functional.
 file.inc.php
 mail.inc.php
 navigation.inc.php
