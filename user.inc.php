@@ -319,7 +319,7 @@ class User {
 		if (!isset($this->userPhone))
 			return FALSE;
 		
-		return "(" . substr($this->userPhone, 0, 3) . ") " . substr($this->userPhone, 3, 3) . "-" . substr($this->userPhone, 6);
+		return $this->userPhone;
 	}
 	
 	/*
