@@ -135,9 +135,10 @@ abstract class Database {
 class MySQL extends Database {
 	//Variables for class
 	private $myCon; //Variable for keeping track of MySQL connection
+	protected $errorCallback;
 
 	//Constructor
-	public function MySQL($loc, $user, $pass, $name) {
+	public function MySQL($loc, $user, $pass, $name, $errorCallback=NULL) {
 		/* Precondition: The location of the MySQL server, the username,
 		 * the password, and the name of the database is given. Also, the
 		 * MySQL libraries should have been loaded.
@@ -158,6 +159,10 @@ class MySQL extends Database {
 
 		//Set up the parent class
 		$this->Database($loc, $user, $pass, $name, MYSQL) or die("Unable to initilize object.");
+		
+		//Set errorCallback, if needed
+		if (isset($errorCallback))
+			$this->errorCallback = $errorCallback;
 		
 		//Connect to the database
 		if (!$this->connect())
@@ -226,6 +231,9 @@ class MySQL extends Database {
 			$this->lastError = $specialError;
 		else
 			$this->lastError = "MySQL Error (".@mysql_errno($this->myCon)."): ".@mysql_error($this->myCon);
+		
+		if (isset($this->errorCallback))
+			$this->errorCallback($this->lastError);
 		
 		if (isset($this->lastError))
 			return TRUE;
