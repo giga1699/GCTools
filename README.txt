@@ -11,75 +11,76 @@ About GCTools	4
 Purpose	4
 History	4
 Future of GCTools	4
-Contributing to GCTools	4
-GCTools Files	5
-cache.inc.php	5
-Class Variables	5
-Class Functions	5
-Class example	6
-computer.inc.php	7
-Class Variables	7
-Class Functions	7
-Class Example	7
-database.inc.php	8
+GCTools file version scheme	4
+Contributing to GCTools	5
+GCTools Files	6
+cache.inc.php	6
+Class Variables	6
+Class Functions	6
+Class example	7
+computer.inc.php	8
 Class Variables	8
-Database class	8
-MySQL class	8
-MSSQL class	8
-PGSQL class	8
-SQLite class	8
 Class Functions	8
-Database class	8
+Class Example	8
+database.inc.php	9
+Class Variables	9
+Database class	9
 MySQL class	9
-MSSQL class	11
-PGSQL class	11
-SQLite class	11
-Class example	11
-MySQL class	11
+MSSQL class	9
+PGSQL class	9
+SQLite class	9
+Class Functions	9
+Database class	9
+MySQL class	10
 MSSQL class	12
 PGSQL class	12
 SQLite class	12
-error.inc.php	13
-Class Variables	13
-Class Functions	13
-Class Example	13
-file.inc.php	15
-Class Variables	15
-Class Functions	15
-Class Example	16
-mail.inc.php	18
-Class Variables	18
-Attachment Class	18
-EMail class	18
-Class Functions	18
-Attachment Class	18
-EMail class	18
-Class Example	20
-navigation.inc.php	21
-Class Variables	21
-Class Functions	21
-Class Example	21
-photo.inc.php	22
-Class Variables	22
-Class Functions	22
-Class Example	22
-security.inc.php	23
-Class Variables	23
-Class Functions	23
+Class example	12
+MySQL class	12
+MSSQL class	13
+PGSQL class	13
+SQLite class	13
+error.inc.php	14
+Class Variables	14
+Class Functions	14
+Class Example	14
+file.inc.php	16
+Class Variables	16
+Class Functions	16
+Class Example	17
+mail.inc.php	19
+Class Variables	19
+Attachment Class	19
+EMail class	19
+Class Functions	19
+Attachment Class	19
+EMail class	19
 Class Example	23
-session.inc.php	24
+navigation.inc.php	24
 Class Variables	24
 Class Functions	24
 Class Example	24
-user.inc.php	25
+photo.inc.php	25
 Class Variables	25
 Class Functions	25
 Class Example	25
-Credits	26
-Code Contributors	26
-Change Log	27
-License	28
-GPL v3 License	28
+security.inc.php	26
+Class Variables	26
+Class Functions	26
+Class Example	26
+session.inc.php	27
+Class Variables	27
+Class Functions	27
+Class Example	27
+user.inc.php	28
+Class Variables	28
+Class Functions	28
+Class Example	28
+Credits	29
+Code Contributors	29
+Change Log	30
+License	31
+GPL v3 License	31
 
 About GCTools
 Purpose
@@ -94,6 +95,20 @@ History
 Future of GCTools
 	The future of GCTools at this moment is unknown. Open-source developers are still needed to help contribute to the project, and the project is still lacking some major features.
 	You may check on the status of GCTools at the project's website, http://www.gigacreations.net/
+GCTools file version scheme
+	The version scheme for individual files uses 3 groups (Version: X.X.X). They are explained as follows:
+1. First group
+1. This is the overall file version.
+2. An integer greater than zero (0) indicates that everything in the file has been stabilized at one point. Please refer to the following groups for more information about this.
+2. Second group
+1. This indicates how many classes in the current file are stable.
+2. An integer of zero (0) means that no class is fully stable yet.
+3. An integer greater than zero (0) means that this many classes in the file are stable.
+4. This does not provide what classes are currently stable. Please refer to the change log for that information.
+3. Third group
+1. This is a revision number.
+2. It is not always updated (everyone forgets things sometimes), and thus shouldn't be relied upon.
+3. Basically, the higher the revision number, the greater likelihood that a particular class is almost stable.
 Contributing to GCTools
 	Contributions to the code of GCTools are always welcome. This is why we have released the code under the GPL v3 license. If you haven't already, feel free to fork our project on the GitHub site.
 	Additionally, if you'd like to become a long-term contributor to GCTools, please send us an e-mail at webmaster@gigacreations.net with some more information about you so we can add you as a contributor to the GitHub repository.
@@ -479,6 +494,60 @@ EMail class
  i. Precondition: The “Reply-to:” address should be set
  ii. Postcondition: Returns the “Reply-to:” address, or FALSE otherwise
 (b) This function allows the user to know the currently set “Reply-to:” address. If one is not currently set, the function will return FALSE.
+ 12. setSubject($subject)
+(a) $subject => Defines the subject of the current e-mail
+(b) Pre/Post-conditions:
+ i. Precondition: A subject should be defined
+ ii. Postcondition: Sets the subject of the current e-mail
+(c) This function allows the user to set a specific subject for the e-mail message
+ 13. getSubject()
+(a) Pre/Post-conditions:
+ i. Precondition: A subject should be defied already
+ ii. Postcondition: Return the subject of the e-mail message, or FALSE otherwise.
+(b) This function allows the user to see what the currently set subject is.
+ 14. setMessage($message)
+(a) $message => Defines the actual body of the e-mail message
+(b) Pre/Post-conditions:
+ i. Precondition: A message should be definied
+ ii. Postcondition: Set the message for the e-mail
+(c) This function allows the user to set the body of the e-mail message. It may, or may not, contain HTML and/or plain-text.
+ 15. getMessage()
+(a) Pre/Post-conditions:
+ i. Precondition: A message body should be set
+ ii. Postcondition: Return the message body, or FALSE otherwise
+(b) This function allows the user to see what the currently set message body is.
+ 16. addAttachment($file)
+(a) $file => Defines the location, and name, of a file on the system to attach to the e-mail message
+(b) Pre/Post-conditions:
+ i. Precondition: A valid file is given
+ ii. Postcondition: Attaches the given file to the e-mail message
+(c) This function allows the user to attach a file from the system to the e-mail to be sent out.
+ 17. setAddlHeaders($headers)
+(a) $headers => Defines additional headers to be set
+(b) Pre/Post-conditions:
+ i. Precondition: Valid headers are given
+ ii. Postcondition: Adds the additional headers to the e-mail
+(c) This function allows the user to add additional headers to the e-mail message. This function should not be used to set the “From:” or “Reply-To:” headers.
+ 18. getAddlHeaders()
+(a) Pre/Post-conditions:
+ i. Precondition: Additional headers should be defined.
+ ii. Postcondition: Return the additional headers, or FALSE otherwise.
+(b) This function allows the user to see what additional headers have been set for the e-mail.
+ 19. (protected) getHeaders()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Properly format all additional headers
+(b) This function is an internal function to the EMail class. It is used to properly format the headers to be used with the PHP mail() function.
+ 20. send()
+(a) Pre/Post-conditions:
+ i. Precondition: The “To:” address should be set
+ ii. Postcondition: The e-mail message should be sent. Returns TRUE on success, and FALSE otherwise.
+ 21. validEmail($address)
+(a) $address => Defines an e-mail address to check.
+(b) Pre/Post-conditions:
+ i. Precondition: An address is given
+ ii. Postcondition: Returns TRUE if the given address is valid, and FALSE otherwise.
+(c) This function checks if the given e-mail address is a valid address or not. It also does some additional checking to ensure that it can be sent through the various e-mail systems.
 Class Example
 
 navigation.inc.php
