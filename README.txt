@@ -11,6 +11,7 @@ About GCTools	4
 Purpose	4
 History	4
 Future of GCTools	4
+Contributing to GCTools	4
 GCTools Files	5
 cache.inc.php	5
 Class Variables	5
@@ -48,33 +49,37 @@ Class Functions	15
 Class Example	16
 mail.inc.php	18
 Class Variables	18
+Attachment Class	18
+EMail class	18
 Class Functions	18
-Class Example	18
-navigation.inc.php	19
-Class Variables	19
-Class Functions	19
-Class Example	19
-photo.inc.php	20
-Class Variables	20
-Class Functions	20
+Attachment Class	18
+EMail class	18
 Class Example	20
-security.inc.php	21
+navigation.inc.php	21
 Class Variables	21
 Class Functions	21
 Class Example	21
-session.inc.php	22
+photo.inc.php	22
 Class Variables	22
 Class Functions	22
 Class Example	22
-user.inc.php	23
+security.inc.php	23
 Class Variables	23
 Class Functions	23
 Class Example	23
-Credits	24
-Code Contributors	24
-Change Log	25
-License	26
-GPL v3 License	26
+session.inc.php	24
+Class Variables	24
+Class Functions	24
+Class Example	24
+user.inc.php	25
+Class Variables	25
+Class Functions	25
+Class Example	25
+Credits	26
+Code Contributors	26
+Change Log	27
+License	28
+GPL v3 License	28
 
 About GCTools
 Purpose
@@ -89,7 +94,9 @@ History
 Future of GCTools
 	The future of GCTools at this moment is unknown. Open-source developers are still needed to help contribute to the project, and the project is still lacking some major features.
 	You may check on the status of GCTools at the project's website, http://www.gigacreations.net/
-
+Contributing to GCTools
+	Contributions to the code of GCTools are always welcome. This is why we have released the code under the GPL v3 license. If you haven't already, feel free to fork our project on the GitHub site.
+	Additionally, if you'd like to become a long-term contributor to GCTools, please send us an e-mail at webmaster@gigacreations.net with some more information about you so we can add you as a contributor to the GitHub repository.
 GCTools Files
 cache.inc.php
 Class Variables
@@ -396,7 +403,82 @@ echo “File MIME type: “ . $theFile->getMIMEType() . “<br>\n”;
 ?>
 mail.inc.php
 Class Variables
+Attachment Class
+There are currently no variables in this class. It is being phased out by the File class in file.inc.php.
+EMail class
+1. $mailTo = > Defines an array of “To:” address for e-mails
+2. $mailCC => Defines an array of “CC:” address for e-mails
+3. $mailBCC => Defines an array of “BCC:” addresses for e-mails
+4. $mailFrom => Defines the “From:” address for e-mails
+5. $mailReplyTo => Defines the “ReplyTo:” address fro e-mails
+6. $mailSubject => Defines the subject of the e-mail
+7. $mailMessage => Defines the body of the message
+8. $mailAttachments => Defines an array of Attachments for the e-mail
+9. $mailAddlHeaders => Defines any additional headers to be sent with the e-mail
+10. (private)$mailSplit => Defines a splitting string that is used when sending e-mails with attachments.
 Class Functions
+Attachment Class
+NOTE: This class is being phased out by the File class in file.inc.php.
+ 1. Attachment($file)
+(a) $file => Defines a location, and file name, of a file on the system.
+(b) Pre/Post-conditions:
+ i. Precondition: $file should be a file on the system.
+ ii. Postcondition: Create a File class
+(c) This function is just an implementation of the File class. It was the predecessor to the File class, and has only been kept for backwards compatibility.
+ 2. isError()
+(a) This function is again only for backwards compatibility. Please refer to the File class in file.inc.php.
+EMail class
+ 1. Email()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Set-up the Email class for use by the user
+(b) This function prepares the EMail class for use by the user. It initializes all the variables needed.
+ 2. addTo($address)
+(a) $address => Defines a valid e-mail address
+(b) Pre/Post-conditions:
+ i. Precondition: A valid e-mail address is supplied
+ ii. Postcondition: Return TRUE if the address was added, and FALSE otherwise
+(c) This function add an e-mail address to the list of “To:” addresses.
+ 3. (private) formatTo()
+(a) This function is used to properly format the “To:” addresses for sending an e-mail using PHP's mail() function.
+ 4. addCC($address)
+(a) $address => Defines a valid e-mail address
+(b) Pre/Post-conditions:
+ i. Precondition: A valid e-mail address is supplied
+ ii. Postcondition: Return TRUE if the address was added, and FALSE otherwise
+(c) This function add an e-mail address to the list of “CC:” addresses.
+ 5. (private) formatCC()
+(a) This function is used to properly format the “CC:” addresses for sending an e-mail using PHP's mail() function.
+ 6. addBCC($address)
+(a) $address => Defines a valid e-mail address
+(b) Pre/Post-conditions:
+ i. Precondition: A valid e-mail address is supplied
+ ii. Postcondition: Return TRUE if the address was added, and FALSE otherwise
+(c) This function add an e-mail address to the list of “BCC:” addresses.
+ 7. (private) formatBCC()
+(a) This function is used to properly format the “BCC:” addresses for sending an e-mail using PHP's mail() function.
+ 8. setFrom($address)
+(a) $address => Defines a valid e-mail address
+(b) Pre/Post-conditions:
+ i. Precondition: A valid e-mail address is provided
+ ii. Postcondition: The “From:” address is set
+(c) This functions enables the user to set the “From:” address for e-mails sent through this class.
+ 9. getFrom()
+(a) Pre/Post-conditions:
+ i. Precondition: The “From:” address should be set
+ ii. Postcondition: Return the “From:” address, or FALSE otherwise
+(b) This function allows the user to see what the currently set “From:” address is set to. If one is not set, the function returns FALSE.
+ 10. setReplyTo($address)
+(a) $address => Defines a valid e-mail address
+(b) Pre/Post-conditions:
+ i. Precondition: A valid e-mail address is provided
+ ii. Postcondition: The “Reply-to:” header is set
+(c) This function enables the user to set the “Reply-to:” header for e-mails set out using this class. This allows the user to define a specific “From:” address, but have the default reply action go to the “Reply-to:” address.
+ 11. getReplyTo()
+(a) Pre/Post-conditions:
+ i. Precondition: The “Reply-to:” address should be set
+ ii. Postcondition: Returns the “Reply-to:” address, or FALSE otherwise
+(b) This function allows the user to know the currently set “Reply-to:” address. If one is not currently set, the function will return FALSE.
 Class Example
 
 navigation.inc.php
