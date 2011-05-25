@@ -103,6 +103,26 @@ if (!$cache->createCache(“/path/to/my/file”)) {
 
 //We're done. The cached file is /path/to/my/cache/directory/file.cache.html
 ?>
+computer.inc.php
+Class Variables
+ 1. id => Defines a unique ID for the computer system.
+ 2. name => Defines the computer's name (generally the DNS name).
+ 3. ip => Defines the IPv4 address of the computer.
+ 4. ip6 => Defines the IPv6 address of the computer (if needed).
+ 5. osType => Defines the type of operating system.
+ 6. osName => Defines the operating system's name.
+ 7. serial => Defines the serial number for the computer.
+ 8. location => Defines a location for the computer.
+ 9. make => Defines the make (manufacturer) of the computer.
+ 10. model => Defines the model of the computer.
+ 11. cpu => Defines CPU information.
+ 12. ram => Defines RAM information.
+ 13. hdd => Defines hard drive information.
+ 14. licensing => Defines licensing information.
+ 15. notes => Defines additional notes about the computer.
+Class Functions
+Class Example
+
 database.inc.php
 Class Variables
 Database class
