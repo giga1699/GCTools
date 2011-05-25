@@ -7,42 +7,74 @@
 /************************************************/
 
 Table of Contents
-About GCTools	3
-Purpose	3
-History	3
-Future of GCTools	3
-GCTools Files	4
-cache.inc.php	4
-Class Variables	4
-Class Functions	4
-Class example	5
-database.inc.php	6
-Class Variables	6
-Database class	6
-MySQL class	6
-MSSQL class	6
-PGSQL class	6
-SQLite class	6
-Class Functions	6
-Database class	6
-MySQL class	7
-MSSQL class	9
-PGSQL class	9
-SQLite class	9
-Class example	9
+About GCTools	4
+Purpose	4
+History	4
+Future of GCTools	4
+GCTools Files	5
+cache.inc.php	5
+Class Variables	5
+Class Functions	5
+Class example	6
+computer.inc.php	7
+Class Variables	7
+Class Functions	7
+Class Example	7
+database.inc.php	8
+Class Variables	8
+Database class	8
+MySQL class	8
+MSSQL class	8
+PGSQL class	8
+SQLite class	8
+Class Functions	8
+Database class	8
 MySQL class	9
-file.inc.php	10
-mail.inc.php	10
-navigation.inc.php	10
-photo.inc.php	10
-security.inc.php	10
-session.inc.php	10
-user.inc.php	10
-Credits	11
-Code Contributors	11
-Change Log	12
-License	13
-GPL v3 License	13
+MSSQL class	11
+PGSQL class	11
+SQLite class	11
+Class example	11
+MySQL class	11
+MSSQL class	12
+PGSQL class	12
+SQLite class	12
+error.inc.php	13
+Class Variables	13
+Class Functions	13
+Class Example	13
+file.inc.php	15
+Class Variables	15
+Class Functions	15
+Class Example	16
+mail.inc.php	18
+Class Variables	18
+Class Functions	18
+Class Example	18
+navigation.inc.php	19
+Class Variables	19
+Class Functions	19
+Class Example	19
+photo.inc.php	20
+Class Variables	20
+Class Functions	20
+Class Example	20
+security.inc.php	21
+Class Variables	21
+Class Functions	21
+Class Example	21
+session.inc.php	22
+Class Variables	22
+Class Functions	22
+Class Example	22
+user.inc.php	23
+Class Variables	23
+Class Functions	23
+Class Example	23
+Credits	24
+Code Contributors	24
+Change Log	25
+License	26
+GPL v3 License	26
 
 About GCTools
 Purpose
@@ -168,15 +200,16 @@ Database class
  ii. Postcondition: Any error is cleared from the class.
 (b) This function is used internally by the class to clear any previous errors that occurred.
 MySQL class
- 1. MySQL($loc, $user, $pass, $name)
+ 1. MySQL($loc, $user, $pass, $name, $errorCallback=NULL)
 (a) $loc defines the location of the MySQL server. This can be either an IP address, or a hostname.
 (b) $user defines the username used to log into the MySQL server.
 (c) $pass defines the password used in conjunction with the username to log into the database.
 (d) $name defines the default database to use to perform database functions.
-(e) Pre/Post-conditions:
+(e) $errorCallback defines the callback function to send the error an additional way, if one occurs.
+(f) Pre/Post-conditions:
  i. Precondition: The location of the SQL server, the username, the password and the database name is given.
  ii. Postcondition: The MySQL server is connected to
-(f) This function connects to a MySQL server to perform MySQL functions. It will attempt to load the MySQL libraries, if they are not already loaded. It will also initialize it's parent Database class so you can use all the functionality of the abstract Database class.
+(g) This function connects to a MySQL server to perform MySQL functions. It will attempt to load the MySQL libraries, if they are not already loaded. It will also initialize it's parent Database class so you can use all the functionality of the abstract Database class.
  2. (Private) connect()
 (a) Pre/Post-conditions:
  i. Precondition: The MySQL class should be set up properly.
@@ -251,13 +284,145 @@ PGSQL class
 This class is not currently functional.
 SQLite class
 This class is not currently functional.
+error.inc.php
+Class Variables
+1. errorFrom => Defines the e-mail address to display in the “From:” header when sending an error e-mail
+2. errorTo => Defines who error e-mails should be sent to
+3. errorSubject => Defines the subject for the e-mail when sending error e-mails
+Class Functions
+ 1. Error($from, $to)
+(a) $from => Defines the from address for sending e-mails
+(b) $to => Defines the to address for sending e-mails
+(c) Pre/Post-conditions:
+ i. Precondition: The from, and to, address should be defined
+ ii. Postcondition: The Error class is set-up.
+(d) This is the constructor for the Error class. It sets up the class to be able to send error messages via e-mail to an individual, or group.
+ 2. setErrorSubject($errorSubject)
+(a) $errorSubject => Defines the subject line for e-mails sent through this class
+(b) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: The subject line is set
+(c) This function sets the subject line for all e-mails sent via this class.
+ 3. sendError($errorMessage)
+(a) $errorMessage => Defines the body of the e-mail
+(b) Pre/Post-conditions:
+ i. Precondition: $errorMessage should be defined
+ ii. Postcondition: An e-mail is sent to $to, from $from and containing the body $errorMessage
+(c) This function sends an e-mail to the defined “To:” address(es) with the given error message. This function may be used as the callback function in the MySQL class (as well as others).
+Class Example
+<?php
+require_once(“error.inc.php”);
+
+try {
+	$error = new Error(“to@errormessage.com”, “from@errorsfrom.com”);
+}
+catch (Exception $e) {
+	//Handle class init error here
+}
+
+$error->setErrorSubject(“THERE WAS AN ERROR!”);
+
+$error->sendError(“There was an error in a script. Please go take a look at it.”);
+
+?>
 file.inc.php
+Class Variables
+1. fileLoc => Defines the location of the file on the system.
+2. fileName => Defines the name of the file, to include any extension.
+3. fileMIMEType => Defines the MIME type of the file.
+4. fileBuffer => Defines a buffer that contains the file data.
+5. fileSize => Defines the size of the file
+Class Functions
+ 1. File($file)
+(a) $file => Defines the location of the file on the system.
+(b) Pre/Post-conditoins:
+ i. Precondition: $file should be defined, and an actual file on the system.
+ ii. Postcondition: The File class is initialized, and ready for use by the user.
+(c) This function initializes the class, and prepares it for use by the user.
+ 2. (private) addFile($file)
+(a) $file => Defines the location of the file on the system.
+(b) Pre/Post-conditions:
+ i. Precondition: $file should be defined, and an actual file on the system.
+ ii. Postcondition: Pull all needed data about the file, and fill class variables.
+(c) This function is the core function to this class. It is what actually pulls all the information about the file, and fills the class variables.
+ 3. getFileName()
+(a) Pre/Post-conditions:
+ i. Precondition: fileName should be set
+ ii. Postcondition: Return the file name, or FALSE otherwise
+(b) This function returns the file name to the user.
+ 4. getMIMEType()
+(a) Pre/Post-conditions:
+ i. Precondition: fileMIMEType should be defines
+ ii. Postcondition: Return the file's MIME type, or FALSE otherwise
+(b) This function provides the MIME type of the file to the user. It can be useful for limiting file uploads to particular MIME types, or utilizing it when sending an e-mail with an attachment.
+ 5. getSize()
+(a) Pre/Post-conditions:
+ i. Precondition: fileSize should be defined
+ ii. Postcondition: Return the file's size (in bytes), or FALSE otherwise
+(b) This function provides the user with the file size, in bytes, of the file that has been loaded into the class.
+ 6. getFile()
+(a) Pre/Post-conditions:
+ i. Precondition: fileBuffer should be defined
+ ii. Postcondition: Return the binary file data, or FALSE otherwise
+(b) This function provides the binary data to the user, which is great for attaching a file in an e-mail.
+ 7. hadError()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Returns TRUE if an error occurred, or FALSE otherwise
+(b) This function enables the user to determine if an error occurred during initialization of the class.
+ 8. moveFile($newFile)
+(a) $newFile => Defines the new location and/or file name of the file
+(b) Pre/Post-conditions:
+ i. Precondition: $newFile should be set
+ ii. Postcondition: Move the file, and return TRUE if it was a success, or FALSE otherwise
+(c) This function allows a user to move a file on the system.
+Class Example
+<?php
+
+require_once(“file.inc.php”);
+
+try {
+	$theFile = new File(“/loc/of/file/filename.txt”);
+}
+catch (Exception $e) {
+	//Handle exceptions here
+}
+
+//Print information about the file
+echo “File name: “ . $theFile->getFileName() . “<br>\n”;
+echo “File size: “ . $theFile->getFileSize() . “ bytes<br>\n”;
+echo “File MIME type: “ . $theFile->getMIMEType() . “<br>\n”;
+
+?>
 mail.inc.php
+Class Variables
+Class Functions
+Class Example
+
 navigation.inc.php
+Class Variables
+Class Functions
+Class Example
+
 photo.inc.php
+Class Variables
+Class Functions
+Class Example
+
 security.inc.php
+Class Variables
+Class Functions
+Class Example
+
 session.inc.php
+Class Variables
+Class Functions
+Class Example
+
 user.inc.php
+Class Variables
+Class Functions
+Class Example
 
 Credits
 Code Contributors
