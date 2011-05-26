@@ -232,8 +232,8 @@ class MySQL extends Database {
 		else
 			$this->lastError = "MySQL Error (".@mysql_errno($this->myCon)."): ".@mysql_error($this->myCon);
 		
-		if (isset($this->errorCallback))
-			$this->errorCallback($this->lastError);
+		if (isset($this->errorCallback) && is_callable($this->errorCallback))
+			call_user_func($this->errorCallback, $this->lastError);
 		
 		if (isset($this->lastError))
 			return TRUE;

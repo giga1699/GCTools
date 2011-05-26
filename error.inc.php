@@ -17,7 +17,7 @@ class Error {
 	protected $errorTo; //E-mail to send error messages
 	protected $errorSubject; //E-Mail subject when sending errors
 	
-	public function Error($from, $to) {
+	public function Error($to, $from) {
 		//Precondition: Both from and to should be set
 		//Postcondition: Set errorFrom and errorTo
 		
@@ -44,6 +44,7 @@ class Error {
 		if (!isset($errorMessage))
 			return FALSE;
 		
+		echo "Sending message...\nTo: " . $this->errorTo . "\nFrom: " . $this->errorFrom . "\nSubject: " . $this->errorSubject . "\nMessage: " . $errorMessage . "\n\n\n";
 		mail($this->errorTo, (isset($this->errorSubject) ? $this->errorSubject : "GCTools Error Message"), $errorMessage, "From: " . $this->errorFrom);
 	}
 }
