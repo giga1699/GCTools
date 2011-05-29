@@ -58,29 +58,33 @@ EMail class	19
 Class Example	23
 navigation.inc.php	24
 Class Variables	24
+Page class	24
+Navigation class	24
 Class Functions	24
-Class Example	24
-photo.inc.php	25
-Class Variables	25
-Class Functions	25
-Class Example	25
-security.inc.php	26
-Class Variables	26
-Class Functions	26
-Class Example	26
-session.inc.php	27
-Class Variables	27
-Class Functions	27
-Class Example	27
-user.inc.php	28
-Class Variables	28
-Class Functions	28
-Class Example	28
-Credits	29
-Code Contributors	29
-Change Log	30
-License	31
-GPL v3 License	31
+Page class	24
+Navigation class	28
+Class Example	30
+photo.inc.php	31
+Class Variables	31
+Class Functions	31
+Class Example	31
+security.inc.php	32
+Class Variables	32
+Class Functions	32
+Class Example	32
+session.inc.php	33
+Class Variables	33
+Class Functions	33
+Class Example	33
+user.inc.php	34
+Class Variables	34
+Class Functions	34
+Class Example	34
+Credits	35
+Code Contributors	35
+Change Log	36
+License	37
+GPL v3 License	37
 
 About GCTools
 Purpose
@@ -729,6 +733,48 @@ Page class
  i. Precondition: None
  ii. Postcondition: Sets the page to NOT be a PHP page. Returns TRUE on success, and FALSE otherwise.
 (b) This function allows the user to remove the status of being a PHP page.
+Navigation class
+ 1. Navigation
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Sets-up the Navigation class
+(b) This function sets up the Navigation class for the user to use
+ 2. addPage($page)
+(a) $page => Defines a Page class to be added to the navigation structure
+(b) Pre/Post-conditions:
+ i. Precondition: $page should be a Page class
+ ii. Postcondition: Add the page to the navigation structure
+(c) This function allows the user to add a page to the navigation structure.
+ 3. getPage($pageName)
+(a) $pageName => Defines the name of a page in the navigation structure
+(b) Pre/Post-conditions:
+ i. Precondition: $pageName should be a page that exists
+ ii. Postcondition: Return the Page class of the page, or FALSE otherwise
+(c) This function allows the user to get all the page information for a page based on its name.
+ 4. getHomePage()
+(a) Pre/Post-conditions:
+ i. Precondition: The home page should be set (i.e. a page name of “”)
+ ii. Postcondition: Return the Page class of the home page
+(b) This function allows the user access to the home page of the navigation structure. This is a unique function created specifically for the home page.
+ 5. getSitemap()
+(a) Pre/Post-conditions:
+ i. Precondition: Pages should exist in the navigation structure
+ ii. Postcondition: Return a XML sitemap based on sitemaps.org standard, or FALSE otherwise.
+(b) This function generates a XML sitemap that the user can submit to search engines describing the layout of their website.
+ 6. (protected) addPageToSitemap($page)
+(a) This function is internal to the Navigation class, and is used to actually add the pages to the XML sitemap in the getSitemap() function.
+ 7. pageExists($pageName)
+(a) $pageName => Defines the name of a page that the user is looking for.
+(b) Pre/Post-conditions:
+ i. Precondition: $pageName should be defined
+ ii. Postcondition: Returns TRUE if the page exists, and FALSE otherwise
+(c) This function allows the user to check if a particular page exists in the navigation structure.
+ 8. formatPageName($name)
+(a) $name => Defines a page name
+(b) Pre/Post-conditions:
+ i. Precondition: $name should be given
+ ii. Postcondition: Format the page name into a “SEO”-friendly format
+(c) This function allows the user to format a page name for SEO optimization.
 Class Example
 
 photo.inc.php
