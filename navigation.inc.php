@@ -520,6 +520,25 @@ class Page {
 	}
 	
 	/*
+	 * isPHP() function
+	 * 
+	 * No inputs
+	 * 
+	 * This function determines if the page is a PHP page, or not
+	 * 
+	 * Returns TRUE if the page is PHP, and FALSE otherwise
+	 */
+	public function isPHP() {
+		//Precondition: None
+		//Postcondition: Returns TRUE if the page is PHP, and FALSE otherwise
+		
+		if ($this->pagePHP === TRUE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
 	 * setPHP() function
 	 * 
 	 * No input

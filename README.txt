@@ -161,19 +161,20 @@ computer.inc.php
 Class Variables
  1. id => Defines a unique ID for the computer system.
  2. name => Defines the computer's name (generally the DNS name).
- 3. ip => Defines the IPv4 address of the computer.
- 4. ip6 => Defines the IPv6 address of the computer (if needed).
- 5. osType => Defines the type of operating system.
- 6. osName => Defines the operating system's name.
- 7. serial => Defines the serial number for the computer.
- 8. location => Defines a location for the computer.
- 9. make => Defines the make (manufacturer) of the computer.
- 10. model => Defines the model of the computer.
- 11. cpu => Defines CPU information.
- 12. ram => Defines RAM information.
- 13. hdd => Defines hard drive information.
- 14. licensing => Defines licensing information.
- 15. notes => Defines additional notes about the computer.
+ 3. mac => Defines the computer's MAC address.
+ 4. ip => Defines the IPv4 address of the computer.
+ 5. ip6 => Defines the IPv6 address of the computer (if needed).
+ 6. osType => Defines the type of operating system.
+ 7. osName => Defines the operating system's name.
+ 8. serial => Defines the serial number for the computer.
+ 9. location => Defines a location for the computer.
+ 10. make => Defines the make (manufacturer) of the computer.
+ 11. model => Defines the model of the computer.
+ 12. cpu => Defines CPU information.
+ 13. ram => Defines RAM information.
+ 14. hdd => Defines hard drive information.
+ 15. licensing => Defines licensing information.
+ 16. notes => Defines additional notes about the computer.
 Class Functions
 Class Example
 
@@ -549,9 +550,46 @@ EMail class
  ii. Postcondition: Returns TRUE if the given address is valid, and FALSE otherwise.
 (c) This function checks if the given e-mail address is a valid address or not. It also does some additional checking to ensure that it can be sent through the various e-mail systems.
 Class Example
+<?php
 
+$email = new EMail();
+
+$email->setFrom(“billing@mycompany.com”);
+$email->addTo(“somebody@somedomain.com”);
+$email->addBCC(“myboss@mycompany.com”);
+$email->setReplyTo(“me@mycompany.com”);
+$email->setSubject(“Your new bill”);
+
+$message = “Dear Sombody,
+
+Attached is your new bill for this month. Please pay it within 15 days.
+
+If you have any questions, please reply to this e-mail.
+
+Thank you,
+My Company Billing Services”;
+
+$email->setMessage($message);
+
+$email->addAttachment(“/home/billing/newbills/somebody.new.bill.pdf”);
+
+$email->send();
+?>
 navigation.inc.php
 Class Variables
+Page class
+1. pageName => Defines the name of the page
+2. pageTitle => Defines the title of the page
+3. pageURL => Defines the full URL of the page
+4. pageContent => Defines the HTML content of the page
+5. pageChildren => An array of Page classes that are children of the current page
+6. pageLastMod => Defines when the page was last modified
+7. pageChangeFreq => Defines how often the page changes
+8. pagePriority => Defines the priority level of the page
+9. pageEnabled => Defines if the page is enabled, or not
+10. pagePHP => Defines if this is a PHP page
+Navigation class
+1. navPages => An array of Page classes that create the navigation structure
 Class Functions
 Class Example
 

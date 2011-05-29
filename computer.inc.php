@@ -21,6 +21,7 @@ define("COMP_OS_UNI", 3);
 class Computer {
 	protected $id; //A unique computer ID
 	protected $name; //The computer's name
+	protected $mac; //The computer's MAC address
 	protected $ip; //The IPv4 address of the computer
 	protected $ip6; //The IPv6 address of the computer
 	protected $osType; //The operating system type of the computer
