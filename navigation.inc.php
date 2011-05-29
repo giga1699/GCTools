@@ -301,18 +301,18 @@ class Page {
 		//Postcondition: The pageChildren variable is updated. Returns TRUE for success, and FALSE otherwise.
 		
 		//Check that $child is a Page class
-		if (!is_a($child, "Page"))
+		if (!is_a($child, "Page") || !$child->getPageName())
 			return FALSE;
 		
-		$pageTitle = $child->getPageTitle();
+		$pageName = $child->getPageName();
 		
 		//Check if is set already
-		if (isset($this->pageChildren[$pageTitle]))
-			unset($this->pageChildren[$pageTitle]);
+		if (isset($this->pageChildren[$pageName]))
+			unset($this->pageChildren[$pageName]);
 		
-		$this->pageChildren[$pageTitle] = $child;
+		$this->pageChildren[$pageName] = $child;
 		
-		if (isset($this->pageChildren[$pageTitle]))
+		if (isset($this->pageChildren[$pageName]))
 			return TRUE;
 		else
 			return FALSE;
