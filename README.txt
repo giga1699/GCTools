@@ -670,6 +670,65 @@ Page class
  i. Precondition: $lastMod should be a valid date/time
  ii. Postcondition: Updates the pageLastMod value. Returns TRUE on success, and FALSE otherwise.
 (c) This function allows the user to set the last modified date/time for the page.
+ 15. getChangeFreq()
+(a) Pre/Post-conditions:
+ i. Precondition: pageChangeFreq should be defined
+ ii. Postcondition: Return the page's change frequency, or FALSE otherwise
+(b) This function allows the user to know the change frequency of the page.
+ 16. setChangeFreq($frequency)
+(a) $freq => Defines a change frequency.
+ i. Must be one of the following values:
+ A. always
+ B. hourly
+ C. daily
+ D. weekly
+ E. monthly
+ F. yearly
+ G. never
+(b) Pre/Post-conditions:
+ i. Precondition: $frequency should be defined, and one of the acceptable values
+ ii. Postcondition: Sets the page change frequency. Returns TRUE on success, and FALSE otherwise.
+ 17. getPriority()
+(a) Pre/Post-conditions:
+ i. Precondition: pagePriority should be defined
+ ii. Postcondition: Returns the page's priority, or FALSE otherwise
+(b) This function allows the user to know the priority of the page.
+ 18. setPriority($priority)
+(a) $priority => Defines a double between 0 and 1 that show the page's priority
+(b) Pre/Post-conditions:
+ i. Precondition: $priority should be defined, and be between 0.0 and 1.0
+ ii. Postcondition: Sets the pagePriority value. Returns TRUE on success, and FALSE otheriwse.
+(c) This function allows the user to set the priority of the page.
+ 19. enablePage()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Set pageEnabled to TRUE. Returns TRUE on success, and FALSE on failure.
+(b) This function allows the user to enable the page
+ 20. disablePage()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Sets pageEnabled to FALSE. Returns TRUE on success, and FALSE otherwise.
+(b) This function allows the user to disable the page.
+ 21. isEnabled()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Returns TRUE if the page is enabled, and FALSE otherwise.
+(b) This function allows the user to check if the page is enabled, or not.
+ 22. isPHP()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Returns TRUE if the page is a PHP page, and FALSE otherwise.
+(b) This function allows the user to check if the page is a PHP page, or not.
+ 23. setPHP()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Sets the page to be a PHP one. Returns TRUE on success, and FALSE otherwise.
+(b) This function allows the user to make the page a PHP one.
+ 24. unsetPHP()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Sets the page to NOT be a PHP page. Returns TRUE on success, and FALSE otherwise.
+(b) This function allows the user to remove the status of being a PHP page.
 Class Example
 
 photo.inc.php
