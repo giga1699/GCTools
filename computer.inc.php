@@ -89,4 +89,54 @@ class Computer {
 		else
 			return FALSE;
 	}
+	
+	public function getMac() {
+		//Precondition: mac should be definied
+		//Postcondition: Return MAC address, or FALSE otherwise
+		
+		if (!isset($this->mac))
+			return FALSE;
+		
+		return $this->mac;
+	}
+	
+	public function setMac($macAddr) {
+		//Precondition: $macAddr should be definied, and a proper MAC address
+		//Postcondition: Set the MAC address. Return TRUE on success, and FALSE otherwise.
+		
+		if (!isset($macAddr))
+			return FALSE;
+		
+		//Remove all non-MAC characters
+		$macAddr = preg_replace("/[^0-9A-Fa-f]/", "", $macAddr);
+		
+		//Check that it is a MAC address
+		if (strlen($macAddr) != 12)
+			return FALSE;
+		
+		//Set the MAC address
+		$this->mac = $macAddr;
+	}
+	
+	public function getIP() {
+		//Precondition: ip should be definied
+		//Postcondidion: Return the IP, or FALSE otherwise
+		
+		if (!isset($this->ip))
+			return FALSE;
+		
+		return $this->ip;
+	}
+	
+	public function setIP($ipAddr) {
+		//Precondition: $ipAddr should be definied, and a valid IP address
+		//Postcondition: Set IP address. Return TRUE on success, and FALSE otherwise
+		
+		//Check for preconditions
+		if (!isset($ipAddr) || !preg_match("/^([0-9]{1,3}\.){3}([0-9]{1,3})$/", $ipAddr))
+			return FALSE;
+		
+		//Set the ip address
+		$this->ip = $ipAddr;
+	}
 }
