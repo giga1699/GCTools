@@ -116,6 +116,8 @@ class Computer {
 		
 		//Set the MAC address
 		$this->mac = $macAddr;
+		
+		return TRUE;
 	}
 	
 	public function getIP() {
@@ -138,5 +140,76 @@ class Computer {
 		
 		//Set the ip address
 		$this->ip = $ipAddr;
+		
+		return TRUE;
+	}
+	
+	public function getIP6() {
+		//Precondition: ip6 should be defined
+		//Postcondition: Return the IPv6 address, or FALSE otherwise
+		
+		if (!isset($this->ip6))
+			return FALSE;
+		
+		return $this->ip6;
+	}
+	
+	public function setIP6($ip6) {
+		//Precondition: $ip6 should be defined, and a valid IPv6 address
+		//Postcondition: Set the IPv6 address. Return TRUE on success, and FALSE otherwise
+		
+		//TODO: Add precondition checking for valid IPv6 address
+		if (!isset($ip6))
+			return FALSE;
+		
+		$this->ip6 = $ip6;
+		
+		return TRUE;
+	}
+	
+	public function getType() {
+		//Precondition: osType should be defined
+		//Postcondition: Return the OS type of the computer, or FALSE otherwise
+		
+		if (!isset($this->osType))
+			return FALSE;
+		
+		return $this->osType;
+	}
+	
+	public function setType($ostype) {
+		//Precondition: $ostype should be defined, and valid
+		//Postcondition: Set the OS type, and return TRUE on success or FALSE otherwise.
+		
+		//TODO: Validate $ostype
+		if (!isset($ostype))
+			return FALSE;
+		
+		$this->osType = $ostype;
+		
+		return TRUE;
+	}
+	
+	public function getOSName() {
+		//Precondition: osName should be defined
+		//Postcondition: Return the OS name, or FALSE otherwise
+		
+		if (!isset($this->osName))
+			return FALSE;
+		
+		return $this->osName;
+	}
+	
+	public function setOSName($osname) {
+		//Precondition: $osname should be defined, and valid
+		//Postcondition: Set the OS name. Return TRUE on success, and FALSE otherwise.
+		
+		//TODO: Add $osname validation
+		if (!isset($osname))
+			return FALSE;
+		
+		$this->osName = $osname;
+		
+		return TRUE;
 	}
 }
