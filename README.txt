@@ -180,6 +180,55 @@ Class Variables
  15. licensing => Defines licensing information.
  16. notes => Defines additional notes about the computer.
 Class Functions
+ 1. Computer()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Sets up the Computer class variables for use
+(b) This function is the class constructor. It sets up all the variables for use.
+ 2. getID()
+(a) Pre/Post-conditions:
+ i. Precondition: id should be definied
+ ii. Postcondition: Return the ID of the computer, or FALSE otherwise
+(b) This function allows the user to get the unique ID of the computer.
+ 3. setID($newID)
+(a) $newID => Defines a new unique ID for the computer.
+(b) Pre/Post-conditions:
+ i. Precondition: $newID should be defined
+ ii. Postcondition: Set the ID
+(c) This function allows the user to set the unique ID for the computer.
+ 4. getName()
+(a) Pre/Post-conditions:
+ i. Precondition: name should be defined
+ ii. Postcondition: Return the name of the computer, or FALSE otherwise.
+(b) This function allows the user to get the name of the computer.
+ 5. setName($newName)
+(a) $newName => Defines the new name for the computer.
+(b) Pre/Post-conditions:
+ i. Precondition: $newName should be defined
+ ii. Postcondition: Set the new name of the computer.
+(c) This function allows the user to set the name of the computer.
+ 6. getMac()
+(a) Pre/Post-conditions:
+ i. Precondition: mac should be defined
+ ii. Postcondition: Return the MAC address of the computer, or FALSE otherwise
+(b) This function allows the user to get the MAC address of the computer.
+ 7. setMac($macAddress)
+(a) $macAddress => Defines the MAC address of the computer.
+(b) Pre/Post-conditions:
+ i. Precondition: $macAddress should be defined, and be a valid MAC address
+ ii. Postcondition: Set the MAC address of the computer.
+(c) This function allows the user to set the MAC address of a computer.
+ 8. getIP()
+(a) Pre/Post-conditions:
+ i. Precondition: ip should be defined
+ ii. Postcondition: Return the IP address, or FALSE otherwise
+(b) This function allows the user to get the IP address of a computer.
+ 9. setIP($ipAddr)
+(a) $ipAddr => Defines the IPv4 IP address of the computer.
+(b) Pre/Post-conditions:
+ i. Precondition: $ipAddr should be defined, and a valid IPv4 address
+ ii. Postcondition: Set the IPv4 address
+(c) This function allows the user to set an IPv4 address for the computer.
 Class Example
 
 database.inc.php
