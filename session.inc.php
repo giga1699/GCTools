@@ -33,7 +33,7 @@ class Session {
 	 * 
 	 * Returns the current instance of the Session, or FALSE
 	 */
-	public function init($session_name=NULL) {
+	public static function init($session_name=NULL) {
 		//Precondition: None
 		//Postcondition: Return the current instance of the Session, or FALSE
 		
@@ -160,6 +160,27 @@ class Session {
 		unset($_SESSION[$name]);
 		
 		return TRUE;
+	}
+	
+	/*
+	 * sessionStop() function
+	 * 
+	 * This function stops the currently running session
+	 * 
+	 * Returns TRUE on success, and FALSE otherwise
+	 */
+	public function sessionStop() {
+		//Precondition: A session should be running
+		//Postcondition: Stop the current session.
+		
+		if (!isset($this->instance))
+			return FALSE;
+		
+		unset($this->instance);
+		unset($this->sessionName);
+		unset($this->sessionID);
+		
+		return session_destroy();
 	}
 }
 
