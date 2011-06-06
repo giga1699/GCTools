@@ -41,7 +41,7 @@ class User {
 		//Precondition: userID, userNick, and userEMail must be set
 		//Postcondition: The class is initialized
 		 
-		if (!isset($userID) || !isset($userNick) || !isset($userHashType) || !isset($userPassword))
+		if (!isset($userID) || !isset($userNick))
 			throw new Exception("User class was not initalized properly");
 		
 		//Set-up class variables
