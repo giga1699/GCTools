@@ -37,7 +37,7 @@ class User {
 	/*End User Address*/
 	
 	//Constructor
-	public function User($userID, $userNick, $userHashType, $userPassword, $userEMail=NULL, $userLName=NULL, $userFName=NULL, $userMName=NULL, $userPhone=NULL, $userAddress1=NULL, $userCity=NULL, $userState=NULL, $userZip=NULL, $userAddress2=NULL) {
+	public function User($userID, $userNick, $userEMail=NULL, $userLName=NULL, $userFName=NULL, $userMName=NULL, $userPhone=NULL, $userAddress1=NULL, $userCity=NULL, $userState=NULL, $userZip=NULL, $userAddress2=NULL) {
 		//Precondition: userID, userNick, userEMail, userHashType and userPassword must be set
 		//Postcondition: The class is initialized
 		 
@@ -47,8 +47,6 @@ class User {
 		//Set-up class variables
 		$this->userID = $userID;
 		$this->userNick = $userNick;
-		$this->userHashType = $userHashType;
-		$this->userPassword = $userPassword;
 		
 		//Add additional variables if they are set
 		if (isset($userEMail)) {
@@ -187,13 +185,17 @@ class User {
 	 * 
 	 * Returns TRUE on success, and FALSE otherwise
 	 */
-	public function setUserPassword($newPass) {
+	public function setUserPassword($newPass, $hashType=NULL) {
 		//Precondition: $newPass should be set
-		//Postcondition: New password should be set. Return TRUE on success, and FALSE otherwise
+		//Postcondition: New password should be set. If $hashType was defined, set it as well.
+		//	Return TRUE on success, and FALSE otherwise
 		
 		if (!isset($newPass))
 			return FALSE;
-			
+		
+		if (isset($hashType))
+			$this->userHashType = $hashType;
+		
 		switch($this->userHashType) {
 			case USER_PWHASH_NONE:
 				$this->userPassword = $newPass;
@@ -204,6 +206,8 @@ class User {
 			case USER_PWHASH_SHA1:
 				$this->userPassword = sha1($newPass);
 			break;
+			default:
+				return FALSE;
 		}
 		
 		return TRUE;
