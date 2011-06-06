@@ -24,6 +24,7 @@ define("SE_AUTH_SOURCE_HTPASS", 0);
 define("SE_AUTH_SOURCE_MYSQL", 1);
 define("SE_AUTH_SOURCE_MSSQL", 2);
 define("SE_AUTH_SOURCE_LDAP", 3);
+define("SE_AUTH_SOURCE_USERCLASS", 4); //Uses user.inc.php, and the stored password in there
 
 class Security {
 	//Variables for Security class
