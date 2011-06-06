@@ -27,6 +27,7 @@ define("SE_AUTH_SOURCE_LDAP", 3);
 
 class Security {
 	//Variables for Security class
+	private $authSource; //Defines the authentication source
 	private $authType; //Defines the authentication type
 	private $authHash; //Defines the authentication hash type
 	private $htpassfile; //Defines where the .htpasswd file is located
@@ -38,24 +39,55 @@ class Security {
 	 * 
 	 * No return value.
 	 */
-	public function Security($authType=NULL, $authHash=NULL, $htpassfile=NULL) {
+	public function Security($authSource=NULL, $authType=NULL, $authHash=NULL, $htpassfile=NULL) {
 		//Precondition: None
 		//Postcondition: Class defaults are set up
 		
+		//Auth Source
+		if (!isset($authSource))
+			$this->authSource = SE_AUTH_SOURCE_HTPASS;
+		else
+			$this->authSource = $authSource;
+		
+		//Auth type
 		if (!isset($authType))
 			$this->authType = SE_AUTH_TYPE_BASIC;
 		else
 			$this->authType = $authType;
 		
+		//Auth hash
 		if (!isset($authHash))
 			$this->authHash = SE_AUTH_HASH_MD5;
 		else
 			$this->authHash = $authHash;
 		
+		//.htpasswd file
 		if (!isset($htpassfile))
 			$this->htpassfile = NULL;
 		else
 			$this->htpassfile = $htpassfile;
+	}
+	
+	public function getAuthSource() {
+		//Precondition: authSource should be defined
+		//Postcondition: Return authSource, or FALSE otherwise.
+		
+		if (!isset($this->authSource))
+			return FALSE;
+		
+		return $this->authSource;
+	}
+	
+	public function setAuthSource($authSource) {
+		//Precondition: $authSource should be defined
+		//Postcondition: Set authSource for use. Return TRUE on success, and FALSE otherwise.
+		
+		if (!isset($authSource))
+			return FALSE;
+		
+		$this->authSource = $authSource;
+		
+		return TRUE;
 	}
 	
 	/*
