@@ -21,70 +21,74 @@ Class example	7
 computer.inc.php	8
 Class Variables	8
 Class Functions	8
-Class Example	8
-database.inc.php	9
-Class Variables	9
-Database class	9
-MySQL class	9
-MSSQL class	9
-PGSQL class	9
-SQLite class	9
-Class Functions	9
-Database class	9
-MySQL class	10
-MSSQL class	12
-PGSQL class	12
-SQLite class	12
-Class example	12
+Class Example	10
+database.inc.php	11
+Class Variables	11
+Database class	11
+MySQL class	11
+MSSQL class	11
+PGSQL class	11
+SQLite class	11
+Class Functions	11
+Database class	11
 MySQL class	12
-MSSQL class	13
-PGSQL class	13
-SQLite class	13
-error.inc.php	14
-Class Variables	14
-Class Functions	14
-Class Example	14
-file.inc.php	16
+MSSQL class	14
+PGSQL class	14
+SQLite class	14
+Class example	14
+MySQL class	14
+MSSQL class	15
+PGSQL class	15
+SQLite class	15
+error.inc.php	16
 Class Variables	16
 Class Functions	16
-Class Example	17
-mail.inc.php	19
-Class Variables	19
-Attachment Class	19
-EMail class	19
-Class Functions	19
-Attachment Class	19
-EMail class	19
-Class Example	23
-navigation.inc.php	24
-Class Variables	24
-Page class	24
-Navigation class	24
-Class Functions	24
-Page class	24
-Navigation class	28
-Class Example	30
-photo.inc.php	31
-Class Variables	31
-Class Functions	31
-Class Example	31
-security.inc.php	32
-Class Variables	32
-Class Functions	32
-Class Example	32
-session.inc.php	33
-Class Variables	33
-Class Functions	33
+Class Example	16
+file.inc.php	18
+Class Variables	18
+Class Functions	18
+Class Example	19
+ldap.inc.php	21
+Class Variables	21
+Class Functions	21
+Class Example	21
+mail.inc.php	22
+Class Variables	22
+Attachment Class	22
+EMail class	22
+Class Functions	22
+Attachment Class	22
+EMail class	22
+Class Example	26
+navigation.inc.php	27
+Class Variables	27
+Page class	27
+Navigation class	27
+Class Functions	27
+Page class	27
+Navigation class	31
 Class Example	33
-user.inc.php	34
+photo.inc.php	34
 Class Variables	34
 Class Functions	34
 Class Example	34
-Credits	35
-Code Contributors	35
-Change Log	36
-License	37
-GPL v3 License	37
+security.inc.php	35
+Class Variables	35
+Class Functions	35
+Class Example	35
+session.inc.php	36
+Class Variables	36
+Class Functions	36
+Class Example	36
+user.inc.php	37
+Class Variables	37
+Class Functions	37
+Class Example	37
+Credits	38
+Code Contributors	38
+Change Log	39
+License	40
+GPL v3 License	40
 
 About GCTools
 Purpose
@@ -470,6 +474,12 @@ echo “File size: “ . $theFile->getFileSize() . “ bytes<br>\n”;
 echo “File MIME type: “ . $theFile->getMIMEType() . “<br>\n”;
 
 ?>
+ldap.inc.php
+Class Variables
+Class Functions
+Class Example
+
+
 mail.inc.php
 Class Variables
 Attachment Class
