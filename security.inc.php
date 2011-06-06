@@ -19,6 +19,12 @@ define("SE_AUTH_TYPE_HTML", 1);
 define("SE_AUTH_HASH_MD5", 0);
 define("SE_AUTH_HASH_HTPAS", 1);
 
+//Authentication sources
+define("SE_AUTH_SOURCE_HTPASS", 0);
+define("SE_AUTH_SOURCE_MYSQL", 1);
+define("SE_AUTH_SOURCE_MSSQL", 2);
+define("SE_AUTH_SOURCE_LDAP", 3);
+
 class Security {
 	//Variables for Security class
 	private $authType; //Defines the authentication type
