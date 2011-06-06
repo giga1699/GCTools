@@ -44,6 +44,10 @@ class LDAP {
 		if (isset($port))
 			$this->ldapPort = $port;
 		
+		//Set errorCallback, if needed
+		if (isset($errorCallback))
+			$this->errorCallback = $errorCallback;
+		
 		//Connect
 		$this->connect();
 	}
@@ -57,5 +61,30 @@ class LDAP {
 		if (!$this->ldapLink)
 			$this->throwError();
 	}
+	
+	protected function throwError($specialError=NULL) {
+		/* Precondition: An error has occured */
+		/* Postcondition: The error is created in the LDAP
+		 * class with the proper information.
+		 */
+		
+		if (!$this->resetError())
+			return FALSE;
+		
+		if (isset($specialError))
+			$this->lastError = $specialError;
+		else
+			$this->lastError = "LDAP Error (".@ldap_errno($this->ldapLink)."): ".@ldap_error($this->ldapLink);
+		
+		if (isset($this->errorCallback) && is_callable($this->errorCallback))
+			call_user_func($this->errorCallback, $this->lastError);
+		
+		if (isset($this->lastError))
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	//TODO: Finish LDAP class
 }
 ?>
