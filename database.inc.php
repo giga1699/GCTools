@@ -44,7 +44,7 @@ abstract class Database {
 	protected $lastError; //String
 
 	//Constructor
-	protected function Database($loc, $user, $pass, $name, $type) {
+	protected function Database($loc, $user, $pass, $type, $name=NULL) {
 		/* Precondition: The database type, username, password
 		 * and name of the database to query is given.
 		 */
@@ -59,8 +59,9 @@ abstract class Database {
 		$this->dbLoc = $loc;
 		$this->dbUser = $user;
 		$this->dbPass = $pass;
-		$this->dbName = $name;
 		$this->dbType = $type;
+		if (isset($name))
+			$this->dbName = $name;
 		
 		return TRUE;
 	}
@@ -158,7 +159,7 @@ class MySQL extends Database {
 		}
 
 		//Set up the parent class
-		$this->Database($loc, $user, $pass, $name, MYSQL) or die("Unable to initilize object.");
+		$this->Database($loc, $user, $pass, MYSQL, $name) or die("Unable to initilize object.");
 		
 		//Set errorCallback, if needed
 		if (isset($errorCallback))
@@ -273,7 +274,7 @@ class MySQL extends Database {
 			$this->connect();
 		
 		//Run query
-		$result = mysql_query($qString);
+		$result = mysql_query($qString, $this->myCon);
 		
 		//Check if query was executed okay
 		if (!$result) {
@@ -422,7 +423,164 @@ class MySQL extends Database {
 
 //MSSQL Class
 class MSSQL extends Database {
-	//TODO: Add functionality for Microsoft SQL
+	private $msCon;
+	protected $errorCallback;
+	
+	public function MSSQL($loc, $user, $pass, $name, $errorCallback=NULL) {
+		/* Precondition: The location of the MSSQL server, the username,
+		 * the password, and the name of the database is given. Also, the
+		 * MSSQL libraries should have been loaded.
+		 */
+		/* Postcondition: The MSSQL server is connected to
+		 */
+
+		//Check if the MySQL libary is loaded
+		if (!extension_loaded('mssql')) {
+			//Extension not loaded, so load based on OS
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+				dl('php_mssql.dll') or die("Unable to load libraries. Please contact your IT support staff.");
+			}
+			else {
+				dl('mssql.so') or die("Unable to load libraries. Please contact your IT support staff.");
+			}
+		}
+		
+		//Set up the parent class
+		$this->Database($loc, $user, $pass, MSSQL) or die("Unable to initilize object.");
+		
+		//Set errorCallback, if needed
+		if (isset($errorCallback))
+			$this->errorCallback = $errorCallback;
+		
+		//Connect to the database
+		if (!$this->connect())
+			return FALSE;
+		else
+			return TRUE;
+	}
+	
+	private function connect() {
+		//THIS FUNCTION SHOULD NOT BE CHANGED
+		/* Precondition: Class is set up. */
+		/* Postcondition: A connection is made, and any
+		 * errors are handled.
+		 */
+		
+		//Connect to the MySQL server
+		$this->msCon = @mssql_connect($this->dbLoc, $this->dbUser, $this->dbPass);
+
+		//Check if the connection is good
+		if ($this->msCon) {
+			//We made a good connection, so clear the errors
+			$this->resetError();
+
+			//Connection is good
+			if (!mssql_select_db($this->dbName, $this->msCon)) {
+				$this->throwError();
+				return FALSE;
+			}
+			return TRUE;
+		}
+		else {
+			//The connection could not be established
+			$this->throwError("Could not connect to MSSQL database.");
+			return FALSE;
+		}
+	}
+	
+	protected function throwError($specialError=NULL) {
+		/* Precondition: An error has occured */
+		/* Postcondition: The error is created in the Database
+		 * class with the proper information.
+		 */
+		
+		if (!$this->resetError())
+			return FALSE;
+		
+		if (isset($specialError))
+			$this->lastError = $specialError;
+		else
+			$this->lastError = "MSSQL Error: ".@mssql_get_last_message();
+		
+		if (isset($this->errorCallback) && is_callable($this->errorCallback))
+			call_user_func($this->errorCallback, $this->lastError);
+		
+		if (isset($this->lastError))
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	public function query($qString) {
+		/* Precondition: A query string should be presented */
+		/* Postcondition: The class will attempt to execute
+		 * the query. If the query can not be executed, it
+		 * will return FALSE and create the error. If it
+		 * is executed, the results will be returned.
+		 */
+		/* SECURITY NOTE: It is the user's responsibility
+		 * to ensure they take the proper steps to prevent
+		 * SQL injections, and other security issues.
+		 */
+		
+		//Reset any previous errors
+		$this->resetError();
+		
+		//NOTE: MSSQL does not support the same active connection checking that MySQL does
+		
+		//Run query
+		$result = mssql_query($qString, $this->msCon);
+		
+		//Check if query was executed okay
+		if (!$result) {
+			//Create error
+			$this->throwError();
+			return FALSE;
+		}
+		else
+			return $result;
+	}
+	
+	public function changeDB($dbName) {
+		/* Precondition: A database name is given. */
+		/* Postcondition: The class attempts to connect to the
+		 * new database. If successful, it will return TRUE. If
+		 * it fails, it will return FALSE and create the error.
+		 */
+		
+		//Clear any previous errors
+		$this->resetError();
+		
+		//Attempt to change databases
+		if (!mssql_select_db($dbName, $this->msCon)) {
+			//Could not switch
+			$this->throwError();
+			return FALSE;
+		}
+		else {
+			//Update the dbName in the parent class
+			$this->dbName = $dbName;
+			return TRUE;
+		}
+	}
+	
+	/*
+	 * MSSQL does not have a way to check if we are currently connected.
+	 * It also does not allow for the escaping of strings, so we'll have to
+	 * add this functionality ourselves.
+	 */
+	
+	//TODO: Add escape string function
+	
+	//Destructor
+	function __destruct() {
+		/* Precondition: The class is being destroyed */
+		/* Postcondition: The class will ensure clean closing
+		 * of the MSSQL connection, if still connected.
+		 */
+		
+		mssql_close($this->msCon);
+	}
 }
 
 //PGSQL Class
