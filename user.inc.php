@@ -38,7 +38,7 @@ class User {
 	
 	//Constructor
 	public function User($userID, $userNick, $userEMail=NULL, $userLName=NULL, $userFName=NULL, $userMName=NULL, $userPhone=NULL, $userAddress1=NULL, $userCity=NULL, $userState=NULL, $userZip=NULL, $userAddress2=NULL) {
-		//Precondition: userID, userNick, userEMail, userHashType and userPassword must be set
+		//Precondition: userID, userNick, and userEMail must be set
 		//Postcondition: The class is initialized
 		 
 		if (!isset($userID) || !isset($userNick) || !isset($userHashType) || !isset($userPassword))
