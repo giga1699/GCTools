@@ -3,7 +3,7 @@
  * Filename: database.inc.php
  * @author J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide database functionality.
- * @version 0.2.1
+ * @version 0.2.2
  * File created: 10SEP2010
  * @package GCTools
  * @subpackage Database
@@ -434,14 +434,14 @@ class MSSQL extends Database {
 		/* Postcondition: The MSSQL server is connected to
 		 */
 
-		//Check if the MySQL libary is loaded
+		//Check if the MSSQL libary is loaded
 		if (!extension_loaded('mssql')) {
 			//Extension not loaded, so load based on OS
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 				dl('php_mssql.dll') or die("Unable to load libraries. Please contact your IT support staff.");
 			}
 			else {
-				dl('mssql.so') or die("Unable to load libraries. Please contact your IT support staff.");
+				die("The MSSQL library can only be run on a Windows machine. Please contact your IT support staff.");
 			}
 		}
 		
