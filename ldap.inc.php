@@ -163,6 +163,14 @@ class LDAP {
 		return ldap_search($this->ldapLink, $searchDN, $filter);
 	}
 	//TODO: Finish LDAP class
+	
+	public function __destruct() {
+		//Precondition: None
+		//Postcondition: Close all LDAP connections made
+		
+		if ($this->ldapBound == TRUE)
+			ldap_unbind($this->ldapLink);
+	}
 }
 
 //Windows ActiveDirectory specific class
@@ -179,6 +187,7 @@ class ActiveDirectory extends LDAP {
 	public function changeUserPassword($username, $newPassword, $searchDN=NULL) {
 		//Precondition: $username, and $newPassword should be defined. $username should exist in AD
 		//Postcondition: The user's password is changed. Returns TRUE on success, and FALSE otherwise
+		//REFERENCE: http://snippets.dzone.com/posts/show/4059
 		
 		//Search for username in AD
 		$userSearch = $this->search((isset($searchDN) ? $searchDN : $this->baseDN), "(sAMAccountName=" . $username . ")");
