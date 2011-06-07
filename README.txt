@@ -54,19 +54,17 @@ Class Functions	21
 Class Example	21
 mail.inc.php	22
 Class Variables	22
-Attachment Class	22
 EMail class	22
 Class Functions	22
-Attachment Class	22
 EMail class	22
-Class Example	26
+Class Example	25
 navigation.inc.php	27
 Class Variables	27
 Page class	27
 Navigation class	27
 Class Functions	27
 Page class	27
-Navigation class	31
+Navigation class	32
 Class Example	33
 photo.inc.php	34
 Class Variables	34
@@ -629,16 +627,18 @@ $email->send();
 navigation.inc.php
 Class Variables
 Page class
-1. pageName => Defines the name of the page
-2. pageTitle => Defines the title of the page
-3. pageURL => Defines the full URL of the page
-4. pageContent => Defines the HTML content of the page
-5. pageChildren => An array of Page classes that are children of the current page
-6. pageLastMod => Defines when the page was last modified (YYYY-MM-DD HH:MM:SS format)
-7. pageChangeFreq => Defines how often the page changes
-8. pagePriority => Defines the priority level of the page
-9. pageEnabled => Defines if the page is enabled, or not
-10. pagePHP => Defines if this is a PHP page
+1. pageID => Defines a unique page ID
+2. pageName => Defines the name of the page
+3. pageTitle => Defines the title of the page
+4. pageURL => Defines the full URL of the page
+5. pageContent => Defines the HTML content of the page
+6. pageChildren => An array of Page classes that are children of the current page
+7. pageLastMod => Defines when the page was last modified (YYYY-MM-DD HH:MM:SS format)
+8. pageChangeFreq => Defines how often the page changes
+9. pagePriority => Defines the priority level of the page
+10. pageEnabled => Defines if the page is enabled, or not
+11. pagePHP => Defines if this is a PHP page
+12. pageSecurityCheck => Defines a callback to check the security permissions of a user on the given page
 Navigation class
 1. navPages => An array of Page classes that create the navigation structure
 Class Functions
@@ -648,85 +648,97 @@ Page class
  i. Precondition: None
  ii. Postcondition: Set-up the Page class to be ready for use
 (b) This is the constructor for the Page class. It will set-up all needed variables for use by the user.
- 2. getPageName()
+ 2. getPageID()
+(a) Pre/Post-conditions:
+ i. Precondition: pageID should be defined
+ ii. Postcondition: Return the page ID, or FALSE otherwise
+(b) This function allows the user to get the unique ID of the page
+ 3. setPageID($id)
+(a) $id => Defines the new page ID
+(b) Pre/Post-conditions:
+ i. Precondition: $id should be defined
+ ii. Postcondition: Set the page ID. Return TRUE on success, and FALSE otherwise
+(c) This function allows the user to set the unique page ID of the page
+ 4. getPageName()
 (a) Pre/Post-conditions:
  i. Precondition: pageName should be defined
  ii. Postcondition: Return the name of the page, or FALSE otherwise
 (b) This function allows the user to see the name of the page.
- 3. setPageName($name)
+ 5. setPageName($name)
 (a) $name => Defines the new name of the page
 (b) Pre/Post-conditions:
  i. Precondition: $name should be defined
  ii. Postcondition: Sets the name of the page. Return TRUE on success, and FALSE otherwise.
 (c) This function allows the user to set the name of the page.
- 4. getPageTitle()
+ 6. getPageTitle()
 (a) Pre/Post-conditions:
  i. Precondition: pageTitle should be defined
  ii. Postcondition: Returns the page title, or FALSE otherwise
 (b) This function allows the user to get the title of the page.
- 5. setPageTitle($title)
+ 7. setPageTitle($title)
 (a) $title => Defines the new title for the page
 (b) Pre/Post-conditions:
  i. Precondition: $title should be defined
  ii. Postcondition: Set the new page name. Return TRUE on success and FALSE otherwise.
 (c) This function allows the user to set the title of the page.
- 6. getPageURL()
+ 8. getPageURL()
 (a) Pre/Post-conditions:
  i. Precondition: pageURL should be set
  ii. Postcondition: Return the page URL, or FALSE otherwise
 (b) This function allows the user to set the URL of the page
- 7. setPageURL($url)
+ 9. setPageURL($url)
 (a) $url => Defines the new page URL
 (b) Pre/Post-conditions:
  i. Precondition: $url should be a valid URL
  ii. Postcondition: Set the new page URL
 (c) This function allows the user to set the page URL
- 8. getPageContent()
+ 10. getPageContent()
 (a) Pre/Post-conditions:
  i. Precondition: pageContent should be defined
  ii. Postcondition: Returns the content of the page, or FALSE otherwise
 (b) This function allows the user to get the content of a page. It will automatically get dynamic content from PHP pages as well so that you have the most up-to-date version of the page.
- 9. setPageContent($content)
+ 11. setPageContent($content)
 (a) $content
  i. Can define the actual content of the page, or...
  ii. Can define a PHP page to use as the content
 (b) Pre/Post-conditions:
- i. Precondition: Valid content is provided
+ i. Precondition: Valid content is provided, and the user has access to if (if security is being used)
  ii. Postcondition: The content is set. Returns TRUE on success and FALSE otherwise
-(c) This function allows the user to set the page content, to include dynamic content from PHP pages.
- 10. hasChildren()
+(c) This function allows the user to set the page content, to include dynamic content from PHP pages. The function will also check if the user has rights to the page, if you are using the security callback. If they do not have access to the content, the function will return FALSE just like any other error.
+(d) The callback to check for page security utilizes a unique page ID, so if you haven't defined those yet you will need to before using that functionality.
+ 12. hasChildren()
 (a) Pre/Post-conditions:
  i. Precondition: None
  ii. Postcondition: Returns TRUE if the page has children, and FALSE otherwise
 (b) This function allows the user to check if the page has any children.
- 11. getChildren()
+ 13. getChildren()
 (a) Pre/Post-conditions:
  i. Precondition: Page should have children
  ii. Postcondition: Return children pages, or FALSE otherwise
 (b) This function allows the user to get the children of the page.
- 12. addChild($child)
+ 14. addChild($child)
 (a) $child => Defines another Page class that is a child of the present Page class
 (b) Pre/Post-conditions:
  i. Precondition: A valid Page class is passed to the function
  ii. Postcondition: The pageChildren array is updated. Returns TRUE on success, and FALSE otherwise.
 (c) This function allows the user to add a child to the current Page class.
- 13. getLastMod()
+ 15. getLastMod()
 (a) Pre/Post-conditions:
  i. Precondition: pageLastMod should be definied
  ii. Postcondition: Returns the last modified time, or FALSE otherwise.
 (b) This function allows the user to get the last modified time of the page.
- 14. setLastMod($lastMod)
+ 16. setLastMod($lastMod)
 (a) $lastMod => Defines a date/time that the page was last modified
 (b) Pre/Post-conditions:
  i. Precondition: $lastMod should be a valid date/time
  ii. Postcondition: Updates the pageLastMod value. Returns TRUE on success, and FALSE otherwise.
 (c) This function allows the user to set the last modified date/time for the page.
- 15. getChangeFreq()
+ 17. getChangeFreq()
 (a) Pre/Post-conditions:
  i. Precondition: pageChangeFreq should be defined
  ii. Postcondition: Return the page's change frequency, or FALSE otherwise
 (b) This function allows the user to know the change frequency of the page.
- 16. setChangeFreq($frequency)
+ 18. setChangeFreq($frequency)
 (a) $freq => Defines a change frequency.
  i. Must be one of the following values:
  A. always
@@ -739,47 +751,63 @@ Page class
 (b) Pre/Post-conditions:
  i. Precondition: $frequency should be defined, and one of the acceptable values
  ii. Postcondition: Sets the page change frequency. Returns TRUE on success, and FALSE otherwise.
- 17. getPriority()
+ 19. getPriority()
 (a) Pre/Post-conditions:
  i. Precondition: pagePriority should be defined
  ii. Postcondition: Returns the page's priority, or FALSE otherwise
 (b) This function allows the user to know the priority of the page.
- 18. setPriority($priority)
+ 20. setPriority($priority)
 (a) $priority => Defines a double between 0 and 1 that show the page's priority
 (b) Pre/Post-conditions:
  i. Precondition: $priority should be defined, and be between 0.0 and 1.0
  ii. Postcondition: Sets the pagePriority value. Returns TRUE on success, and FALSE otheriwse.
 (c) This function allows the user to set the priority of the page.
- 19. enablePage()
+ 21. enablePage()
 (a) Pre/Post-conditions:
  i. Precondition: None
  ii. Postcondition: Set pageEnabled to TRUE. Returns TRUE on success, and FALSE on failure.
 (b) This function allows the user to enable the page
- 20. disablePage()
+ 22. disablePage()
 (a) Pre/Post-conditions:
  i. Precondition: None
  ii. Postcondition: Sets pageEnabled to FALSE. Returns TRUE on success, and FALSE otherwise.
 (b) This function allows the user to disable the page.
- 21. isEnabled()
+ 23. isEnabled()
 (a) Pre/Post-conditions:
  i. Precondition: None
  ii. Postcondition: Returns TRUE if the page is enabled, and FALSE otherwise.
 (b) This function allows the user to check if the page is enabled, or not.
- 22. isPHP()
+ 24. isPHP()
 (a) Pre/Post-conditions:
  i. Precondition: None
  ii. Postcondition: Returns TRUE if the page is a PHP page, and FALSE otherwise.
 (b) This function allows the user to check if the page is a PHP page, or not.
- 23. setPHP()
+ 25. setPHP()
 (a) Pre/Post-conditions:
  i. Precondition: None
  ii. Postcondition: Sets the page to be a PHP one. Returns TRUE on success, and FALSE otherwise.
 (b) This function allows the user to make the page a PHP one.
- 24. unsetPHP()
+ 26. unsetPHP()
 (a) Pre/Post-conditions:
  i. Precondition: None
  ii. Postcondition: Sets the page to NOT be a PHP page. Returns TRUE on success, and FALSE otherwise.
 (b) This function allows the user to remove the status of being a PHP page.
+ 27. setSecurityCallback($callback)
+(a) $callback => Defines a callable function that accepts one input, the unique page ID
+(b) Pre/Post-conditions:
+ i. Precondition: $callback should be defined, and callable.
+ ii. Postcondition: Set the pageSecurityCheck variable
+(c) This function allows the user to define a callback function to check the security permissions of a given page
+ 28. unsetSecurity()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Remove the security callback. Return TRUE on success, and FALSE otherwise
+(b) This function allows the user to get rid of the security checking.
+ 29. hasSecurity()
+(a) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Returns TRUE if security is enabled, and FALSE otherwise
+(b) This function allows the user to check if the page has security enabled, or not.
 Navigation class
  1. Navigation
 (a) Pre/Post-conditions:
