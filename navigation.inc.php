@@ -229,10 +229,10 @@ class Page {
 		//Check security
 		if (isset($this->pageSecurityCheck)) {
 			if (!is_callable($this->pageSecurityCheck))
-				die("Could not confirm your security rights. Please contact your IT support staff.");
+				return FALSE;
 			
 			if (!call_user_func($this->pageSecurityCheck, $this->pageID))
-				die("You do not have the proper security privileges to view this page.");
+				return FALSE;
 		}
 		
 		if (isset($this->pageContent) && $this->pagePHP == FALSE)
