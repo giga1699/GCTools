@@ -877,7 +877,8 @@ Code Contributors
 1.) M. “Beanyhead” Parker
 1. E-Mail: beanyhead@gmail.com
 2. Website: http://www.nomits.com/
-2.) R. Rios
+2.) N. Miles
+3.) R. Rios
 
 Change Log
 This is in the works
