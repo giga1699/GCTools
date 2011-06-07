@@ -48,3 +48,6 @@ class Error {
 		mail($this->errorTo, (isset($this->errorSubject) ? $this->errorSubject : "GCTools Error Message"), $errorMessage, "From: " . $this->errorFrom);
 	}
 }
+
+//TODO: Add exception handler
+?>
