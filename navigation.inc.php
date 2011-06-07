@@ -3,7 +3,7 @@
  * Filename: navigation.inc.php
  * @author J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide information about webpage
- * @version 0.1.1
+ * @version 0.2.0
  * File created: 03DEC10
  * @package GCTools
  * @subpackage Navigation
