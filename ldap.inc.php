@@ -156,8 +156,8 @@ class LDAP {
 		//Precondition: $searchDN and $filter should be defined
 		//Postcondition: Return the search results, or FALSE on failure
 		
-		//Check if we have binded to the server
-		if (!$this->ldapBound)
+		//Check if we have binded to the server, and verify preconditions
+		if (!$this->ldapBound || !isset($searchDN) || !isset($filter))
 			return FALSE;
 		
 		return ldap_search($this->ldapLink, $searchDN, $filter);
