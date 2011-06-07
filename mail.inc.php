@@ -15,37 +15,6 @@
 //Requires File class
 require_once("file.inc.php");
 
-//Attachment class
-class Attachment extends File {
-	
-	//Constructor
-	public function Attachment($file) {
-		//Add the file
-		$this->File($file);
-	}
-	
-	/*
-	 * isError() function
-	 * 
-	 * No inputs
-	 * 
-	 * This function determines if an error has occured.
-	 * 
-	 * Returns TRUE if an error exists, and FALE otherwise.
-	 */
-	public function isError() {
-		/* Precondition: None */
-		/* Postcondition: Return TRUE if an error has occured, and
-		 * FALSE if one hasn't.
-		 */
-		
-		if ($this->fileNoError == TRUE)
-			return FALSE;
-		else
-			return TRUE;
-	}
-}
-
 //Mail class
 class EMail {
 	protected $mailTo; //Array: email addresses
@@ -471,8 +440,8 @@ class EMail {
 		 */
 		
 		//Attempt to add the attachment
-		$newAttachment = new Attachment($file);
-		if ($newAttachment->isError())
+		$newAttachment = new File($file);
+		if ($newAttachment->hadError())
 			return FALSE;
 		
 		//Add the attachement to the list
