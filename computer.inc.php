@@ -212,4 +212,203 @@ class Computer {
 		
 		return TRUE;
 	}
+	
+	public function getSerial() {
+		//Precondition: serial should be defined
+		//Postcondition: Return the serial, or FALSE otherwise
+		
+		if (!isset($this->serial))
+			return FALSE;
+		
+		return $this->serial;
+	}
+	
+	public function setSerial($serial) {
+		//Precondition: $serial should be defined
+		//Postcondition: Set the serial. Return TRUE on success, and FALSE otherwise.
+		
+		if (!isset($serial))
+			return FALSE;
+		
+		$this->serial = $serial;
+		
+		return $this->serial;
+	}
+	
+	public function getLocation() {
+		//Precondition: location should be defined
+		//Postcondition: Return the location, or FALSE otherwise
+		
+		if (!isset($this->location))
+			return FALSE;
+		
+		return $this->location;
+	}
+	
+	public function setLocation($loc) {
+		//Precondition: $loc should be defined
+		//Postcondition: Set the location. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($loc))
+			return FALSE;
+		
+		$this->location = $loc;
+		
+		return TRUE;
+	}
+	
+	public function getMake() {
+		//Precondition: make should be defined
+		//Postcondition: Return the make of the computer, or FALSE otherwise
+		
+		if (!isset($this->make))
+			return FALSE;
+		
+		return $this->make;
+	}
+	
+	public function setMake($make) {
+		//Precondition: $make should be defined
+		//Postcondition: Set the make of the computer. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($make))
+			return FALSE;
+		
+		$this->make = $make;
+		
+		return TRUE;
+	}
+	
+	public function getModel() {
+		//Precondition: model should be defined
+		//Postcondition: Return the model of the computer, or FALSE othewise
+		
+		if (!isset($this->model))
+			return FALSE;
+		
+		return $this->model;
+	}
+	
+	public function setModel($model) {
+		//Precondition: $model should be defined
+		//Postconditoin: Set the model of the computer. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($model))
+			return FALSE;
+		
+		$this->model = $model;
+		
+		return TRUE;
+	}
+	
+	public function getCPU() {
+		//Precondition: cpu should be defined
+		//Postcondition: Return CPU info, or FALSE otherwise
+		
+		if (!isset($this->cpu))
+			return FALSE;
+		
+		return $this->cpu;
+	}
+	
+	public function setCPU($cpu) {
+		//Precondition: $cpu should be defined
+		//Postcondition: Set the CPU information, and return TRUE on success or FALSE otherwise
+		
+		if (!isset($cpu))
+			return FALSE;
+		
+		$this->cpu = $cpu;
+		
+		return TRUE;
+	}
+	
+	public function getRAM() {
+		//Precondition: ram should be defined
+		//Postcondition: Return ram, or FALSE otherwise
+		
+		if (!isset($this->ram))
+			return FALSE;
+		
+		return $this->ram;
+	}
+	
+	public function setRAM($ram) {
+		//Precondition: $ram should be defiend
+		//Postcondition: Set RAM information. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($ram))
+			return FALSE;
+		
+		$this->ram = $ram;
+		
+		return TRUE;
+	}
+	
+	public function getHDD() {
+		//Precondition: hdd should be defined
+		//Postcondition: Return HDD information, or FALSE otherwise
+		
+		if (!isset($this->hdd))
+			return FALSE;
+		
+		return $this->hdd;
+	}
+	
+	public function setHDD($hddInfo) {
+		//Precondition: $hddInfo should be defiend
+		//Postcondition: Set the HDD information. Return TRUE on success and FALSE otherwise
+		
+		if (!isset($hddInfo))
+			return FALSE;
+		
+		$this->hdd = $hddInfo;
+		
+		return TRUE;
+	}
+	
+	public function getLicensing() {
+		//Precondition: licensing should be defined
+		//Postcondition: Return licensing, or FALSE otherwise
+		
+		if (!isset($this->licensing))
+			return FALSE;
+		
+		return $this->licensing;
+	}
+	
+	public function setLicensing($license) {
+		//Precondition: $license should be defined
+		//Postcondition: Set the licensing information. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($license))
+			return FALSE;
+	
+		$this->licensing = $license;
+		
+		return TRUE;
+	}
+	
+	public function getNotes() {
+		//Precondition: notes should be defined
+		//Postcondition: Return notes, or FALSE otherwise
+		
+		if (!isset($this->notes))
+			return FALSE;
+		
+		return $this->notes;
+	}
+	
+	public function setNotes($notes) {
+		//Precondition: $notes should be defined
+		//Postcondition: Set notes. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($notes))
+			return FALSE;
+		
+		$this->notes = notes;
+		
+		return TRUE;
+	}
 }
+?>
