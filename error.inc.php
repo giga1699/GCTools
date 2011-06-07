@@ -154,7 +154,11 @@ class GCExceptionHandler extends Error {
 		
 		$exceptionMessage = "A PHP exception has occured with the following conditions:\n\n";
 		
+		//Get the message
 		$exceptionMessage .= "Exception message: " . $obj->getMessage() . "\n\n";
+		
+		//File and line info
+		$exceptionMessage .= "File: " . $obj->getFile() . "\nLine: " . $obj->getLine() . "\n\n";
 		
 		//Do backtrace
 		$exceptionMessage .= "PHP Backtrace:\n" . $this->doBacktrace() . "\n";
