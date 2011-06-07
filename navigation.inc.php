@@ -19,6 +19,7 @@ class Page {
 	/*
 	 * Class Variables
 	 * 
+	 * $pageID => Defines a unique ID for the page
 	 * $pageName => Defines the name of the page
 	 * $pageTitle => Defines the title of the page
 	 * $pageURL => Defines the full URL location of the page
@@ -28,6 +29,7 @@ class Page {
 	 * $pageChangeFreq => Defines how often the page changes (used for sitemap)
 	 * $pagePriority => Defines the priority of the page (used for sitemap)
 	 */
+	protected $pageID;
 	protected $pageName;
 	protected $pageTitle;
 	protected $pageURL;
@@ -38,6 +40,7 @@ class Page {
 	protected $pagePriority;
 	protected $pageEnabled;
 	protected $pagePHP;
+	protected $pageSecurityCheck; //Callback function for page security
 	
 	//Constructor
 	public function Page() {
@@ -52,6 +55,28 @@ class Page {
 		
 		//By default all pages are NOT PHP pages
 		$this->pagePHP = FALSE;
+		
+		return TRUE;
+	}
+	
+	public function getPageID() {
+		//Precondition: pageID should be defined
+		//Postcondition: Return the page ID, or FALSE otherwise
+		
+		if (!isset($this->pageID))
+			return FALSE;
+		
+		return $this->pageID;
+	}
+	
+	public function setPageID($id) {
+		//Precondition: $id should be defined
+		//Postcondition: Set the page ID. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($id))
+			return FALSE;
+		
+		$this->pageID = $id;
 		
 		return TRUE;
 	}
@@ -198,8 +223,17 @@ class Page {
 	 * Returns the content if set, and FALSE otherwise
 	 */
 	public function getPageContent() {
-		//Precondition: Content should be set
+		//Precondition: Content should be set, and user should be able to access it
 		//Postcondition: Returns content, or FALSE on failure
+		
+		//Check security
+		if (isset($this->pageSecurityCheck)) {
+			if (!is_callable($this->pageSecurityCheck))
+				die("Could not confirm your security rights.");
+			
+			if (!call_user_func($this->pageSecurityCheck, $this->pageID))
+				die("You do not have the proper security privileges to view this page.");
+		}
 		
 		if (isset($this->pageContent) && $this->pagePHP == FALSE)
 			return $this->pageContent;
