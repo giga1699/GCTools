@@ -102,4 +102,16 @@ class LDAP {
 	}
 	//TODO: Finish LDAP class
 }
+
+//Windows ActiveDirectory specific class
+class ActiveDirectory extends LDAP {
+	public function ActiveDirectory($host, $errorCallback=NULL, $port=NULL) {
+		try {
+			$this->LDAP($host, $errorCallback, $port);
+		}
+		catch (Exception $e) {
+			throw new Exception($e);
+		}
+	}
+}
 ?>
