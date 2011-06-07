@@ -43,7 +43,7 @@ class Error {
 		return TRUE;
 	}
 	
-	public function doBacktrace() {
+	protected function doBacktrace() {
 		//Precondition: None
 		//Postcondition: Do a backtrace on the current execution
 		
@@ -87,8 +87,7 @@ class GCErrorHandler extends Error {
 		//Postcondition: Set the PHP error handler to GCErrorHandler->handleError.
 		//    Returns TRUE on success, or an exception otherwise
 		
-		if (set_error_handler(array($this, "handleError"), (isset($errors) ? $errors : NULL)) == NULL)
-			throw new Exception("GCErrorHandler could not be set properly");
+		set_error_handler(array($this, "handleError"), (isset($errors) ? $errors : E_ALL | E_STRICT));
 		
 		$this->handlerSet = TRUE;
 		
@@ -116,12 +115,15 @@ class GCErrorHandler extends Error {
 		//Handle errorno
 		switch($errno) {
 			case E_USER_ERROR:
+			case E_RECOVERABLE_ERROR:
 				$errorMessage .= "FATAL ERROR ";
 			break;
 			case E_USER_WARNING:
+			case E_WARNING:
 				$errorMessage .= "WARNING ERROR ";
 			break;
 			case E_USER_NOTICE:
+			case E_NOTICE:
 				$errorMessage .= "NOTICE ERROR ";
 			break;
 			default:
@@ -146,6 +148,10 @@ class GCErrorHandler extends Error {
 		
 		//Send the message
 		$this->sendError($errorMessage);
+		
+		//Die if fatal error
+		if ($errno == E_USER_ERROR || $errno == E_RECOVERABLE_ERROR)
+			die("Fatal Error. Please contact your IT support staff.");
 	}
 }
 
