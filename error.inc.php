@@ -61,7 +61,6 @@ class Error {
 		if (!isset($errorMessage))
 			return FALSE;
 		
-		echo "Sending message...\nTo: " . $this->errorTo . "\nFrom: " . $this->errorFrom . "\nSubject: " . $this->errorSubject . "\nMessage: " . $errorMessage . "\n\n\n";
 		mail($this->errorTo, (isset($this->errorSubject) ? $this->errorSubject : "GCTools Error Message"), $errorMessage, "From: " . $this->errorFrom);
 	}
 }
