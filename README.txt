@@ -340,9 +340,13 @@ Class example
 MySQL class
 <?php
 require_once(“database.inc.php”);
+require_once(“error.inc.php”);
+
+$errorHandler = new Error(“errorto@mydomain.com”, “errorfrom@somedomain.com”);
+$errorHandler->setErrorSubject(“MySQL Error”);
 
 try {
-	$mysql = new MySQL(“hostname”, “username”, “password”, “database”);
+	$mysql = new MySQL(“hostname”, “username”, “password”, “database”, array($errorHandler, “sendError”));
 }
 catch (Exception $e) {
 	//Something went wrong
