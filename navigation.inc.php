@@ -686,7 +686,7 @@ class Navigation {
 		//Postcondition: The page is added to the array of pages, or FALSE is returned
 		
 		//Ensure that the page is of the Page class
-		if (!is_a($page, "Page"))
+		if (!is_a($page, "Page") || !is_subclass_of($page, "Page"))
 			return FALSE;
 		
 		//Check if the page has a name
