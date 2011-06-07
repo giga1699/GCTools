@@ -824,8 +824,10 @@ class Navigation {
 		//Reference: http://www.sitemaps.org/protocol.php
 		
 		//Ensure $page is of a Page class
-		if (!is_a($page, "Page") && !is_subclass_of($page, "Page"))
-			return FALSE;
+		if (!is_a($page, "Page")) {
+			if (!is_subclass_of($page, "Page"))
+				return FALSE;
+		}
 		
 		//Make sure page in enabled
 		if ($page->isEnabled() == FALSE || $page->hasSecurity() == TRUE)
