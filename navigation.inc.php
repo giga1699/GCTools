@@ -627,6 +627,28 @@ class Page {
 		
 		return TRUE;
 	}
+	
+	public function unsetSecurity() {
+		//Precondition: None
+		//Postcondition: Remove security from the page. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($this->pageSecurityCheck))
+			return TRUE;
+		
+		unset($this->pageSecurityCheck);
+		
+		return TRUE;
+	}
+	
+	public function hasSecurity() {
+		//Precondition: None
+		//Postcondition: Return TRUE if page has security enabled, and FALSE otherwise
+		
+		if (!isset($this->pageSecurityCheck))
+			return TRUE;
+		else
+			return FALSE;
+	}
 }
 
 //Navigation class
@@ -804,7 +826,7 @@ class Navigation {
 			return FALSE;
 		
 		//Make sure page in enabled
-		if ($page->isEnabled() == FALSE)
+		if ($page->isEnabled() == FALSE || $page->hasSecurity == TRUE)
 			return FALSE;
 		
 		//Create XML to add
