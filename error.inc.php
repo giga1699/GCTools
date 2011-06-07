@@ -145,7 +145,7 @@ class GCExceptionHandler extends Error {
 		//Precondition: None
 		//Postcondition: Set the PHP exception handler to GCExceptionHandler->handleException
 		
-		set_error_handler(array($this, "handleException"));
+		set_exception_handler(array($this, "handleException"));
 	}
 	
 	public function handleException($obj) {
