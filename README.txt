@@ -482,8 +482,6 @@ Class Example
 
 mail.inc.php
 Class Variables
-Attachment Class
-There are currently no variables in this class. It is being phased out by the File class in file.inc.php.
 EMail class
 1. $mailTo = > Defines an array of “To:” address for e-mails
 2. $mailCC => Defines an array of “CC:” address for e-mails
@@ -496,16 +494,6 @@ EMail class
 9. $mailAddlHeaders => Defines any additional headers to be sent with the e-mail
 10. (private)$mailSplit => Defines a splitting string that is used when sending e-mails with attachments.
 Class Functions
-Attachment Class
-NOTE: This class is being phased out by the File class in file.inc.php.
- 1. Attachment($file)
-(a) $file => Defines a location, and file name, of a file on the system.
-(b) Pre/Post-conditions:
- i. Precondition: $file should be a file on the system.
- ii. Postcondition: Create a File class
-(c) This function is just an implementation of the File class. It was the predecessor to the File class, and has only been kept for backwards compatibility.
- 2. isError()
-(a) This function is again only for backwards compatibility. Please refer to the File class in file.inc.php.
 EMail class
  1. Email()
 (a) Pre/Post-conditions:
