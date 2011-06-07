@@ -12,9 +12,6 @@
 //Declare the namespace
 //namespace GCTools/Mail;
 
-//Requires File class
-require_once("file.inc.php");
-
 //Mail class
 class EMail {
 	protected $mailTo; //Array: email addresses
@@ -438,6 +435,9 @@ class EMail {
 		/* Postcondition: A file is added to the attachment
 		 * list, and returns FALSE on fail.
 		 */
+		
+		//Requires File class
+		require_once("file.inc.php");
 		
 		//Attempt to add the attachment
 		$newAttachment = new File($file);
