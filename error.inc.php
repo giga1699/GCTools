@@ -152,7 +152,15 @@ class GCExceptionHandler extends Error {
 		//Precondition: $obj will be defined
 		//Postcondition: Send an exception error report
 		
-		//TODO: Finsh the handling of the exception
+		$exceptionMessage = "A PHP exception has occured with the following conditions:\n\n";
+		
+		$exceptionMessage .= "Exception message: " . $obj->getMessage() . "\n\n";
+		
+		//Do backtrace
+		$exceptionMessage .= "PHP Backtrace:\n" . $this->doBacktrace() . "\n";
+		
+		//Send the message
+		$this->sendError($exceptionMessage);
 	}
 }
 ?>
