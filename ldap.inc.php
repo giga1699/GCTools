@@ -16,6 +16,7 @@ class LDAP {
 	protected $ldapServer;
 	protected $ldapPort;
 	protected $ldapLink;
+	protected $ldapBound;
 	protected $baseDN;
 	protected $lastError;
 	
@@ -47,6 +48,8 @@ class LDAP {
 		//Set errorCallback, if needed
 		if (isset($errorCallback))
 			$this->errorCallback = $errorCallback;
+		
+		$this->ldapBound = FALSE;
 		
 		//Connect
 		$this->connect();
@@ -96,8 +99,10 @@ class LDAP {
 		//Attempt to do the LDAP bind
 		if (ldap_bind($this->ldapLink, (isset($dn) ? $dn : NULL), (isset($password) ? $password : NULL)))
 			return TRUE;
-		else
+		else {
+			$this->ldapBound = TRUE;
 			return FALSE;
+		}
 		
 	}
 	
@@ -146,6 +151,17 @@ class LDAP {
 		
 		return TRUE;
 	}
+	
+	public function search($searchDN, $filter) {
+		//Precondition: $searchDN and $filter should be defined
+		//Postcondition: Return the search results, or FALSE on failure
+		
+		//Check if we have binded to the server
+		if (!$this->ldapBound)
+			return FALSE;
+		
+		return ldap_search($this->ldapLink, $searchDN, $filter);
+	}
 	//TODO: Finish LDAP class
 }
 
@@ -158,6 +174,40 @@ class ActiveDirectory extends LDAP {
 		catch (Exception $e) {
 			throw new Exception($e);
 		}
+	}
+	
+	public function changeUserPassword($username, $newPassword) {
+		//Precondition: $username, and $newPassword should be defined. $username should exist in AD
+		//Postcondition: The user's password is changed. Returns TRUE on success, and FALSE otherwise
+		
+		//Search for username in AD
+		$userSearch = $this->search($this->baseDN, "(sAMAccountName=" . $username . ")");
+		if (!$userSearch)
+			return FALSE;
+		
+		//Sort results by lastLogon
+		ldap_sort($this->ldapLink, $userSearch, "lastLogon");
+		
+		//Get the information
+		$userInfo = ldap_get_entries($this->ldapLink, $userSearch);
+		$desiredUserI = $userInfo['count']-1;
+		$userDN = $userInfo[$desiredUserI]['distingushedname'][0];
+		
+		//Build new password
+		$newPassword = "\"" . $newPassword . "\"";
+		$len = strlen($newPassword);
+		for ($i=0; $i<$len; $i++) {
+			$newPass .= "{$newPassword{$i}}\000";
+		}
+		
+		//Create userData for password
+		$userData["unicodePwd"] = $newPass;
+		
+		//Replace old password with new one
+		if (ldap_mod_replace($this->ldapLink, $userDN, $userData))
+			return FALSE;
+		else
+			return TRUE;
 	}
 }
 ?>
