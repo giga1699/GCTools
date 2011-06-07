@@ -16,8 +16,6 @@ class LDAP {
 	protected $ldapServer;
 	protected $ldapPort;
 	protected $ldapLink;
-	private $ldapUser;
-	private $ldapPassword;
 	protected $baseDN;
 	protected $lastError;
 	
@@ -99,6 +97,52 @@ class LDAP {
 		else
 			return FALSE;
 		
+	}
+	
+	public function getLastError() {
+		//Precondition: lastError should have been defined
+		//Postcondition: Return the last error, or FALSE otherwise
+		
+		if (!isset($this->lastError))
+			return FALSE;
+		
+		return $this->lastError;
+	}
+	
+	public function clearLastError() {
+		//Precondition: None
+		//Postcondition: Clear any previous error
+		
+		if (!isset($this->lastError))
+			return TRUE;
+		
+		unset($this->lastError);
+		
+		return TRUE;
+	}
+	
+	public function getBaseDN() {
+		//Precondition: baseDN should be defined
+		//Postcondition: Return baseDN or FALSE otherwise
+		
+		if (!isset($this->baseDN))
+			return FALSE;
+		
+		return $this->baseDN;
+	}
+	
+	public function setBaseDN($dn) {
+		//Precondition: $dn should be defined, and valid
+		//Postcondition: Set the base DN. Return TRUE on success, and FALSE otherwise.
+		
+		if (!isset($dn))
+			return FALSE;
+		
+		//TODO: Add $dn validity checking
+		
+		$this->baseDN = $dn;
+		
+		return TRUE;
 	}
 	//TODO: Finish LDAP class
 }
