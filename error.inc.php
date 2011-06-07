@@ -66,6 +66,8 @@ class Error {
 }
 
 class GCErrorHandler extends Error {
+	protected $handlerSet;
+	
 	public function GCErrorHandler($to, $from, $subject=NULL) {
 		//Precondition: Both from and to should be set
 		//Postcondition: Set-up Error class
@@ -76,13 +78,33 @@ class GCErrorHandler extends Error {
 		catch (Exception $e) {
 			throw new Exception($e);
 		}
+		
+		$this->handlerSet = FALSE;
 	}
 	
 	public function setGCErrorGlobally($errors=NULL) {
 		//Precondition: None
-		//Postcondition: Set the PHP error handler to GCErrorHandler->handleError
+		//Postcondition: Set the PHP error handler to GCErrorHandler->handleError.
+		//    Returns TRUE on success, or an exception otherwise
 		
-		set_error_handler(array($this, "handleError"), (isset($errors) ? $errors : NULL));
+		if (set_error_handler(array($this, "handleError"), (isset($errors) ? $errors : NULL)) == NULL)
+			throw new Exception("GCErrorHandler could not be set properly");
+		
+		$this->handlerSet = TRUE;
+		
+		return TRUE;
+	}
+	
+	public function unsetGCErrorGlobally() {
+		//Precondition: Error handler should've been set already
+		//Postcondition: Restore the old error handler. Returns TRUE on success, and FALSE otherwise
+		
+		if (!isset($this->handlerSet) || $this->handlerSet === FALSE)
+			return FALSE;
+		
+		restore_error_handler();
+		
+		return TRUE;
 	}
 	
 	public function handleError($errno, $errstr, $errfile=NULL, $errline=NULL, $errcontext=NULL) {
@@ -128,6 +150,8 @@ class GCErrorHandler extends Error {
 }
 
 class GCExceptionHandler extends Error {
+	protected $handlerSet;
+	
 	public function GCExceptionHandler($to, $from, $subject=NULL) {
 		//Precondition: Both from and to should be set
 		//Postcondition: Set-up Error class
@@ -138,13 +162,33 @@ class GCExceptionHandler extends Error {
 		catch (Exception $e) {
 			throw new Exception($e);
 		}
+		
+		$this->handlerSet = FALSE;
 	}
 	
 	public function setGCExceptionGlobally() {
 		//Precondition: None
-		//Postcondition: Set the PHP exception handler to GCExceptionHandler->handleException
+		//Postcondition: Set the PHP exception handler to GCExceptionHandler->handleException.
+		//    Returns TRUE on success, or an exception otherwise
 		
-		set_exception_handler(array($this, "handleException"));
+		if (set_exception_handler(array($this, "handleException")) == NULL)
+			throw new Exception("GCExceptionHandler could not be set properly");
+		
+		$this->handlerSet = TRUE;
+		
+		return TRUE;
+	}
+	
+	public function unsetGCExceptionGlobally() {
+		//Precondition: Exception handler should've been set
+		//Postcondition: Return to the old handler. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($this->handlerSet) || $this->handlerSet === FALSE)
+			return FALSE;
+		
+		restore_exception_handler();
+		
+		return TRUE;
 	}
 	
 	public function handleException($obj) {
