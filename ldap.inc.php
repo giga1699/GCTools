@@ -85,6 +85,21 @@ class LDAP {
 			return FALSE;
 	}
 	
+	public function bind($dn=NULL, $password=NULL) {
+		//Precondition: If either $dn, or $password, are defined, then both must be defined
+		//Postcondition: Attempt to bind to the LDAP server. Returns TRUE on success,
+		//   and FALSE otherwise.
+		
+		if ((isset($dn) && !isset($password)) || (!isset($dn) && isset($password)))
+			return FALSE;
+		
+		//Attempt to do the LDAP bind
+		if (ldap_bind($this->ldapLink, (isset($dn) ? $dn : NULL), (isset($password) ? $password : NULL)))
+			return TRUE;
+		else
+			return FALSE;
+		
+	}
 	//TODO: Finish LDAP class
 }
 ?>
