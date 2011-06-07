@@ -157,6 +157,28 @@ class User {
 			return TRUE;
 	}
 	
+	public function getHashType() {
+		//Precondition: userHashType should be defiend
+		//Postcondition: Return the hash type, or FALSE otherwise
+		
+		if (!isset($this->userHashType))
+			return FALSE;
+		
+		return $this->userHashType;
+	}
+	
+	public function setHashType($hashType) {
+		//Precondition: $hashType should be defined, and valid
+		//Postcondition: Set the hash type. Return TRUE on success, and FALSE otherwise
+		
+		if (!isset($hashType))
+			return FALSE;
+		
+		$this->userHashType = $hashType;
+		
+		return TRUE;
+	}
+	
 	/*
 	 * getUserPassword() function
 	 * 
