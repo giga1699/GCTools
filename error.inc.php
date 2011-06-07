@@ -43,6 +43,17 @@ class Error {
 		return TRUE;
 	}
 	
+	public function doBacktrace() {
+		//Precondition: None
+		//Postcondition: Do a backtrace on the current execution
+		
+		ob_start();
+		debug_print_backtrace();
+		$bt = ob_get_clean();
+		
+		return $bt;
+	}
+	
 	public function sendError($errorMessage) {
 		//Precondition: $errorMessage should be defined
 		//Postcondition: Send e-mail to errorTo
@@ -56,7 +67,7 @@ class Error {
 }
 
 class GCErrorHandler extends Error {
-	public function ErrorHandler($to, $from, $subject=NULL) {
+	public function GCErrorHandler($to, $from, $subject=NULL) {
 		//Precondition: Both from and to should be set
 		//Postcondition: Set-up Error class
 		
@@ -109,9 +120,39 @@ class GCErrorHandler extends Error {
 				$errorMessage .= "\nError Context:\n" . $errcontext . "\n\n";
 		}
 		
+		//Do a backtrace on the issue
+		$errorMessage .= "\n\nPHP Backtrace:\n" . $this->doBacktrace() . "\n";
+		
+		//Send the message
 		$this->sendError($errorMessage);
 	}
 }
 
-//TODO: Add exception handler
+class GCExceptionHandler extends Error {
+	public function GCExceptionHandler($to, $from, $subject=NULL) {
+		//Precondition: Both from and to should be set
+		//Postcondition: Set-up Error class
+		
+		try {
+			$this->Error($to, $from, $subject);
+		}
+		catch (Exception $e) {
+			throw new Exception($e);
+		}
+	}
+	
+	public function setGCExceptionGlobally() {
+		//Precondition: None
+		//Postcondition: Set the PHP exception handler to GCExceptionHandler->handleException
+		
+		set_error_handler(array($this, "handleException"));
+	}
+	
+	public function handleException($obj) {
+		//Precondition: $obj will be defined
+		//Postcondition: Send an exception error report
+		
+		//TODO: Finsh the handling of the exception
+	}
+}
 ?>
