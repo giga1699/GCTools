@@ -1,9 +1,8 @@
 ﻿/************************************************/
-/* GCTools - A PHP Framework			*/
-/* Developed by: J. "Giga" Murphy		*/
-/*    and M. "Beanyhead" Parker			*/
-/* Website: http://www.gigacreations.net/	*/
-/* Copyright (C) Giga Creations 2010-2011	*/
+/* GCTools - A PHP Framework			*/
+/* Developed by: See "Code Contributors"	*/
+/* Website: http://www.gigacreations.net/	*/
+/* Copyright (C) Giga Creations, LLC 2010-2011	*/
 /************************************************/
 
 Table of Contents
@@ -878,11 +877,14 @@ Class Example
 
 Credits
 Code Contributors
-1.) M. “Beanyhead” Parker
+1.) J. “Giga” Murphy
+1. E-Mail: webmaster@gigacreations.net
+2. Website: http://www.gigacreations.net/
+2.) M. “Beanyhead” Parker
 1. E-Mail: beanyhead@gmail.com
 2. Website: http://www.nomits.com/
-2.) N. Miles
-3.) R. Rios
+3.) N. Miles
+4.) R. Rios
 
 Change Log
 This is in the works
