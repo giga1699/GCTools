@@ -93,7 +93,7 @@ class GCErrorHandler extends Error {
 		$errorMessage = "A PHP error has occured with the following conditions:\n\n";
 		
 		//Handle errorno
-		switch($errorno) {
+		switch($errno) {
 			case E_USER_ERROR:
 				$errorMessage .= "FATAL ERROR ";
 			break;
