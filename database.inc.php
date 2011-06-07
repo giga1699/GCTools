@@ -151,10 +151,12 @@ class MySQL extends Database {
 		if (!extension_loaded('mysql')) {
 			//Extension not loaded, so load based on OS
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-				dl('php_mysql.dll') or die("Unable to load libraries. Please contact your IT support staff.");
+				if (!dl('php_mysql.dll'))
+					throw new Exception("Unable to load libraries. Please contact your IT support staff");
 			}
 			else {
-				dl('mysql.so') or die("Unable to load libraries. Please contact your IT support staff.");
+				if (!dl('mysql.so'))
+					throw new Exception("Unable to load libraries. Please contact your IT support staff");
 			}
 		}
 
@@ -438,11 +440,11 @@ class MSSQL extends Database {
 		if (!extension_loaded('mssql')) {
 			//Extension not loaded, so load based on OS
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-				dl('php_mssql.dll') or die("Unable to load libraries. Please contact your IT support staff.");
+				if (!dl('php_mssql.dll'))
+					throw new Exception("Unable to load libraries. Please contact your IT support staff");
 			}
-			else {
-				die("The MSSQL library can only be run on a Windows machine. Please contact your IT support staff.");
-			}
+			else
+				throw new Exception("Unable to load libraries. Please contact your IT support staff");
 		}
 		
 		//Set up the parent class

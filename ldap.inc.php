@@ -27,10 +27,12 @@ class LDAP {
 		if (!extension_loaded('ldap')) {
 			//Extension not loaded, so load based on OS
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-				dl('php_ldap.dll') or die("Unable to load libraries. Please contact your IT support staff.");
+				if (!dl('php_ldap.dll'))
+					throw new Exception("Unable to load libraries. Please contact your IT support staff");
 			}
 			else {
-				dl('ldap.so') or die("Unable to load libraries. Please contact your IT support staff.");
+				if (!dl('ldap.so'))
+					throw new Exception("Unable to load libraries. Please contact your IT support staff");
 			}
 		}
 		

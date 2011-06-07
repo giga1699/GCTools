@@ -50,7 +50,7 @@ class Picture {
 		    
 		    //Ensure extension is loaded
 		    if (!extension_loaded("gd"))
-		    	throw new Exception("Unable to load GD library");
+		    	throw new Exception("Unable to load libraries. Please contact your IT support staff");
 		}
 		
 		//Load picture if loc is given
