@@ -187,7 +187,11 @@ class ActiveDirectory extends LDAP {
 	public function changeUserPassword($username, $newPassword, $searchDN=NULL) {
 		//Precondition: $username, and $newPassword should be defined. $username should exist in AD
 		//Postcondition: The user's password is changed. Returns TRUE on success, and FALSE otherwise
-		//REFERENCE: http://snippets.dzone.com/posts/show/4059
+		/*
+		 * REFERENCE:
+		 * http://snippets.dzone.com/posts/show/4059
+		 * http://www.letu.edu/people/markroedel/netcccu/activedirectorypasswordchanges.htm
+		 */
 		
 		//Search for username in AD
 		$userSearch = $this->search((isset($searchDN) ? $searchDN : $this->baseDN), "(sAMAccountName=" . $username . ")");

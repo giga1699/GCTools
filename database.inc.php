@@ -191,7 +191,7 @@ class MySQL extends Database {
 		 */
 		
 		//Connect to the MySQL server
-		$this->myCon = @mysql_connect($this->dbLoc, $this->dbUser, $this->dbPass);
+		$this->myCon = @mysql_connect($this->dbLoc, $this->dbUser, $this->dbPass, TRUE);
 
 		//Check if the connection is good
 		if ($this->myCon) {
