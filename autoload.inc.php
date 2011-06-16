@@ -58,6 +58,10 @@ function __autoload($class_name) {
 		case "User":
 			require_once("user.inc.php");
 		break;
+		
+		default:
+			throw new Exception("Unable to load a library.");
+		break;
 	}
 }
 
