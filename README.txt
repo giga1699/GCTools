@@ -10,82 +10,96 @@ About GCTools	4
 Purpose	4
 History	4
 Future of GCTools	4
-GCTools file version scheme	4
+GCTools file version scheme	5
 Contributing to GCTools	5
 GCTools Files	6
-cache.inc.php	6
+autoload.inc.php	6
 Class Variables	6
 Class Functions	6
-Class example	7
-computer.inc.php	8
-Class Variables	8
-Class Functions	8
-Class Example	10
-database.inc.php	11
-Class Variables	11
-Database class	11
-MySQL class	11
-MSSQL class	11
-PGSQL class	11
-SQLite class	11
-Class Functions	11
-Database class	11
+cache.inc.php	7
+Class Variables	7
+Class Functions	7
+Class example	8
+computer.inc.php	9
+Class Variables	9
+Class Functions	9
+Class Example	11
+database.inc.php	12
+Class Variables	12
+Database class	12
 MySQL class	12
-MSSQL class	14
-PGSQL class	14
-SQLite class	14
-Class example	14
-MySQL class	14
+MSSQL class	12
+PGSQL class	12
+SQLite class	12
+Class Functions	12
+Database class	12
+MySQL class	13
 MSSQL class	15
 PGSQL class	15
 SQLite class	15
-error.inc.php	16
-Class Variables	16
-Class Functions	16
-Class Example	16
-file.inc.php	18
-Class Variables	18
-Class Functions	18
+Class example	15
+MySQL class	15
+MSSQL class	16
+PGSQL class	16
+SQLite class	16
+error.inc.php	17
+Class Variables	17
+(Abstract) GCError Class	17
+GCErrorHandler Class	17
+Class Functions	17
+(Abstract) GCError Class	17
+GCErrorHandler Class	18
 Class Example	19
-ldap.inc.php	21
-Class Variables	21
-Class Functions	21
+GCErrorHandler Class	19
+file.inc.php	20
+Class Variables	20
+Class Functions	20
 Class Example	21
-mail.inc.php	22
-Class Variables	22
-EMail class	22
-Class Functions	22
-EMail class	22
-Class Example	25
-navigation.inc.php	27
-Class Variables	27
-Page class	27
-Navigation class	27
-Class Functions	27
-Page class	27
-Navigation class	32
-Class Example	33
-photo.inc.php	34
-Class Variables	34
-Class Functions	34
-Class Example	34
-security.inc.php	35
-Class Variables	35
-Class Functions	35
+ldap.inc.php	23
+Class Variables	23
+LDAP Class	23
+ActiveDirectory Class	23
+Class Functions	23
+LDAP Class	23
+ActiveDirectory Class	23
+Class Example	23
+LDAP Class	23
+ActiveDirectory Class	23
+mail.inc.php	24
+Class Variables	24
+EMail class	24
+Class Functions	24
+EMail class	24
+Class Example	27
+navigation.inc.php	29
+Class Variables	29
+Page class	29
+Navigation class	29
+Class Functions	29
+Page class	29
+Navigation class	34
 Class Example	35
-session.inc.php	36
+photo.inc.php	36
 Class Variables	36
 Class Functions	36
 Class Example	36
-user.inc.php	37
+security.inc.php	37
 Class Variables	37
 Class Functions	37
 Class Example	37
-Credits	38
-Code Contributors	38
-Change Log	39
-License	40
-GPL v3 License	40
+session.inc.php	38
+Class Variables	38
+Class Functions	38
+Class Example	38
+user.inc.php	39
+Class Variables	39
+Class Functions	39
+Class Example	39
+Credits	40
+Code Contributors	40
+Change Log	41
+License	42
+GPL v3 License	42
 
 About GCTools
 Purpose
@@ -118,6 +132,12 @@ Contributing to GCTools
 	Contributions to the code of GCTools are always welcome. This is why we have released the code under the GPL v3 license. If you haven't already, feel free to fork our project on the GitHub site.
 	Additionally, if you'd like to become a long-term contributor to GCTools, please send us an e-mail at webmaster@gigacreations.net with some more information about you so we can add you as a contributor to the GitHub repository.
 GCTools Files
+autoload.inc.php
+Class Variables
+There are no class variables
+Class Functions
+The only function is the “__autoload” function which is a “magic” PHP function that tries to include the right file based on what class you are trying to use. It has not been tested in GCTools, but was developed to try to assist new users in loading the proper files before using a class.
+
 cache.inc.php
 Class Variables
 1.) cacheDir – This defines the directory to store cached files. It must exist, and be writable.
@@ -231,7 +251,7 @@ Class Functions
  ii. Postcondition: Set the IPv4 address
 (c) This function allows the user to set an IPv4 address for the computer.
 Class Example
-
+This class is still under development.
 database.inc.php
 Class Variables
 Database class
@@ -328,9 +348,15 @@ MySQL class
  i. Precondition: None
  ii. Postcondition: Will close any current connection, and re-establish a connection to the MySQL server
 (b) This function is used to reconnect to a MySQL server. It is used internally if the MySQL connection is lost, and can be used by the user to reconnect using the given credentials at initialization time.
+ 9. setErrorCallback($callback)
+(a) $callback => Defines a callback function that is called when a MySQL error occurs
+(b) Pre/Post-conditions:
+ i. Precondition: $callback should be defined
+ ii. Postcondition: Set the errorCallback. Returns TRUE on success, and FALSE otherwise.
+(c) This function allows the user to set/change the error callback after the MySQL class has been initialized.
 
 MSSQL class
-This class is not currently functional.
+This class is still under development, and has not been tested.
 PGSQL class
 This class is not currently functional.
 SQLite class
@@ -367,11 +393,16 @@ SQLite class
 This class is not currently functional.
 error.inc.php
 Class Variables
+(Abstract) GCError Class
 1. errorFrom => Defines the e-mail address to display in the “From:” header when sending an error e-mail
 2. errorTo => Defines who error e-mails should be sent to
 3. errorSubject => Defines the subject for the e-mail when sending error e-mails
+GCErrorHandler Class
+1. errorHandlerSet => Defines if the GCErrorHandler has been set for errors.
+2. exceptionHandlerSet => Defines if the GCErrorHander has been set for exceptions.
 Class Functions
- 1. Error($from, $to)
+(Abstract) GCError Class
+ 1. GCError($from, $to)
 (a) $from => Defines the from address for sending e-mails
 (b) $to => Defines the to address for sending e-mails
 (c) Pre/Post-conditions:
@@ -390,12 +421,49 @@ Class Functions
  i. Precondition: $errorMessage should be defined
  ii. Postcondition: An e-mail is sent to $to, from $from and containing the body $errorMessage
 (c) This function sends an e-mail to the defined “To:” address(es) with the given error message. This function may be used as the callback function in the MySQL class (as well as others).
+GCErrorHandler Class
+ 1. GCErrorHander($to, $from, $subject=NULL)
+(a) $to => Defines the “To:” address for e-mails
+(b) $from => Defiens the “From:” address for e-mails
+(c) (Optional) $subject => Defines the subject for e-mails
+(d) Pre/Post-conditions:
+ i. Precondition: $to, and $from, should be defined.
+ ii. Postcondition: Set-up the class
+(e) This is the class constructor. It will properly set-up the class, or report an error if there was a problem.
+ 2. setGCErrorGlobally($errors=NULL)
+(a) (Optional) $errors => Defines the types of errors to report
+(b) Pre/Post-conditions:
+ i. Precondition: errorHandlerSet should be false (i.e. you haven't called this function yet)
+ ii. Postcondition: Set the PHP error hander. Returns TRUE on success, and FALSE otherwise.
+(c) This sets the GCErrorHander to globally handle all PHP errors.
+(d) REFERENCE: http://php.net/manual/en/function.set-error-handler.php
+ 3. unsetGCErrorGlobally()
+(a) Pre/Post-conditions:
+ i. Precondition: Error handler should've been set already
+ ii. Postcondition: Return PHP error handler to what it was before. returns TRUE on success, and FALSE otherwise
+(b) This function removes the GCErrorHandler from acting on PHP errors.
+ 4. handleError function
+(a) This function is based off of the PHP guidance for handling errors. You will not need to call it yourself. It will automatically send you an e-mail with the error message, and a backtrace on the error.
+ 5. setGCExceptionGlobally()
+(a) Pre/Post-conditions:
+ i. Precondition: exceptionHandlerSet should be false (i.e. you haven't called this function yet)
+ ii. Postcondition: Set the PHP exception hander. Returns TRUE on success, and FALSE otherwise.
+(b) This sets the GCErrorHander to globally handle all PHP exceptions.
+(c) REFERENCE: http://www.php.net/manual/en/function.set-exception-handler.php
+ 6. unsetGCExceptionGlobally()
+(a) Pre/Post-conditions:
+ i. Precondition: Exception handler should've been set already
+ ii. Postcondition: Return PHP exception handler to what it was before. returns TRUE on success, and FALSE otherwise
+(b) This function removes the GCExceptionHandler from acting on PHP errors.
+ 7. handleException function
+(a) This function is based off of the PHP guidance for handling exceptions. You will not need to call it yourself. It will automatically send you an e-mail with the exception message, and a backtrace on the error.
 Class Example
+GCErrorHandler Class
 <?php
 require_once(“error.inc.php”);
 
 try {
-	$error = new Error(“to@errormessage.com”, “from@errorsfrom.com”);
+	$error = new GCErrorHandler(“to@errormessage.com”, “from@errorsfrom.com”);
 }
 catch (Exception $e) {
 	//Handle class init error here
@@ -477,8 +545,14 @@ echo “File MIME type: “ . $theFile->getMIMEType() . “<br>\n”;
 ?>
 ldap.inc.php
 Class Variables
+LDAP Class
+ActiveDirectory Class
 Class Functions
+LDAP Class
+ActiveDirectory Class
 Class Example
+LDAP Class
+ActiveDirectory Class
 
 
 mail.inc.php
@@ -857,6 +931,9 @@ Class Example
 
 photo.inc.php
 Class Variables
+1. picLoc => Defines the location of the picture on the system
+2. picBuffer => Defines a buffer that holds the raw picture data
+3. picSize => 
 Class Functions
 Class Example
 
