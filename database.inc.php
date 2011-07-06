@@ -410,8 +410,32 @@ class MySQL extends Database {
 			return TRUE;
 	}
 	
+	/*
+	 * setErrorCallback($callback) function
+	 * 
+	 * $callback => Defines the error callback
+	 * 
+	 * This function allows a user to set/change the error callback for MySQL errors
+	 * 
+	 * Returns TRUE on success, and FALSE otherwise
+	 */
+	public function setErrorCallback($callback) {
+		//Precondition: $callback should be defined
+		//Postcondition: Set errorCallback
+		
+		if (!isset($callback))
+			return FALSE;
+		
+		$this->errorCallback = $callback;
+		
+		if ($this->errorCallback == $callback)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
 	//Destructor
-	function __destruct() {
+	public function __destruct() {
 		/* Precondition: The class is being destroyed */
 		/* Postcondition: The class will ensure clean closing
 		 * of the MySQL connection, if still connected.
