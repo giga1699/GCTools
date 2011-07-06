@@ -350,7 +350,7 @@ class MySQL extends Database {
 		$eString = mysql_real_escape_string($string, $this->myCon);
 		
 		if (!$eString) {
-			$this-throwError();
+			$this->throwError();
 			return FALSE;
 		}
 		else
