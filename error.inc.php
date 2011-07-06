@@ -12,7 +12,7 @@
 //Define namespace
 //namespace GCTools/Error;
 
-class Error {
+abstract class GCError {
 	protected $errorFrom; //E-mail to show as from address when sending error messages
 	protected $errorTo; //E-mail to send error messages
 	protected $errorSubject; //E-Mail subject when sending errors
@@ -65,7 +65,7 @@ class Error {
 	}
 }
 
-class GCErrorHandler extends Error {
+class GCErrorHandler extends GCError {
 	protected $errorHandlerSet;
 	protected $exceptionHandlerSet;
 	
