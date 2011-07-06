@@ -17,7 +17,7 @@ abstract class GCError {
 	protected $errorTo; //E-mail to send error messages
 	protected $errorSubject; //E-Mail subject when sending errors
 	
-	public function Error($to, $from, $subject=NULL) {
+	public function GCError($to, $from, $subject=NULL) {
 		//Precondition: Both from and to should be set
 		//Postcondition: Set errorFrom and errorTo
 		
@@ -161,7 +161,7 @@ class GCErrorHandler extends GCError {
 	}
 	
 	public function setGCExceptionGlobally() {
-		//Precondition: None
+		//Precondition: exceptionHandlerSet should not be TRUE
 		//Postcondition: Set the PHP exception handler to GCExceptionHandler->handleException.
 		//    Returns TRUE on success, or FALSE otherwise
 		
