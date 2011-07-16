@@ -6,100 +6,105 @@
 /************************************************/
 
 Table of Contents
-About GCTools	4
-Purpose	4
-History	4
-Future of GCTools	4
-GCTools file version scheme	5
-Contributing to GCTools	5
-GCTools Files	6
-autoload.inc.php	6
-Class Variables	6
-Class Functions	6
-cache.inc.php	7
-Class Variables	7
-Class Functions	7
-Class example	8
-computer.inc.php	9
+About GCTools	5
+Purpose	5
+History	5
+Future of GCTools	5
+GCTools file version scheme	6
+Contributing to GCTools	6
+Installing GCTools	7
+Getting the files	7
+From our Website	7
+From our Git repository	7
+Enabling GCTools on your web server	7
+GCTools Files	8
+autoload.inc.php	8
+Class Variables	8
+Class Functions	8
+cache.inc.php	9
 Class Variables	9
 Class Functions	9
-Class Example	11
-database.inc.php	12
-Class Variables	12
-Database class	12
-MySQL class	12
-MSSQL class	12
-PGSQL class	12
-SQLite class	12
-Class Functions	12
-Database class	12
-MySQL class	13
-MSSQL class	15
-PGSQL class	15
-SQLite class	15
-Class example	15
+Class example	10
+computer.inc.php	11
+Class Variables	11
+Class Functions	11
+Class Example	13
+database.inc.php	14
+Class Variables	14
+Database class	14
+MySQL class	14
+MSSQL class	14
+PGSQL class	14
+SQLite class	14
+Class Functions	14
+Database class	14
 MySQL class	15
-MSSQL class	16
-PGSQL class	16
-SQLite class	16
-error.inc.php	17
-Class Variables	17
-(Abstract) GCError Class	17
-GCErrorHandler Class	17
-Class Functions	17
-(Abstract) GCError Class	17
-GCErrorHandler Class	18
-Class Example	19
+MSSQL class	17
+PGSQL class	17
+SQLite class	17
+Class example	17
+MySQL class	17
+MSSQL class	18
+PGSQL class	18
+SQLite class	18
+error.inc.php	19
+Class Variables	19
+(Abstract) GCError Class	19
 GCErrorHandler Class	19
-file.inc.php	20
-Class Variables	20
-Class Functions	20
+Class Functions	19
+(Abstract) GCError Class	19
+GCErrorHandler Class	20
 Class Example	21
-ldap.inc.php	23
-Class Variables	23
-LDAP Class	23
-ActiveDirectory Class	23
-Class Functions	23
-LDAP Class	23
-ActiveDirectory Class	23
+GCErrorHandler Class	21
+file.inc.php	22
+Class Variables	22
+Class Functions	22
 Class Example	23
-LDAP Class	23
-ActiveDirectory Class	23
-mail.inc.php	24
-Class Variables	24
-EMail class	24
-Class Functions	24
-EMail class	24
-Class Example	27
-navigation.inc.php	29
-Class Variables	29
-Page class	29
-Navigation class	29
-Class Functions	29
-Page class	29
-Navigation class	34
-Class Example	35
-photo.inc.php	36
-Class Variables	36
-Class Functions	36
-Class Example	36
-security.inc.php	37
-Class Variables	37
-Class Functions	37
+ldap.inc.php	25
+Class Variables	25
+LDAP Class	25
+ActiveDirectory Class	25
+Class Functions	25
+LDAP Class	25
+ActiveDirectory Class	25
+Class Example	25
+LDAP Class	25
+ActiveDirectory Class	25
+mail.inc.php	26
+Class Variables	26
+EMail class	26
+Class Functions	26
+EMail class	26
+Class Example	29
+navigation.inc.php	31
+Class Variables	31
+Page class	31
+Navigation class	31
+Class Functions	31
+Page class	31
+Navigation class	36
 Class Example	37
-session.inc.php	38
+photo.inc.php	38
 Class Variables	38
 Class Functions	38
 Class Example	38
-user.inc.php	39
+security.inc.php	39
 Class Variables	39
 Class Functions	39
 Class Example	39
-Credits	40
-Code Contributors	40
-Change Log	41
-License	42
-GPL v3 License	42
+session.inc.php	40
+Class Variables	40
+Class Functions	40
+Class Example	40
+user.inc.php	41
+Class Variables	41
+Class Functions	41
+Class Example	41
+Credits	42
+Code Contributors	42
+Change Log	43
+License	44
+GPL v3 License	44
 
 About GCTools
 Purpose
@@ -110,7 +115,6 @@ History
 	At the time, PHP had not really been developed with objects in mind. Most code was small scripts that was reminiscent of old C code. Although objects existed in PHP, they had not been utilized to a large extent. This was the aim of J. “Giga” Murphy during his class... to show his class that PHP could be used as a viable object-oriented language for web development.
 	Following the class, development came to a halt as other classes took priority. The code was commited to a private Git repository, and was largely forgotten about until late April, 2011. At this time development ramped up.
 	Within a week more than 4 new classes were created, and much of the older code was optimized. GCTools also gained another developer, M. “Beanyhead” Parker. Not only was a new developer added, but the project was released under the GPL v3 license, and pushed to a public GitHub repository for others to utilize. This also enabled people in the community to add to the project, and help to improve it.
-	Thus, GCTools was officially born and put into open source development.
 Future of GCTools
 	The future of GCTools at this moment is unknown. Open-source developers are still needed to help contribute to the project, and the project is still lacking some major features.
 	You may check on the status of GCTools at the project's website, http://www.gigacreations.net/
@@ -131,6 +135,16 @@ GCTools file version scheme
 Contributing to GCTools
 	Contributions to the code of GCTools are always welcome. This is why we have released the code under the GPL v3 license. If you haven't already, feel free to fork our project on the GitHub site.
 	Additionally, if you'd like to become a long-term contributor to GCTools, please send us an e-mail at webmaster@gigacreations.net with some more information about you so we can add you as a contributor to the GitHub repository.
+Installing GCTools
+Getting the files
+	There are multiple ways to obtain the GCTools files. Each way has it's own little path, and each has advantages/disadvantages. If you want a stable release, please make sure you read this section carefully. If you want the most bleeding-edge release that probably hasn't been tested, then you should follow the Git instructions.
+From our Website
+	From time-to-time we will release a version of GCTools that we feel is stable. It will be found at our project page on http://www.gigacreations.net/gctools/. This page will provide you with a link to download any of our stable releases. If you have problems getting the release, please use the support, or contact, pages to report the issue.
+From our Git repository
+	The Git repository is the central location for all GCTools files. It is constantly being updated with new designs, bugfixes, refined features, etc. Our Git repository is on GitHub at http://github.com/giga1699/GCTools.  From there you can download a zip archive of the current files, or get the address to pull the data using Git on your own system.
+	If you wish for GCTools to be up-to-date, you should use Git on your system. It will allow you to pull the updated code with a single command. You must keep in mind that the code you pull from our Git repository may not be tested, and could break parts of GCTools that are already in place.
+Enabling GCTools on your web server
+	There are numerous ways to utilize GCTools within your existing, or new, code. Our recommendation is to put the GCTools files in another directory on your web server that is not accessible from the internet. Then, go into your php.ini file, and add the path to GCTools into the default include path for PHP. When you do that, be sure to make the path to GCTools, and the files, readable by your web server user. They SHOULD NOT be writable by that user.
 GCTools Files
 autoload.inc.php
 Class Variables
@@ -933,8 +947,52 @@ photo.inc.php
 Class Variables
 1. picLoc => Defines the location of the picture on the system
 2. picBuffer => Defines a buffer that holds the raw picture data
-3. picSize => 
+3. picSize => Defines the size, in bytes, of the picture file
+4. picHeight => Defines the height, in pixels, of the image
+5. picWidth => Defines the width, in pixels, of the image
+6. picType => Defines the picture's type (jpeg, gif, etc).
+7. picName => Defines a friendly name for the picture
+8. picGDRes => Defines the PHP GD resource that holds the picture
 Class Functions
+ 1. Picture($loc=NULL)
+(a) $loc => Defines the location on the system of the picture file
+(b) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: If a file is given, then load it. Otherwise just initialize the class
+(c) This function enables the use of the Picture class. It will attempt to load the GD extensions, if they have not already been loaded. If you give it a location of a picture, it will attempt to load that picture into the class for you to manipulate it.
+ 2. (protected) loadFromFile($file)
+(a) This function handles loading a picture from its file on the system. It is a protected function, and you should not try to call it unless you know what it is doing, and how it works.
+ 3. resize($width, $height)
+(a) $width => Defines the maximum width of the new image
+(b) $height => Defines the maximum height of the new image
+(c) Pre/Post-conditions:
+ i. Precondition: A GD resource must already exist (by loading a file, or creating one), and the width and height arguments must be defined.
+ ii. Postcondition: The image is resized using GD. Returns TRUE on success, and FALSE for any failures.
+(d) This function enables you to resize an image using the GD library of PHP. It is very useful for creating thumbnails of larger pictures. As of now, you can not resize the picture to the exact dimensions given. Instead, the function will reduce the image by a ratio based on the maximum height and width given in the arguments. Future versions of this function may allow for exact resizing.
+ 4. convertToGrayscale()
+(a) Pre/Post-conditions:
+ i. Precondition: A GD resource should exist
+ ii. Postcondition: The image is converted to grayscale
+(b) This function takes an image that was loaded, and converts it to grayscale.
+ 5. addSiteText($text, $color=CLR_WHITE)
+(a) $text => Defines the text to be added to the image
+(b) $color => Defines the color of the text to be added.
+(c) Pre/Post-conditions:
+ i. Precondition: A GD resource should exist, $text and $color should be defined.
+ ii. Postcondition: The text is added to the top of the image in the given color
+(d) This function is very basic right now. It adds the given text to the top-left corner of the image, using the given color for the font.
+ 6. save($fileLoc)
+(a) $fileLoc => Defines the location, and file name, to store the working image.
+(b) Pre/Post-conditions:
+ i. Precondition: A GD resource should be defined, a file location must be given, and the class should have determined the picture type.
+ ii. Postcondition: The image is stored to the given location
+(c) This function saves the working image to a given location. Currently, it only saves the image at 75% quality of the original. We will be adding the ability to define the quality in future code.
+ 7. display()
+(a) Pre/Post-conditions:
+ i. Precondition: A GD resource should exist, and the class should have determined the picture type.
+ ii. Postcondition: Displays the image to the user
+(b) This function is used to display the current working image to the user via their web browser.
+(c) NOTE: This function must be called before headers have been sent, as it sends headers of its own.
 Class Example
 
 security.inc.php
@@ -943,8 +1001,54 @@ Class Functions
 Class Example
 
 session.inc.php
+NOTE: This functionality uses the Singleton pattern. This is because you can only have 1 session open at a time in PHP.
 Class Variables
+1. $instance => Holds the instance of the session class
+2. $sessionName => Defines the name of the current session, if any
+3. $sessionID => Holds the PHP given session ID.
 Class Functions
+ 1. (Private) Session()
+(a) This function is kept private to prevent any user from creating multiple session classes.
+ 2. init($session_name=NULL)
+(a) $session_name => Defines a name for the session, if wanted
+(b) Pre/Post-conditions:
+ i. Precondition: None
+ ii. Postcondition: Return the current instance of the session
+(c) This function will check if a current instance of Session is open. If so, it will return that instance to you. If not, it will create a new session and return the new instance to you.
+ 3. getSessionName()
+(a) Pre/Post-conditions:
+ i. Precondition: sessionName should be defined
+ ii. Postcondition: Return the session name, or FALSE otherwise
+(b) This function allows the user to get the current session name, if defined
+ 4. getSessionID()
+(a) Pre/Post-conditions:
+ i. Precondition: A session should exist
+ ii. Postcondition: Return the session ID, or FALSE otherwise
+(b) This function allows the user to get the session ID.
+ 5. saveData($name, $data)
+(a) $name => Defines the name of the variable to store the data in
+(b) $data => Defines the data to store
+(c) Pre/Post-conditions:
+ i. Precondition: A session should exist, a name should be defined, and there should be data to store
+ ii. Postcondition: The data should be registered as a session variable named $name
+(d) This function allows the user to save data into a session variable that can be pulled at a later time during the same session. Returns TRUE on success, and FALSE otherwise.
+ 6. getData($name)
+(a) $name => Defines the name of the variable to pull data from
+(b) Pre/Post-conditions:
+ i. Precondition: $name must be defined, and the variable must exist
+ ii. Postcondition: Return the stored data, or return FALSE on failure
+(c) This function allows the user to retrieve stored session data.
+ 7. destroyData($name)
+(a) $name => Defines the name of the variable to destroy
+(b) Pre/Post-conditions:
+ i. Precondition: $name must be defined, and the variable should exist
+ ii. Postcondition: The data in the variable is destroyed, and the variable is released
+(c) This function allows a user to destroy data stored in a session.
+ 8. sessionStop()
+(a) Pre/Post-conditions:
+ i. Precondition: A session should exist
+ ii. Postcondition: The session is destroyed, and a new session should be available to be created
+(b) This function ends the currently running session.
 Class Example
 
 user.inc.php
