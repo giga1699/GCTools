@@ -335,12 +335,15 @@ class Picture {
 		
 		switch ($this->picType) {
 			case PT_JPG:
+				header("Content-type: image/jpg");
 				imagejpeg($this->picGDRes);
 			break;
 			case PT_GIF:
+				header("Content-type: image/gif");
 				imagegif($this->picGDRes);
 			break;
 			case PT_PNG:
+				header("Content-type: image/png");
 				imagepng($this->picGDRes);
 			break;
 			default:
