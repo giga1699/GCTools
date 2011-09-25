@@ -53,7 +53,8 @@ abstract class Database {
 		 * conduct queries.
 		 */
 
-		//TODO: Add precondition checking
+		if (!isset($loc) || !isset($user) || !isset($pass) || !isset($type))
+			throw new Exception("Unable to create Database class. Not all of the initial variables were defined.");
 
 		//Set up variables
 		$this->dbLoc = $loc;

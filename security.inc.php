@@ -11,5 +11,8 @@
 
 //namespace GCTools/Security;
 
-
+/*
+ * TODO: Design a security system
+ * TODO: Enable the navigation to use this security system
+ */
 ?>
