@@ -654,7 +654,7 @@ class Page {
 		//Precondition: A security callback should be defined
 		//Postcondition: Return the function to check the security of a page, or FALSE on failure.
 		
-		if (!isset($this->hasSecurity()))
+		if (!$this->hasSecurity())
 			return FALSE;
 		else
 			return $this->pageSecurityCheck;

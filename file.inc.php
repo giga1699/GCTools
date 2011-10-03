@@ -201,6 +201,8 @@ class File {
 		else
 			return FALSE;
 	}
+	
+	//TODO: Allow user to download file
 }
 
 ?>
