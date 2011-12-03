@@ -615,7 +615,38 @@ class PGSQL extends Database {
 	private $pgCon; //Variable to keep track of PGSQL connection
 	
 	public function PGSQL($loc, $user, $pass, $name, $errorCallback=NULL) {
-		//TODO: Add construction instructions
+		/* Precondition: The location of the PGSQL server, the username,
+		 * the password, and the name of the database is given. Also, the
+		 * PGSQL libraries should have been loaded.
+		 */
+		/* Postcondition: The PGSQL server is connected to
+		 */
+
+		//Check if the MySQL libary is loaded
+		if (!extension_loaded('pgsql')) {
+			//Extension not loaded, so load based on OS
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+				if (!dl('php_pgsql.dll'))
+					throw new Exception("Unable to load libraries. Please contact your IT support staff");
+			}
+			else {
+				if (!dl('pgsql.so'))
+					throw new Exception("Unable to load libraries. Please contact your IT support staff");
+			}
+		}
+
+		//Set up the parent class
+		$this->Database($loc, $user, $pass, PGSQL, $name) or die("Unable to initilize object.");
+		
+		//Set errorCallback, if needed
+		if (isset($errorCallback))
+			$this->errorCallback = $errorCallback;
+		
+		//Connect to the database
+		if (!$this->connect())
+			return FALSE;
+		else
+			return TRUE;
 	}
 	
 	private function connect() {
