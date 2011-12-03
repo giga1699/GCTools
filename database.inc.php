@@ -613,6 +613,22 @@ class MSSQL extends Database {
 //PGSQL Class
 class PGSQL extends Database {
 	//TODO: Add functionality for PostgreSQL
+	private $pgCon;				//Variable to keep track of PGSQL connection
+	protected $errorCallback;	//Variable to store the error callback
+	
+	public function PGSQL($loc, $user, $pass, $name, $errorCallback=NULL) {
+		//TODO: Add construction instructions
+	}
+	
+	//Destructor
+	public function __destruct() {
+		/* Precondition: The class is being destroyed */
+		/* Postcondition: The class will ensure clean closing
+		 * of the PGSQL connection, if still connected.
+		 */
+		
+		pg_close($this->pgCon);
+	}
 }
 
 //SQLite Class
