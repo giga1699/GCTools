@@ -741,6 +741,47 @@ class PGSQL extends Database {
 	}
 	
 	/*
+	 * changeDB($dbName) function
+	 * 
+	 * $dbName => Defines the name of the database to connect to.
+	 * 
+	 * This function changes the current database that is being
+	 * utilized by the class.
+	 * 
+	 * Returns TRUE on success, and FALSE on error.
+	 */
+	public function changeDB($dbName) {
+		/* Precondition: A database name is given. */
+		/* Postcondition: The class attempts to connect to the
+		 * new database. If successful, it will return TRUE. If
+		 * it fails, it will return FALSE and create the error.
+		 */
+		/*
+		 * This is kind of a hacked way to change databases since
+		 * PGSQL does not have a PHP function to do it for you.
+		 */
+		
+		//Clear any previous errors
+		$this->resetError();
+		
+		//Change the database name
+		if (!isset($dbName) || empty($dbName))
+			return FALSE;
+		else
+			$this->dbName = $dbName;
+		
+		//Disconnect from current database
+		if ($this->connected())
+			pg_close($this->pgCon);
+		
+		//Connect to new database
+		if ($this->connect())
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
 	 * escapeString($string) function
 	 * 
 	 * $string => Defines the string that should be escaped.
