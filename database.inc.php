@@ -741,6 +741,42 @@ class PGSQL extends Database {
 	}
 	
 	/*
+	 * escapeString($string) function
+	 * 
+	 * $string => Defines the string that should be escaped.
+	 * 
+	 * This function is meant to help with SQL injection attacks. It
+	 * escapes a given string, that can be used safely in a SQL query.
+	 * 
+	 * Returns the escaped string on success, and FALSE on failure.
+	 */
+	public function escapeString($string) {
+		/* Precondition: A string is provided. */
+		/* Postcondition: The string is escaped using the
+		 * current PGSQL connection.
+		 */
+		
+		//Clear any prior errors
+		$this->resetError();
+
+		//Make sure we've connected first
+		if (!$this->connected())
+			$this->connect();
+		
+		if ($this->hasError())
+			return FALSE;
+		
+		$eString = pg_escape_string($this->pgCon, $string);
+		
+		if (!$eString) {
+			$this->throwError();
+			return FALSE;
+		}
+		else
+			return $eString;
+	}
+	
+	/*
 	 * connected() function
 	 * 
 	 * No inputs
