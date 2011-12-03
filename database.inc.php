@@ -42,6 +42,7 @@ abstract class Database {
 	protected $dbPass; //String
 	protected $dbName; //String
 	protected $lastError; //String
+	protected $errorCallback;
 
 	//Constructor
 	protected function Database($loc, $user, $pass, $type, $name=NULL) {
@@ -137,7 +138,6 @@ abstract class Database {
 class MySQL extends Database {
 	//Variables for class
 	private $myCon; //Variable for keeping track of MySQL connection
-	protected $errorCallback;
 
 	//Constructor
 	public function MySQL($loc, $user, $pass, $name, $errorCallback=NULL) {
@@ -451,7 +451,6 @@ class MySQL extends Database {
 //MSSQL Class
 class MSSQL extends Database {
 	private $msCon;
-	protected $errorCallback;
 	
 	public function MSSQL($loc, $user, $pass, $name, $errorCallback=NULL) {
 		/* Precondition: The location of the MSSQL server, the username,
@@ -493,7 +492,7 @@ class MSSQL extends Database {
 		 * errors are handled.
 		 */
 		
-		//Connect to the MySQL server
+		//Connect to the MSSQL server
 		$this->msCon = @mssql_connect($this->dbLoc, $this->dbUser, $this->dbPass);
 
 		//Check if the connection is good
@@ -613,11 +612,57 @@ class MSSQL extends Database {
 //PGSQL Class
 class PGSQL extends Database {
 	//TODO: Add functionality for PostgreSQL
-	private $pgCon;				//Variable to keep track of PGSQL connection
-	protected $errorCallback;	//Variable to store the error callback
+	private $pgCon; //Variable to keep track of PGSQL connection
 	
 	public function PGSQL($loc, $user, $pass, $name, $errorCallback=NULL) {
 		//TODO: Add construction instructions
+	}
+	
+	private function connect() {
+		//THIS FUNCTION SHOULD NOT BE CHANGED
+		/* Precondition: Class is set up. */
+		/* Postcondition: A connection is made, and any
+		 * errors are handled.
+		 */
+		
+		//Connect to the PGSQL server
+		$this->pgCon = @pg_connect("host=" . $this->dbLoc . " user=" . $this->dbUser . " password=" . $this->dbPass . " dbname=" . $this->dbName);
+
+		//Check if the connection is good
+		if ($this->pgCon) {
+			//We made a good connection, so clear the errors
+			$this->resetError();
+			
+			return TRUE;
+		}
+		else {
+			//The connection could not be established
+			$this->throwError("Could not connect to PGSQL database.");
+			return FALSE;
+		}
+	}
+	
+	protected function throwError($specialError=NULL) {
+		/* Precondition: An error has occured */
+		/* Postcondition: The error is created in the Database
+		 * class with the proper information.
+		 */
+		
+		if (!$this->resetError())
+			return FALSE;
+		
+		if (isset($specialError))
+			$this->lastError = $specialError;
+		else
+			$this->lastError = "PGSQL Error: ".@pg_last_error();
+		
+		if (isset($this->errorCallback) && is_callable($this->errorCallback))
+			call_user_func($this->errorCallback, $this->lastError);
+		
+		if (isset($this->lastError))
+			return TRUE;
+		else
+			return FALSE;
 	}
 	
 	//Destructor
