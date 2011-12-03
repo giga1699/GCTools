@@ -696,6 +696,127 @@ class PGSQL extends Database {
 			return FALSE;
 	}
 	
+	/*
+	 * query($qString) function
+	 * 
+	 * $qString => Defines the SQL query string to be executed
+	 * 
+	 * This function performs a PGSQL query. It is not designed
+	 * to prevent any sort of SQL injection. It is advised to utilize
+	 * the escapeString($string) function in conjunction with this
+	 * function.
+	 * 
+	 * Returns the result set on success, and FALSE on failure.
+	 */
+	public function query($qString) {
+		/* Precondition: A query string should be presented */
+		/* Postcondition: The class will attempt to execute
+		 * the query. If the query can not be executed, it
+		 * will return FALSE and create the error. If it
+		 * is executed, the results will be returned.
+		 */
+		/* SECURITY NOTE: It is the user's responsibility
+		 * to ensure they take the proper steps to prevent
+		 * SQL injections, and other security issues.
+		 */
+		
+		//Reset any previous errors
+		$this->resetError();
+
+		//Make sure we're connected
+		if (!$this->connected())
+			$this->connect();
+		
+		//Run query
+		$result = pg_query($this->pgCon, $qString);
+		
+		//Check if query was executed okay
+		if (!$result) {
+			//Create error
+			$this->throwError();
+			return FALSE;
+		}
+		else
+			return $result;
+	}
+	
+	/*
+	 * connected() function
+	 * 
+	 * No inputs
+	 * 
+	 * This function determines if you are still connected to a PGSQL server.
+	 * 
+	 * Returns TRUE if you are connected, and FALSE if not.
+	 */
+	public function connected() {
+		/* Precondition: None. */
+		/* Postcondition: Checks if the connection is still
+		 * established.
+		 */
+		
+		if (@pg_ping($this->pgCon) == TRUE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
+	/*
+	 * reconnect() function
+	 * 
+	 * No inputs
+	 * 
+	 * This function reconnects to the PGSQL server safely.
+	 * 
+	 * Returns TRUE on success, and FALSE on failure.
+	 */
+	public function reconnect() {
+		/* Precondition: None. */
+		/* Postcondition: Will close any current connection,
+		 * and re-establish a connection to the PGSQL server.
+		 */
+		
+		//Clear existing errors
+		$this->resetError();
+		
+		//Check if we're still connected to the server
+		if ($this->connected())
+			pg_close($this->pgCon);
+			
+		//Re-establish connection
+		$this->connect();
+		
+		//Determine if an error occured
+		if ($this->hasError())
+			return FALSE;
+		else
+			return TRUE;
+	}
+	
+	/*
+	 * setErrorCallback($callback) function
+	 * 
+	 * $callback => Defines the error callback
+	 * 
+	 * This function allows a user to set/change the error callback for PGSQL errors
+	 * 
+	 * Returns TRUE on success, and FALSE otherwise
+	 */
+	public function setErrorCallback($callback) {
+		//Precondition: $callback should be defined
+		//Postcondition: Set errorCallback
+		
+		if (!isset($callback))
+			return FALSE;
+		
+		$this->errorCallback = $callback;
+		
+		if ($this->errorCallback == $callback)
+			return TRUE;
+		else
+			return FALSE;
+	}
+	
 	//Destructor
 	public function __destruct() {
 		/* Precondition: The class is being destroyed */
@@ -703,7 +824,9 @@ class PGSQL extends Database {
 		 * of the PGSQL connection, if still connected.
 		 */
 		
-		pg_close($this->pgCon);
+		//Check if we're still connected
+		if ($this->connected())
+			pg_close($this->pgCon);
 	}
 }
 
