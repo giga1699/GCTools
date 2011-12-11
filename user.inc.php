@@ -215,10 +215,12 @@ class User {
 		if (!isset($newPass))
 			return FALSE;
 		
-		if (isset($hashType))
-			$this->userHashType = $hashType;
+		if (!isset($hashType) && isset($this->userHashType))
+			$hashType = $this->userHashType;
+		elseif (!isset($this->userHashType))
+			return FALSE;
 		
-		switch($this->userHashType) {
+		switch($hashType) {
 			case USER_PWHASH_NONE:
 				$this->userPassword = $newPass;
 			break;
