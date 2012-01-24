@@ -9,6 +9,7 @@
  * @subpackage GPG
  *
  * Reference PECL Package: http://pecl.php.net/package/gnupg
+ * Reference PHP Doc: http://www.php.net/manual/en/ref.gnupg.php
  */
 
 //namespace GCTools/GPG;
