@@ -108,7 +108,7 @@ class Cache {
 		$fileID = md5($file);
 		
 		//Load the file into the array
-		$this->cacheFiles[$fileID] = new File($file);
+		$this->cacheFiles[$fileID] = new GCFile($file);
 		
 		//Determine type of file
 		switch ($this->cacheFiles[$fileID]->getMIMEType()) {

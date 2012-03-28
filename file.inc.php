@@ -12,7 +12,7 @@
 //Declare the namespace
 //namespace GCTools/File;
 
-class File {
+class GCFile {
 	protected $fileLoc;
 	protected $fileName;
 	protected $fileMIMEType;

@@ -446,7 +446,7 @@ class EMail {
 		require_once("file.inc.php");
 		
 		//Attempt to add the attachment
-		$newAttachment = new File($file);
+		$newAttachment = new GCFile($file);
 		if ($newAttachment->hadError())
 			return FALSE;
 		

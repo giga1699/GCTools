@@ -75,7 +75,7 @@ class Picture {
 			return FALSE;
 			
 		//Load file
-		$picture = new File($file);
+		$picture = new GCFile($file);
 		if ($picture->hadError())
 			return FALSE;
 		

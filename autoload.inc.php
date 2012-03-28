@@ -24,12 +24,12 @@ function __autoload($class_name) {
 			require_once("database.inc.php");
 		break;
 		
-		case "Error":
+		case "GCError":
 		case "GCErrorHandler":
 			require_once("error.inc.php");
 		break;
 		
-		case "File":
+		case "GCFile":
 			require_once("file.inc.php");
 		break;
 		
