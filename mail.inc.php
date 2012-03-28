@@ -3,7 +3,7 @@
  * Filename: mail.inc.php
  * @author J. "Giga" Murphy <giga1699@gmail.com>
  * Purpose: Provide email support
- * @version 1.1.0
+ * @version 1.1.1
  * File created: 10SEP2010
  * @package GCTools
  * @subpackage Mail
@@ -23,6 +23,8 @@ class EMail {
 	protected $mailMessage; //String: Text to send in email
 	protected $mailAttachments; //Array of class Attachment
 	protected $mailAddlHeaders; //String: Any additional headers the user wishes to add
+	protected $mailSign; //Should this e-mail be digitally signed
+	protected $mailEncrypt; //Should this e-mail be encrypted
 	private $mailSplit; //Used for attachments
 	
 	//Constructor
@@ -42,6 +44,10 @@ class EMail {
 		$this->mailSubject = "";
 		$this->mailMessage = "";
 		$this->mailAddlHeaders = "";
+
+		//Set boolean values
+		$this->mailSign = FALSE;
+		$this->mailEncrypt = FALSE;
 		
 		//Set-up split for attachments
 		$random_hash = md5(date('r', time()));
@@ -638,6 +644,82 @@ class EMail {
 		
 		//If we've gotten this far, it should be a valid email
 		return TRUE;
+	}
+
+	/*
+	 * signEmail() function
+	 *
+	 * This function will require the message to be digitally signed.
+	 *
+	 * Returns TRUE on success, and FALSE on failure
+	 */
+	public function signEmail() {
+		//Precondition: None
+		//Postcondition: Set mailSign to TRUE
+
+		$this->mailSign = TRUE;
+
+		if ($this->mailSign === TRUE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
+	/*
+	 * unsignEmail() function
+	 *
+	 * This function stops the e-mail from being digitally signed.
+	 *
+	 * Returns TRUE on success, and FALSE otherwise.
+	 */
+	public function unsignEmail() {
+		//Precondition: None
+		//Postcondition: Set mailSign to FALSE
+
+		$this->mailSign = FALSE;
+
+		if ($this->mailSign === FALSE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
+	/*
+	 * encryptEmail() function
+	 *
+	 * This function will require the message to be encrypted.
+	 *
+	 * Returns TRUE on success, and FALSE on failure
+	 */
+	public function encryptEmail() {
+		//Precondition: None
+		//Postcondition: Set mailEncrypt to TRUE
+
+		$this->mailEncrypt = TRUE;
+
+		if ($this->mailEncrypt === TRUE)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
+	/*
+	 * unencryptEmail() function
+	 *
+	 * This function stops the e-mail from being encrypted.
+	 *
+	 * Returns TRUE on success, and FALSE otherwise.
+	 */
+	public function unencryptEmail() {
+		//Precondition: None
+		//Postcondition: Set mailEncrypt to FALSE
+
+		$this->mailEncrypt = FALSE;
+
+		if ($this->mailEncrypt === FALSE)
+			return TRUE;
+		else
+			return FALSE;
 	}
 }
 ?>
