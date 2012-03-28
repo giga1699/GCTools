@@ -20,7 +20,7 @@ class GCFile {
 	protected $fileSize;
 	protected $fileNoError;
 	
-	public function File($file) {
+	public function GCFile($file) {
 		//Check that the file exists
 		if (!is_file($file))
 			throw new Exception("File does not exist.");
