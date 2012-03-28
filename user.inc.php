@@ -199,15 +199,17 @@ class User {
 	}
 	
 	/*
-	 * setUserPassword($newPass) function
+	 * setUserPassword($newPass[, $hashType[, $salt]]) function
 	 * 
 	 * $newPass => Defines the new user password
+	 * $hashType => Defines how to hash the user's password
+	 * $salt => Defines a salt to include in front of the user's password
 	 * 
 	 * This function sets the user's new password
 	 * 
 	 * Returns TRUE on success, and FALSE otherwise
 	 */
-	public function setUserPassword($newPass, $hashType=NULL) {
+	public function setUserPassword($newPass, $hashType=NULL, $salt=NULL) {
 		//Precondition: $newPass should be set
 		//Postcondition: New password should be set. If $hashType was defined, set it as well.
 		//	Return TRUE on success, and FALSE otherwise
@@ -222,13 +224,22 @@ class User {
 		
 		switch($hashType) {
 			case USER_PWHASH_NONE:
-				$this->userPassword = $newPass;
+				if (!isset($salt) || empty($salt)
+					$this->userPassword = $newPass;
+				else
+					$this->userPassword = $salt . ":" . $newPass;
 			break;
 			case USER_PWHASH_MD5:
-				$this->userPassword = md5($newPass);
+				if (!isset($salt) || empty($salt))
+					$this->userPassword = md5($newPass);
+				else
+					$this->userPassword = md5($salt . ":" . $newPass);
 			break;
 			case USER_PWHASH_SHA1:
-				$this->userPassword = sha1($newPass);
+				if (!isset($salt) || empty($salt))
+					$this->userPassword = sha1($newPass);
+				else
+					$this->userPassword = sha1($salt . ":" . $newPass);
 			break;
 			default:
 				return FALSE;
