@@ -15,4 +15,12 @@
  * TODO: Design a security system
  * TODO: Enable the navigation to use this security system
  */
+
+class GCSecGroup {
+	//Security group
+}
+
+class GCPageSec {
+	//Page security
+}
 ?>
